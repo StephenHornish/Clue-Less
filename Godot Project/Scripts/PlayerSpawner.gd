@@ -13,6 +13,8 @@ func _on_PeacockButton_button_up():
 	var player = scene.instance()
 	var color = Color( 0, 0.501961, 0.501961, 1 )
 	player.set_color(color)
+	var p = player.get_global_transform()
+	player.set_global_translation(Vector3(5,0,10))
 	add_child(player)
 	var menu = get_node("Scene Control/Character Selection")
 	menu.queue_free()

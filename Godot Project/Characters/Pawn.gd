@@ -9,8 +9,8 @@ var color
 func _ready():
 	pass # Replace with function body.
 
-func set_color(color):
-	print('a')
+func set_color(color : Color):
+	
 	var newMaterial = SpatialMaterial.new()
 	newMaterial.albedo_color = color
 	$"KinematicBody/PawnMesh".material_override = newMaterial
