@@ -3,15 +3,15 @@ extends KinematicBody
 export var gravity = Vector3.DOWN * 10
 export var speed = 10
 var velocity = Vector3.ZERO
-var mat 
-var will
+var character 
+
 
 # var b = "text"
-
+	
 func _ready():
-	#mat = get_node("Miss Scarlet")
-	#will  = SpatialMaterial.new()
-	#will.albedo_color = Color(0.92, 0.69, 0.13, 1.0)
+	#set character name based on button press
+	#set character color based  on button press
+	#remove button select canvas from main scene
 	pass
 
 func _physics_process(delta):

@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Materials/Scarlet .material" type="Material" id=1]
 [ext_resource path="res://Scripts/KinematicBody.gd" type="Script" id=2]
+[ext_resource path="res://Characters/Pawn.gd" type="Script" id=3]
 
 [sub_resource type="CylinderShape" id=1]
 height = 2.2688
@@ -25,6 +26,7 @@ surfaces/0 = {
 [sub_resource type="ShaderMaterial" id=3]
 
 [node name="Spatial" type="Spatial"]
+script = ExtResource( 3 )
 
 [node name="KinematicBody" type="KinematicBody" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.00155556 )
@@ -34,7 +36,7 @@ script = ExtResource( 2 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.39221, -0.00155556 )
 shape = SubResource( 1 )
 
-[node name="Miss Scarlet" type="MeshInstance" parent="KinematicBody"]
+[node name="PawnMesh" type="MeshInstance" parent="KinematicBody"]
 transform = Transform( 1, 0, 0, 0, 0.0652714, 0, 0, 0, 1, 0.135994, 0, -0.0376807 )
 mesh = SubResource( 2 )
 material/0 = SubResource( 3 )
