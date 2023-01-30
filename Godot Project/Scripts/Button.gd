@@ -12,9 +12,11 @@ func _ready():
 func clicked():
 	if click == true:
 		click = false
+		return -1
 	else:
 		self.disabled = true
 		click = true
+		return 1
 	print(click)
 
 
