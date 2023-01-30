@@ -5,6 +5,8 @@ extends Node
 
 var scene = load("res://Characters/Pawn.tscn")
 var vbox 
+var playersReady = 0
+var players = 4
 
 func _ready():
 	vbox = get_node("CanvasLayer/CharacterContainer/VBoxContainer/VBoxContainer")
@@ -25,7 +27,7 @@ func _on_PeacockButton_button_up():
 
 	#places the character in the starting location and marks the button as clicked 
 	player.set_global_translation(Vector3(25,0,-11.5))
-	buttonNode.clicked()
+	playersReady = playersReady + buttonNode.clicked()
 	
 
 
@@ -36,7 +38,7 @@ func _on_ScarlettButton_button_up():
 	player.set_color(color)
 	add_child(player)
 	player.set_global_translation(Vector3(-14.5 ,0,26))
-	buttonNode.clicked()
+	playersReady = playersReady + buttonNode.clicked()
 
 
 func _on_WhiteButton_button_up():
@@ -46,7 +48,7 @@ func _on_WhiteButton_button_up():
 	player.set_color(color)
 	add_child(player)
 	player.set_global_translation(Vector3(-14.5 ,0, -26))
-	buttonNode.clicked()
+	playersReady = playersReady + buttonNode.clicked()
 
 
 
@@ -57,7 +59,7 @@ func _on_GreenButton_button_up():
 	player.set_color(color)
 	add_child(player)
 	player.set_global_translation(Vector3(9 ,0, -26))
-	buttonNode.clicked()
+	playersReady = playersReady + buttonNode.clicked()
 	
 
 
@@ -68,7 +70,7 @@ func _on_MustardButton_button_up():
 	player.set_color(color)
 	add_child(player)
 	player.set_global_translation(Vector3(-30 ,0, 11.5))
-	buttonNode.clicked()
+	playersReady = playersReady + buttonNode.clicked()
 
 
 func _on_PlumbButton_button_up():
@@ -78,4 +80,19 @@ func _on_PlumbButton_button_up():
 	player.set_color(color)
 	add_child(player)
 	player.set_global_translation(Vector3(25 ,0,11.5))
-	buttonNode.clicked()
+	playersReady = playersReady + buttonNode.clicked()
+	print(playersReady)
+
+
+
+func _on_Button_button_up():
+	if(playersReady == players):
+		#start the game
+		print("Game starting")
+	elif(playersReady > players):
+		print("Bug more players ready then exist")
+	else:
+		#Print message on screen need more players
+		print("Waiting for everyone")
+		
+	pass # Replace with function body.
