@@ -15,6 +15,8 @@ func _ready():
 	#remove button select canvas from main scene
 	pass
 
+
+#THE _physics_process keeps calling the get_input function
 func _physics_process(delta):
 	velocity += gravity * delta 
 	get_input()
@@ -28,14 +30,15 @@ func get_input():
 		velocity += -transform.basis.z * speed
 	if Input.is_action_just_pressed("back"):
 		velocity += transform.basis.z * speed
-	if Input.is_action_just_pressed("left"):
+		print("pressed")
+	if Input.is_action_just_pressed("left") :
 		get_parent().get_parent().play_turn()
-		
 		 
-	
 	velocity.y = vy
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
+func test():
+	pass

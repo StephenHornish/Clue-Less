@@ -24,5 +24,4 @@ func set_inactive():
 func set_playerID(id):
 	playID = id
 
-func play_turn():
-	yield(self,"movementcompleted")
+	
