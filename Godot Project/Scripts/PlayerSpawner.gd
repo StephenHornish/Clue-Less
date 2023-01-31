@@ -4,14 +4,15 @@ extends Node
 # playing 
 
 var scene = load("res://Characters/Pawn.tscn")
-var vbox 
+onready var turn = get_node("CanvasLayer/Turn Margin Container/Turn").hide()
+onready var timer = get_node("CanvasLayer/Turn Margin Container/Turn/Timer")
+onready var vbox = get_node("CanvasLayer/CharacterContainer/VBoxContainer/VBoxContainer")
 var playersReady = 0
 var players = 4
 
-func _ready():
-	vbox = get_node("CanvasLayer/CharacterContainer/VBoxContainer/VBoxContainer")
-	pass
 
+func _ready():
+	pass
 #Needs to hide menu when all player characters have been selected, Hide button when a character has been selected
 #So other players cannot select that character if you swap characters make the button visable again 
 
@@ -84,15 +85,27 @@ func _on_PlumbButton_button_up():
 	print(playersReady)
 
 
-
+#function for when the ready button is pressed
 func _on_Button_button_up():
+	turn = get_node("CanvasLayer/Turn Margin Container/Turn")
 	if(playersReady == players):
-		#start the game
-		print("Game starting")
+		Globals.turn = Globals.turn + 1
+		turn.text = "Turn " + str(Globals.turn)
+		vbox.get_parent().hide()
+		$"CanvasLayer/MarginContainer".hide()
+		
 	elif(playersReady > players):
 		print("Bug more players ready then exist")
 	else:
-		#Print message on screen need more players
+		turn.text = "Awaiting More players"
 		print("Waiting for everyone")
-		
+	turn.show()
+	timer.start()
 	pass # Replace with function body.
+
+
+func _on_Timer_timeout():
+	turn = get_node("CanvasLayer/Turn Margin Container/Turn")
+	turn.hide()
+	timer.stop()
+	
