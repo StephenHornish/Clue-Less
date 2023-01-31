@@ -16,29 +16,23 @@ func _ready():
 	pass
 
 
-#THE _physics_process keeps calling the get_input function
+# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
 	velocity += gravity * delta 
-	get_input()
 	velocity = move_and_slide(velocity, Vector3.UP)
-# Called when the nod enters the scene tree for the first time.
 
-func get_input(): 
+	
+func move_foward():
 	var vy = velocity.y
 	velocity = Vector3.ZERO
-	if Input.is_action_just_pressed("foward"):
-		velocity += -transform.basis.z * speed
-	if Input.is_action_just_pressed("back"):
-		velocity += transform.basis.z * speed
-		print("pressed")
-	if Input.is_action_just_pressed("left") :
-		get_parent().get_parent().play_turn()
-		 
+	velocity += transform.basis.z * speed
+	velocity.y = vy
+	
+func move_backward():
+	var vy = velocity.y
+	velocity = Vector3.ZERO
+	velocity += -transform.basis.z * speed
 	velocity.y = vy
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
 func test():
 	pass

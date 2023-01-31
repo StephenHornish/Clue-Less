@@ -7,6 +7,7 @@ var active_player
 
 func initialize():
 	active_player = get_child(0)
+	active_player.set_active()
 	
 func play_turn():
 	active_player.set_inactive()
@@ -14,4 +15,5 @@ func play_turn():
 	active_player = get_child(new_player)
 	print(active_player.playID)
 	active_player.set_active()
+	return active_player
 	

@@ -24,4 +24,5 @@ func set_inactive():
 func set_playerID(id):
 	playID = id
 
-	
+func get_ID():
+	return playID	
