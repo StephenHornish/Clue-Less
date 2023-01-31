@@ -4,6 +4,7 @@ export var gravity = Vector3.DOWN * 10
 export var speed = 10
 var velocity = Vector3.ZERO
 var character 
+var player 
 
 
 # var b = "text"
@@ -27,7 +28,8 @@ func get_input():
 		velocity += -transform.basis.z * speed
 	if Input.is_action_just_pressed("back"):
 		velocity += transform.basis.z * speed
-		#mat.set_material_overrides(will)
+	if Input.is_action_just_pressed("left"):
+		get_parent().get_parent().play_turn()
 		
 		 
 	

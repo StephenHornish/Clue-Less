@@ -1,12 +1,11 @@
 extends Spatial
 
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-# Called when the node enters the scene tree for the first time.
+onready var activePlayer : bool  = false
+var playID : String
+
 func _ready():
-	pass # Replace with function body.
+	pass # 
 
 func set_color(color : Color):
 	var newMaterial = SpatialMaterial.new()
@@ -16,3 +15,14 @@ func set_color(color : Color):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
+func set_active():
+	activePlayer = true
+	
+func set_inactive():
+	activePlayer = false
+
+func set_playerID(id):
+	playID = id
+
+func play_turn():
+	yield(self,"movementcompleted")
