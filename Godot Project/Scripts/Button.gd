@@ -17,7 +17,6 @@ func clicked():
 		self.disabled = true
 		click = true
 		return 1
-	print(click)
 
 
 func isClicked():

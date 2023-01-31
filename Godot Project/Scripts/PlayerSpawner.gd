@@ -5,6 +5,7 @@ extends Node
 
 var scene = load("res://Characters/Pawn.tscn")
 onready var turn = get_node("CanvasLayer/Turn Margin Container/Turn").hide()
+var turnQueue = get_parent().get_parent().get_child(0)
 onready var timer = get_node("CanvasLayer/Turn Margin Container/Turn/Timer")
 onready var vbox = get_node("CanvasLayer/CharacterContainer/VBoxContainer/VBoxContainer")
 var playersReady = 0
@@ -24,7 +25,8 @@ func _on_PeacockButton_button_up():
 	
 	#sets player color and adds them to the scene 
 	player.set_color(color)
-	add_child(player)
+	print(turnQueue)
+	turnQueue.add_child(player)
 
 	#places the character in the starting location and marks the button as clicked 
 	player.set_global_translation(Vector3(25,0,-11.5))
