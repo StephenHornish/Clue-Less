@@ -34,10 +34,14 @@ func _process(delta):
 func activateKeyListener():
 	active = true
 	
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
 
 
 func _on_BallRoom_body_entered(body):
 	active_player.set_location("BallRoom")
+	print("Entered Ball Room")
+
+
+func _on_Hall_body_entered(body):
+	active_player.set_location("BallRoom")
+	print("Entered Hall")
+	pass # Replace with function body.
