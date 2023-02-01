@@ -5,6 +5,7 @@ extends Node
 # var a = 2
 # var b = "text"
 onready var turn = 0
+onready var characters : Array
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
