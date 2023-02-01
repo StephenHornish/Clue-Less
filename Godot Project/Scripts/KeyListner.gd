@@ -20,7 +20,7 @@ func _process(delta):
 			activePlayer.get_child(0).move_foward()
 		if Input.is_action_just_pressed("back"):
 			activePlayer = get_node("../TurnQueue").active_player
-			print(activePlayer)
+			activePlayer.get_child(0).move_backward()
 		if Input.is_action_just_pressed("left") :
 			activePlayer = get_node("../TurnQueue").play_turn()
 		
