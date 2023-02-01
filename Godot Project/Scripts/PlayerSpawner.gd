@@ -6,7 +6,6 @@ extends Node
 var scene = load("res://Characters/Pawn.tscn")
 onready var turn = get_node("CanvasLayer/Turn Margin Container/Turn").hide()
 onready var turnQueue = get_parent().get_parent().get_child(0)
-onready var keyListener = get_parent().get_parent().get_child(1)
 onready var timer = get_node("CanvasLayer/Turn Margin Container/Turn/Timer")
 onready var vbox = get_node("CanvasLayer/CharacterContainer/VBoxContainer/VBoxContainer")
 var playersReady = 0
@@ -109,7 +108,7 @@ func _on_Button_button_up():
 		vbox.get_parent().hide()
 		turnQueue.initialize()
 		$"CanvasLayer/MarginContainer".hide()
-		keyListener.set_active()
+		turnQueue.activateKeyListener()
 	
 		
 		

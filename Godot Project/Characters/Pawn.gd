@@ -1,7 +1,8 @@
 extends Spatial
 
-
+enum Moveset {Left, Right, Up, Down, Accuse}
 onready var activePlayer : bool  = false
+onready var location : String
 var playID : String
 
 func _ready():
@@ -26,3 +27,9 @@ func set_playerID(id):
 
 func get_ID():
 	return playID	
+
+func set_location(loc):
+	location = loc
+
+func get_location():
+	return location
