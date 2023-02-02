@@ -36,8 +36,10 @@ func activateKeyListener():
 	
 
 
+
 func _on_BallRoom_body_entered(body):
 	active_player.set_location("BallRoom")
+	print(active_player.get_adjacent())
 	print("Entered Ball Room")
 
 
