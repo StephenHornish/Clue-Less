@@ -44,6 +44,16 @@ func _on_BallRoom_body_entered(body):
 
 
 func _on_Hall_body_entered(body):
-	active_player.set_location("BallRoom")
+	active_player.set_location("Hall")
 	print("Entered Hall")
+	pass # Replace with function body.
+
+
+func _on_BRHall_body_entered(body):
+	print(body)
+	active_player.set_location("BRHall")
+	print(active_player.get_adjacent())
+	active_player.transform.origin.x = -3.4
+	active_player.transform.origin.y = 7.34
+	print("BRHall")
 	pass # Replace with function body.

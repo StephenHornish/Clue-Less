@@ -12,6 +12,8 @@ func _ready():
 #func _process(delta):
 #	pass
 
-func get_adjacent_nodes(node):
+func get_adjacent_nodes(node : Node):
 	print(node.adjacent)
 	return node.adjacent
+
+

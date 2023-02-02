@@ -32,7 +32,6 @@ func get_ID():
 
 func set_location(loc : String):
 	location = loc
-	var playArea = get_parent().get_parent().get_child(1)
 	var rooms = get_parent().get_parent().get_child(1).get_child(4)
 	currNode = rooms.get_node(loc)
 	adjacent = rooms.get_node(loc).adjacent
