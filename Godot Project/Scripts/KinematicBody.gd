@@ -33,6 +33,19 @@ func move_backward():
 	velocity = Vector3.ZERO
 	velocity += -transform.basis.z * speed
 	velocity.y = vy
+	
+func move_left():
+	var vy = velocity.y
+	velocity = Vector3.ZERO
+	velocity += transform.basis.x * speed
+	velocity.y = vy
+	
+func move_right():
+	var vy = velocity.y
+	velocity = Vector3.ZERO
+	velocity += -transform.basis.x * speed
+	velocity.y = vy
+	
 
 func test():
 	pass

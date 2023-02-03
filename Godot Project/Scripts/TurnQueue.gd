@@ -28,32 +28,69 @@ func _process(delta):
 		if Input.is_action_just_pressed("back"):
 			active_player.get_child(0).move_backward()
 		if Input.is_action_just_pressed("left") :
-			active_player = get_node("../TurnQueue").play_turn()
+			active_player.get_child(0).move_left()
+		if Input.is_action_just_pressed("right") :
+			active_player.get_child(0).move_right()
 		
 		 
 func activateKeyListener():
 	active = true
 	
-
-
-
 func _on_BallRoom_body_entered(body):
+	print(body)
 	active_player.set_location("BallRoom")
 	print(active_player.get_adjacent())
-	print("Entered Ball Room")
 
 
 func _on_Hall_body_entered(body):
+	print(body)
 	active_player.set_location("Hall")
-	print("Entered Hall")
-	pass # Replace with function body.
+	print(active_player.get_adjacent())
 
 
 func _on_BRHall_body_entered(body):
 	print(body)
 	active_player.set_location("BRHall")
 	print(active_player.get_adjacent())
-	active_player.transform.origin.x = -3.4
-	active_player.transform.origin.y = 7.34
-	print("BRHall")
-	pass # Replace with function body.
+
+
+func _on_Conservatory_body_entered(body):
+	print(body)
+	active_player.set_location("Conservatory")
+	print(active_player.get_adjacent())
+
+
+func _on_Library_body_entered(body):
+	print(body)
+	active_player.set_location("Library")
+	print(active_player.get_adjacent())
+
+
+func _on_Study_body_entered(body):
+	print(body)
+	active_player.set_location("Study")
+	print(active_player.get_adjacent())
+
+
+func _on_Lounge_body_entered(body):
+	print(body)
+	active_player.set_location("Lounge")
+	print(active_player.get_adjacent())
+
+
+func _on_DinningRoom_body_entered(body):
+	print(body)
+	active_player.set_location("DinningRoom")
+	print(active_player.get_adjacent())
+
+
+func _on_Kitchen_body_entered(body):
+	print(body)
+	active_player.set_location("Kitchen")
+	print(active_player.get_adjacent())
+
+
+func _on_BilliardsRoom_body_entered(body):
+	print(body)
+	active_player.set_location("BilliardsRoom")
+	print(active_player.get_adjacent())
