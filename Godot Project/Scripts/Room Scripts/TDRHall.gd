@@ -5,7 +5,7 @@ extends Area
 # var a = 2
 # var b = "text"
 onready var room = get_parent()
-onready var adjacent = [room.get_node("Kitchen"),room.get_node("BallRoom")]
+onready var adjacent = [room.get_node("Lounge"),room.get_node("DinningRoom")]
 onready var isHall = true
 
 # Called when the node enters the scene tree for the first time.

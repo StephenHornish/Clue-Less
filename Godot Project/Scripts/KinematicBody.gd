@@ -1,7 +1,7 @@
 extends KinematicBody
 
 export var gravity = Vector3.DOWN * 10
-export var speed = 10
+export var speed = 3
 var velocity = Vector3.ZERO
 var character 
 var player 
