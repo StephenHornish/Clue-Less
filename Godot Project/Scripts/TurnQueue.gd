@@ -14,6 +14,13 @@ func initialize():
 func play_turn():
 	active_player.set_inactive()
 	var new_player : int = (active_player.get_index() + 1) % get_child_count()
+	if((active_player.get_index() + 1) % Globals.numberOfPlayers == 0):
+		var turn = get_parent().get_node("Scene Control/Character Selection/CanvasLayer/Turn Margin Container/Turn")
+		var timer = turn.get_child(0)
+		Globals.turn += 1
+		turn.text = "Turn " + str(Globals.turn)
+		turn.show()
+		timer.start()
 	active_player = get_child(new_player)
 	print(active_player.playID)
 	active_player.set_active()
@@ -31,7 +38,9 @@ func _process(delta):
 			active_player.get_child(0).move_left()
 		if Input.is_action_just_pressed("right") :
 			active_player.get_child(0).move_right()
-		
+		if Input.is_action_just_pressed("ui_accept"):
+			active_player.get_child(0).velocity = Vector3.ZERO
+			play_turn()
 		 
 func activateKeyListener():
 	active = true

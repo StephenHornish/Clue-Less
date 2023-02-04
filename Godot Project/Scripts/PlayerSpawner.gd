@@ -9,7 +9,6 @@ onready var turnQueue = get_parent().get_parent().get_child(0)
 onready var timer = get_node("CanvasLayer/Turn Margin Container/Turn/Timer")
 onready var vbox = get_node("CanvasLayer/CharacterContainer/VBoxContainer/VBoxContainer")
 var playersReady = 0
-var players = 4
 
 
 func _ready():
@@ -102,24 +101,20 @@ func _on_PlumbButton_button_up():
 #function for when the ready button is pressed
 func _on_Button_button_up():
 	turn = get_node("CanvasLayer/Turn Margin Container/Turn")
-	if(playersReady == players):
-		Globals.turn = Globals.turn + 1
+	if(playersReady == Globals.numberOfPlayers):
 		turn.text = "Turn " + str(Globals.turn)
 		vbox.get_parent().hide()
 		turnQueue.initialize()
 		$"CanvasLayer/MarginContainer".hide()
 		turnQueue.activateKeyListener()
-	
-		
-		
-	elif(playersReady > players):
+		turn.show()
+		timer.start()	
+	elif(playersReady > Globals.numberOfPlayers):
 		print("Bug more players ready then exist")
+		pass
 	else:
 		turn.text = "Awaiting More players"
 		print("Waiting for everyone")
-	turn.show()
-	timer.start()
-	pass # Replace with function body.
 
 
 func _on_Timer_timeout():
