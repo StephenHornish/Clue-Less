@@ -4,8 +4,9 @@ enum Moveset {Left, Right, Up, Down, Accuse}
 onready var activePlayer : bool  = false
 onready var location : String
 onready var currNode : Node
-onready var adjacent
+onready var adjacent : Array
 var playID : String
+
 
 func _ready():
 	pass # 
@@ -30,12 +31,13 @@ func set_playerID(id : String) -> void:
 func get_ID() -> String:
 	return playID	
 
-func set_location(loc : String):
-	location = loc
-	var rooms = get_parent().get_parent().get_child(1).get_child(4)
-	currNode = rooms.get_node(loc)
-	adjacent = rooms.get_node(loc).adjacent
+func set_location(room: String):
+	var roomref = get_parent().get_parent().RoomReference
+	currNode = roomref.get_node(room)
+	var kin = get_child(0)
+	kin.translation = currNode.location
 	print(currNode)
+	adjacent = currNode.adjacent
 	print(adjacent)
 
 func get_location() -> String:

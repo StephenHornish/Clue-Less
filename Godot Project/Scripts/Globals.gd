@@ -7,7 +7,6 @@ extends Node
 onready var turn = 1
 onready var characters : Array
 onready var numberOfPlayers = 4
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.

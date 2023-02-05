@@ -6,6 +6,7 @@ class_name TurnQueue
 var active_player
 var active : bool = false
 signal nextTurn
+signal currPlayer
 
 
 func initialize()-> void:
@@ -17,6 +18,7 @@ func play_turn() -> Node:
 	active_player.set_inactive()
 	var new_player : int = (active_player.get_index() + 1) % get_child_count()
 	if((active_player.get_index() + 1) % Globals.numberOfPlayers == 0):
+		#needs signal
 		emit_signal("nextTurn")
 	active_player = get_child(new_player)
 	print(active_player.playID)
