@@ -18,16 +18,16 @@ func set_color(color : Color):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
-func set_active():
+func set_active() -> void:
 	activePlayer = true
 	
-func set_inactive():
+func set_inactive() -> void:
 	activePlayer = false
 
-func set_playerID(id):
+func set_playerID(id : String) -> void:
 	playID = id
 
-func get_ID():
+func get_ID() -> String:
 	return playID	
 
 func set_location(loc : String):
@@ -38,8 +38,8 @@ func set_location(loc : String):
 	print(currNode)
 	print(adjacent)
 
-func get_location():
+func get_location() -> String:
 	return location
 
-func get_adjacent():
+func get_adjacent() -> Array:
 	return adjacent

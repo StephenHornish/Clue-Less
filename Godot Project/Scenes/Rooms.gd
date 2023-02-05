@@ -2,7 +2,6 @@ extends Node
 
 
 onready var roomArray = ["BallRoom","Conservatory","Library","Study","Hall","Lounge","DinningRoom","Kitchen","BillardsRoom"]
-onready var Halls = get_parent().get_node("Halls")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

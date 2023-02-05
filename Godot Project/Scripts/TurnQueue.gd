@@ -5,22 +5,19 @@ class_name TurnQueue
 
 var active_player
 var active : bool = false
+signal nextTurn
 
 
-func initialize():
+func initialize()-> void:
 	active_player = get_child(0)
 	active_player.set_active()
+	activateKeyListener()
 	
-func play_turn():
+func play_turn() -> Node:
 	active_player.set_inactive()
 	var new_player : int = (active_player.get_index() + 1) % get_child_count()
 	if((active_player.get_index() + 1) % Globals.numberOfPlayers == 0):
-		var turn = get_parent().get_node("Scene Control/Character Selection/CanvasLayer/Turn Margin Container/Turn")
-		var timer = turn.get_child(0)
-		Globals.turn += 1
-		turn.text = "Turn " + str(Globals.turn)
-		turn.show()
-		timer.start()
+		emit_signal("nextTurn")
 	active_player = get_child(new_player)
 	print(active_player.playID)
 	active_player.set_active()
@@ -28,7 +25,7 @@ func play_turn():
 	
 
 
-func _process(delta): 
+func _process(delta) -> void: 
 	if(active):
 		if Input.is_action_just_pressed("foward"):
 			active_player.get_child(0).move_foward()
@@ -42,9 +39,12 @@ func _process(delta):
 			active_player.get_child(0).velocity = Vector3.ZERO
 			play_turn()
 		 
-func activateKeyListener():
+func activateKeyListener() -> void:
 	active = true
-	
+
+func _on_Character_Selection_turn_queue(player):
+	add_child(player)
+
 func _on_BallRoom_body_entered(body):
 	print(body)
 	active_player.set_location("BallRoom")
@@ -169,3 +169,6 @@ func _on_TDRHall_body_entered(body):
 	print(body)
 	active_player.set_location("TDRHall")
 	print(active_player.get_adjacent())
+
+
+
