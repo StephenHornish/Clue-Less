@@ -46,6 +46,7 @@ func _on_ScarlettButton_button_up():
 	player.set_global_translation(Vector3(-14.5 ,0,26))
 	playersReady = playersReady + buttonNode.clicked()
 	Globals.characters.append("Scarlett")
+	print(Globals.board)
 	player.set_playerID("Scarlett")
 	player.location = "TRHall"
 	
