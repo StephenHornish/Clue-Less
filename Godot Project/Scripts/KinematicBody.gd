@@ -1,7 +1,7 @@
 extends KinematicBody
 
 export var gravity = Vector3.DOWN * 10
-export var speed = 3
+export var speed = 5
 var velocity = Vector3.ZERO
 var character 
 var player 
@@ -23,6 +23,8 @@ func _physics_process(delta):
 
 	
 func move_foward():
+	if(Globals.turn == 1):
+		get_parent().set_location(get_parent().location)
 	var vy = velocity.y
 	velocity = Vector3.ZERO
 	velocity += transform.basis.z * speed

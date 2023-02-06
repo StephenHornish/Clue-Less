@@ -35,10 +35,10 @@ func set_location(room: String):
 	var roomref = get_parent().get_parent().RoomReference
 	currNode = roomref.get_node(room)
 	var kin = get_child(0)
-	kin.translation = currNode.location
-	print(currNode)
+	kin.set_global_translation(currNode.location)
+	#print(currNode)
 	adjacent = currNode.adjacent
-	print(adjacent)
+	#print(adjacent)
 
 func get_location() -> String:
 	return location

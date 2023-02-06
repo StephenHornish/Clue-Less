@@ -7,6 +7,7 @@ extends Area
 onready var room = get_parent()
 onready var adjacent = [room.get_node("Lounge"),room.get_node("Hall")]
 onready var isHall = true
+onready var location = Vector3( -13 ,0, 22.3)
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.

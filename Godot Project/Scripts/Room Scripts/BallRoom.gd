@@ -8,7 +8,7 @@ onready var room = get_parent()
 onready var adjacent = [room.get_node("BLHall"),room.get_node("BUMHall"),room.get_node("BRHall")]
 onready var isHall = false
 onready var moveSet = ["Left","Up","Right"]
-onready var location = Vector3( -11 ,0, 2)
+onready var location = Vector3( -2.3 ,0, -22.5)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

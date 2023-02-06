@@ -33,6 +33,7 @@ func _on_PeacockButton_button_up():
 	
 	Globals.characters.append("Peacock")
 	player.set_playerID("Peacock")
+	player.location = "BULHall"
 	
 
 
@@ -46,6 +47,7 @@ func _on_ScarlettButton_button_up():
 	playersReady = playersReady + buttonNode.clicked()
 	Globals.characters.append("Scarlett")
 	player.set_playerID("Scarlett")
+	player.location = "TRHall"
 	
 
 
@@ -59,6 +61,7 @@ func _on_WhiteButton_button_up():
 	playersReady = playersReady + buttonNode.clicked()
 	Globals.characters.append("White")
 	player.set_playerID("White")
+	player.location = "BRHall"
 
 
 
@@ -72,6 +75,7 @@ func _on_GreenButton_button_up():
 	playersReady = playersReady + buttonNode.clicked()
 	Globals.characters.append("Green")
 	player.set_playerID("Green")
+	player.location = "BLHall"
 	
 
 
@@ -85,6 +89,8 @@ func _on_MustardButton_button_up():
 	playersReady = playersReady + buttonNode.clicked()
 	Globals.characters.append("Mustard")
 	player.set_playerID("Mustard")
+	player.location = "TDRHall"
+	
 
 
 func _on_PlumbButton_button_up():
@@ -97,6 +103,7 @@ func _on_PlumbButton_button_up():
 	playersReady = playersReady + buttonNode.clicked()
 	Globals.characters.append("Plumb")
 	player.set_playerID("Plumb")
+	player.location = "TDLHall"
 
 
 #function for when the ready button is pressed
