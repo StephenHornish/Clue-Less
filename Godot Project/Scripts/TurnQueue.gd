@@ -29,22 +29,47 @@ func play_turn() -> Node:
 
 func _process(delta) -> void: 
 	if(active):
-		if Input.is_action_just_pressed("foward"):
-			active_player.get_child(0).move_foward()
-		if Input.is_action_just_pressed("back"):
-			active_player.get_child(0).move_backward()
-		if Input.is_action_just_pressed("left") :
-			active_player.get_child(0).move_left()
-		if Input.is_action_just_pressed("right") :
-			active_player.get_child(0).move_right()
+		if Input.is_action_just_pressed("Up"):
+			if(legal_move("Up")):
+				active_player.get_child(0).move_up()
+		if Input.is_action_just_pressed("Down"):
+			if(legal_move("Down")):
+				active_player.get_child(0).move_down()
+		if Input.is_action_just_pressed("Left") :
+			if(legal_move("Left")):
+				active_player.get_child(0).move_left()
+		if Input.is_action_just_pressed("Right") :
+			if(legal_move("Right")):
+				active_player.get_child(0).move_right()
 		if Input.is_action_just_pressed("ui_accept"):
 			active_player.get_child(0).velocity = Vector3.ZERO
 			play_turn()
 		if Input.is_action_just_pressed("secret_passage") :
-			active_player.get_child(0).move_secret_passage()
+			if(legal_move("secret_passage")):
+				active_player.get_child(0).move_secret_passage()
 		 
 func activateKeyListener() -> void:
 	active = true
+
+#Determines if the selected move is indeed legal
+func legal_move(movement : String)->bool:
+	var currtile = active_player.get_tile()
+	#First move is always legal and so are secret passage moves
+	print(currtile)
+	print(currtile.get_moveset())
+	if(Globals.turn == 1 || (movement == "secret_passage" && currtile.get_moveset().has("Secret Passage"))):
+		return true
+	if(currtile.get_moveset().has(movement)):
+		var pos = currtile.get_moveset().find(movement)
+		var adjNodeList = currtile.get_adjacenet()
+		var nextTile = Globals.board.get_room(adjNodeList[pos])
+		for child in self.get_children():
+			if(child.get_tile() == nextTile && child.get_tile().is_Hall()):
+				return false
+		return true
+	else:
+		return false
+	
 
 func _on_Character_Selection_turn_queue(player):
 	add_child(player)
