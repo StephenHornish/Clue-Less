@@ -40,6 +40,8 @@ func _process(delta) -> void:
 		if Input.is_action_just_pressed("ui_accept"):
 			active_player.get_child(0).velocity = Vector3.ZERO
 			play_turn()
+		if Input.is_action_just_pressed("secret_passage") :
+			active_player.get_child(0).move_secret_passage()
 		 
 func activateKeyListener() -> void:
 	active = true

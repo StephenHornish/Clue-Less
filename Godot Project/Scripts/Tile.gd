@@ -26,7 +26,7 @@ func get_name()->String:
 func get_moveset()-> Array:
 	return moveset
 	
-func get_adjacnet()-> Array:
+func get_adjacenet()-> Array:
 	return adjacent 
 	
 	

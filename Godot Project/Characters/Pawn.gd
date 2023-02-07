@@ -2,7 +2,8 @@ extends Spatial
 
 
 onready var activePlayer : bool  = false
-onready var tile
+onready var tile : Tile
+onready var moveset : Array
 onready var adjacent : Array
 var playID : String
 
@@ -32,11 +33,20 @@ func get_ID() -> String:
 
 func set_tile(room: String):
 	tile  = Globals.board.get_room(room)
-	print(tile)
+	moveset = tile.get_moveset()
 
-func get_current_tile():
+func get_tile() -> Tile:
+	return tile
+	
+func get_location()-> Vector3:
+	return tile.get_location()
+
+func get_current_tile() -> Tile:
 	return tile
 
 func get_adjacent() -> Array:
+	return adjacent
+	
+func get_moveset() -> Array:
 	return adjacent
 
