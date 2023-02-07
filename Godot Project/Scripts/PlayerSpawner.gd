@@ -22,7 +22,6 @@ func _on_PeacockButton_button_up():
 	var player = scene.instance()
 	var buttonNode = vbox.get_node("MarginContainer1/PeacockButton")
 	var color = Color( 0, 0.501961, 0.501961, 1 )
-	
 	#sets player color and adds them to the scene 
 	player.set_color(color)
 	emit_signal("turn_queue",player)
@@ -33,7 +32,7 @@ func _on_PeacockButton_button_up():
 	
 	Globals.characters.append("Peacock")
 	player.set_playerID("Peacock")
-	player.location = "BULHall"
+	player.set_tile("BULHall")
 	
 
 
@@ -46,9 +45,9 @@ func _on_ScarlettButton_button_up():
 	player.set_global_translation(Vector3(-14.5 ,0,26))
 	playersReady = playersReady + buttonNode.clicked()
 	Globals.characters.append("Scarlett")
-	print(Globals.board)
 	player.set_playerID("Scarlett")
-	player.location = "TRHall"
+	player.set_tile("TRHall")
+
 	
 
 
@@ -62,7 +61,8 @@ func _on_WhiteButton_button_up():
 	playersReady = playersReady + buttonNode.clicked()
 	Globals.characters.append("White")
 	player.set_playerID("White")
-	player.location = "BRHall"
+	player.set_tile("BRHall")
+
 
 
 
@@ -76,7 +76,8 @@ func _on_GreenButton_button_up():
 	playersReady = playersReady + buttonNode.clicked()
 	Globals.characters.append("Green")
 	player.set_playerID("Green")
-	player.location = "BLHall"
+	player.set_tile("BLHall")
+
 	
 
 
@@ -90,7 +91,8 @@ func _on_MustardButton_button_up():
 	playersReady = playersReady + buttonNode.clicked()
 	Globals.characters.append("Mustard")
 	player.set_playerID("Mustard")
-	player.location = "TDRHall"
+	player.set_tile("TDRHall")
+
 	
 
 
@@ -104,7 +106,8 @@ func _on_PlumbButton_button_up():
 	playersReady = playersReady + buttonNode.clicked()
 	Globals.characters.append("Plumb")
 	player.set_playerID("Plumb")
-	player.location = "TDLHall"
+	player.set_tile("TDLHall")
+
 
 
 #function for when the ready button is pressed

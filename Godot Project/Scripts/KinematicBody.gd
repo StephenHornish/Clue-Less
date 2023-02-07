@@ -24,7 +24,11 @@ func _physics_process(delta):
 	
 func move_foward():
 	if(Globals.turn == 1):
-		get_parent().set_location(get_parent().location)
+		var a = get_parent().get_current_tile()
+		var b = a.get_location()
+		print(a)
+		print(b)
+		self.set_global_translation(b)
 	var vy = velocity.y
 	velocity = Vector3.ZERO
 	velocity += transform.basis.z * speed

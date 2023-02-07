@@ -7,7 +7,7 @@ extends Node
 onready var turn = 1
 onready var characters : Array
 onready var numberOfPlayers = 4
-var boardDb = preload("res://Scripts/RoomData.gd")
+var boardDb = preload("res://Scripts/BoardDB.gd")
 var board
 # Called when the node enters the scene tree for the first time.
 func _ready():

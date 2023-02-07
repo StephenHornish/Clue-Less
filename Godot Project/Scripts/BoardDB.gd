@@ -3,7 +3,7 @@ extends Node
 class_name boardDB
 
 var board : Array
-var tile = preload("res://Scripts/Room.gd")
+var tile = load("res://Scripts/Tile.gd")
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass
@@ -46,3 +46,10 @@ func _to_string()->String:
 	for tile in board:
 		temp = temp + tile.get_name() + ", "
 	return temp
+	
+func get_adjacent(tile : Tile) ->Array:
+	var tileArray : Array
+	for tileName in tile.get_adjacnet():
+		tileArray.append(get_room(tileName))
+	return tileArray
+	

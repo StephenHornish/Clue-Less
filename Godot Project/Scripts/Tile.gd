@@ -18,7 +18,7 @@ func _init(_name:String, _adjacent:Array, _moveSet:Array, _isHall: bool, _locati
 
 
 func _to_string():
-	return name
+	return "Current Tile: " + name +  "     Adjacent Tiles: " + str(adjacent)
 
 func get_name()->String:
 	return name
@@ -35,3 +35,4 @@ func is_Hall()-> bool:
 
 func get_location()-> Vector3:
 	return location
+
