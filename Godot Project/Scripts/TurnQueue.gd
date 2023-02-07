@@ -13,12 +13,14 @@ func initialize()-> void:
 	active_player = get_child(0)
 	active_player.set_active()
 	activateKeyListener()
-	
+
+# Turnqueue that cycles through all the nodes each time a player makes their turn
+# will also emit a singla to the UI lettting everyone know that round is over
 func play_turn() -> Node:
 	active_player.set_inactive()
 	var new_player : int = (active_player.get_index() + 1) % get_child_count()
 	if((active_player.get_index() + 1) % Globals.numberOfPlayers == 0):
-		#needs signal
+		#Should say round instead of turn will fix later
 		emit_signal("nextTurn")
 	active_player = get_child(new_player)
 	print(active_player.playID)
@@ -26,7 +28,11 @@ func play_turn() -> Node:
 	return active_player
 	
 
-
+# Key listener that takes the input Delta is basically each tick fo the game engine
+# not required for what we are doing right now. Key Listener becomes active once all
+# players have spawned in and selected ready this way players can move pieces early
+# when user input is made it checks if thats a legal move. If so it calls on the kin-
+# ematic body of the pawn to phycially move it 
 func _process(delta) -> void: 
 	if(active):
 		if Input.is_action_just_pressed("Up"):
@@ -44,7 +50,7 @@ func _process(delta) -> void:
 		if Input.is_action_just_pressed("ui_accept"):
 			active_player.get_child(0).velocity = Vector3.ZERO
 			play_turn()
-		if Input.is_action_just_pressed("secret_passage") :
+		if Input.is_action_just_pressed("Secret Passage") :
 			if(legal_move("secret_passage")):
 				active_player.get_child(0).move_secret_passage()
 		 
@@ -55,10 +61,12 @@ func activateKeyListener() -> void:
 func legal_move(movement : String)->bool:
 	var currtile = active_player.get_tile()
 	#First move is always legal and so are secret passage moves
-	print(currtile)
-	print(currtile.get_moveset())
-	if(Globals.turn == 1 || (movement == "secret_passage" && currtile.get_moveset().has("Secret Passage"))):
+	if(Globals.turn == 1 || (movement == "Secret Passage" && currtile.get_moveset().has("Secret Passage"))):
 		return true
+	#Checks to see if the current palyer tile has the move inputed by the player if 
+	#so it goes through all children to see if they are in that tile if they are and 
+	# that tile is a hall it returns a false because it is not legal to enter hall with 
+	#another player
 	if(currtile.get_moveset().has(movement)):
 		var pos = currtile.get_moveset().find(movement)
 		var adjNodeList = currtile.get_adjacenet()
