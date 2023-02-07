@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/yt5s.io - Henry Mancini - The Pink Panther Theme (From The Pink Panther) (Audio) (128 kbps).mp3-1afe308e1ea0c8b3b26095fd0ca945b1.mp3str"
+
+[deps]
+
+source_file="res://Audio/yt5s.io - Henry Mancini - The Pink Panther Theme (From The Pink Panther) (Audio) (128 kbps).mp3"
+dest_files=[ "res://.import/yt5s.io - Henry Mancini - The Pink Panther Theme (From The Pink Panther) (Audio) (128 kbps).mp3-1afe308e1ea0c8b3b26095fd0ca945b1.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0
