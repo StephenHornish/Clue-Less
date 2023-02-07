@@ -51,7 +51,8 @@ func _process(delta) -> void:
 			active_player.get_child(0).velocity = Vector3.ZERO
 			play_turn()
 		if Input.is_action_just_pressed("Secret Passage") :
-			if(legal_move("secret_passage")):
+			print("Q pressed")
+			if(legal_move("Secret Passage")):
 				active_player.get_child(0).move_secret_passage()
 		 
 func activateKeyListener() -> void:
@@ -62,6 +63,7 @@ func legal_move(movement : String)->bool:
 	var currtile = active_player.get_tile()
 	#First move is always legal and so are secret passage moves
 	if(Globals.turn == 1 || (movement == "Secret Passage" && currtile.get_moveset().has("Secret Passage"))):
+		print("if statement works")
 		return true
 	#Checks to see if the current palyer tile has the move inputed by the player if 
 	#so it goes through all children to see if they are in that tile if they are and 
@@ -70,7 +72,7 @@ func legal_move(movement : String)->bool:
 	if(currtile.get_moveset().has(movement)):
 		var pos = currtile.get_moveset().find(movement)
 		var adjNodeList = currtile.get_adjacenet()
-		var nextTile = Globals.board.get_room(adjNodeList[pos])
+		var nextTile = adjNodeList[pos]
 		for child in self.get_children():
 			if(child.get_tile() == nextTile && child.get_tile().is_Hall()):
 				return false

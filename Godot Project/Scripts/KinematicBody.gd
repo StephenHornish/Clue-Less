@@ -40,15 +40,16 @@ func move_secret_passage():
 func move_pawn_direction( direction : String) ->void:
 	var pawn = get_parent()
 	var currtile = pawn.get_tile()
+	print(direction)
 	if(Globals.turn == 1):
 		self.set_global_translation(pawn.get_location())
 		return
 	var pos = currtile.get_moveset().find(direction)
 	var adjNodeList = currtile.get_adjacenet()
-	var nextTile = Globals.board.get_room(adjNodeList[pos])
+	var nextTile = adjNodeList[pos]
 	destination = nextTile.get_location()
 	self.set_global_translation(nextTile.get_location())
-	pawn.set_tile(adjNodeList[pos])
+	pawn.set_tile(nextTile)
 	
 func test():
 	pass

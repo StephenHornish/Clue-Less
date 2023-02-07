@@ -31,8 +31,8 @@ func set_playerID(id : String) -> void:
 func get_ID() -> String:
 	return playID	
 
-func set_tile(room: String):
-	tile  = Globals.board.get_room(room)
+func set_tile(t: Tile):
+	tile  = t
 	moveset = tile.get_moveset()
 
 func get_tile() -> Tile:

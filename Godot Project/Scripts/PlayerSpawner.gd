@@ -30,7 +30,8 @@ func _on_PeacockButton_button_up():
 	
 	Globals.characters.append("Peacock")
 	player.set_playerID("Peacock")
-	player.set_tile("BULHall")
+	player.set_tile(Globals.board.get_room("BULHall"))
+
 	
 
 
@@ -44,7 +45,8 @@ func _on_ScarlettButton_button_up():
 	playersReady = playersReady + buttonNode.clicked()
 	Globals.characters.append("Scarlett")
 	player.set_playerID("Scarlett")
-	player.set_tile("TRHall")
+	player.set_tile(Globals.board.get_room("TRHall"))
+	
 
 	
 
@@ -59,7 +61,8 @@ func _on_WhiteButton_button_up():
 	playersReady = playersReady + buttonNode.clicked()
 	Globals.characters.append("White")
 	player.set_playerID("White")
-	player.set_tile("BRHall")
+	player.set_tile(Globals.board.get_room("BRHall"))
+
 
 
 
@@ -74,7 +77,8 @@ func _on_GreenButton_button_up():
 	playersReady = playersReady + buttonNode.clicked()
 	Globals.characters.append("Green")
 	player.set_playerID("Green")
-	player.set_tile("BLHall")
+	player.set_tile(Globals.board.get_room("BLHall"))
+
 
 	
 
@@ -89,7 +93,8 @@ func _on_MustardButton_button_up():
 	playersReady = playersReady + buttonNode.clicked()
 	Globals.characters.append("Mustard")
 	player.set_playerID("Mustard")
-	player.set_tile("TDRHall")
+	player.set_tile(Globals.board.get_room("TDRHall"))
+
 
 	
 
@@ -104,7 +109,8 @@ func _on_PlumbButton_button_up():
 	playersReady = playersReady + buttonNode.clicked()
 	Globals.characters.append("Plumb")
 	player.set_playerID("Plumb")
-	player.set_tile("TDLHall")
+	player.set_tile(Globals.board.get_room("TDLHall"))
+
 
 
 
