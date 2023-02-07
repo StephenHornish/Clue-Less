@@ -14,8 +14,6 @@ var playersReady = 0
 
 func _ready():
 	pass
-#Needs to hide menu when all player characters have been selected, Hide button when a character has been selected
-#So other players cannot select that character if you swap characters make the button visable again 
 
 func _on_PeacockButton_button_up():
 	#Grabs the scene to add the player to, the button node and the creates teh desired color
