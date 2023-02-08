@@ -8,6 +8,7 @@ var player
 var destination = Vector3.ZERO
 var gap = Vector3.ZERO
 onready var position = Vector3.ZERO
+var stopPoint
 
 
 # var b = "text"
@@ -19,7 +20,17 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
+	#Unit vector pointing at the target position from the characters position
+	#var direction = position.direction_to(destination)
+	#velocity = direction * speed
+	#gap = destination.distance_to(self.global_transform.origin)
+	#print(gap)
+	#move_and_slide(velocity)
+	#if(gap < .5):
+	#	self.set_global_translation(destination)
+	#	velocity = Vector3.ZERO
 	pass
+	
 
 	
 func move_up():
@@ -40,10 +51,11 @@ func move_secret_passage():
 func move_pawn_direction( direction : String) ->void:
 	var pawn = get_parent()
 	var currtile = pawn.get_tile()
-	print(direction)
+	
 	if(Globals.turn == 1):
 		self.set_global_translation(pawn.get_location())
 		return
+	position = currtile.get_location()
 	var pos = currtile.get_moveset().find(direction)
 	var adjNodeList = currtile.get_adjacenet()
 	var nextTile = adjNodeList[pos]
