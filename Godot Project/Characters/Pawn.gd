@@ -6,6 +6,7 @@ onready var tile : Tile
 onready var moveset : Array
 onready var adjacent : Array
 var playID : String
+var playerNumber: int
 
 
 func _ready():
@@ -31,8 +32,8 @@ func set_playerID(id : String) -> void:
 func get_ID() -> String:
 	return playID	
 
-func set_tile(room: String):
-	tile  = Globals.board.get_room(room)
+func set_tile(t: Tile):
+	tile  = t
 	moveset = tile.get_moveset()
 
 func get_tile() -> Tile:
@@ -50,3 +51,4 @@ func get_adjacent() -> Array:
 func get_moveset() -> Array:
 	return adjacent
 
+	

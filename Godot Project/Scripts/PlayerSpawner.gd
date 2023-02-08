@@ -10,6 +10,8 @@ signal initialize_turn_queue
 onready var timer = get_node("CanvasLayer/Turn Margin Container/Turn/Timer")
 onready var vbox = get_node("CanvasLayer/CharacterContainer/VBoxContainer/VBoxContainer")
 var playersReady = 0
+onready var offset = Vector3.ZERO
+onready var number = 0 
 
 
 func _ready():
@@ -30,7 +32,10 @@ func _on_PeacockButton_button_up():
 	
 	Globals.characters.append("Peacock")
 	player.set_playerID("Peacock")
-	player.set_tile("BULHall")
+	player.set_tile(Globals.board.get_room("BULHall"))
+	player.playerNumber = number 
+	number += 1
+
 	
 
 
@@ -44,7 +49,9 @@ func _on_ScarlettButton_button_up():
 	playersReady = playersReady + buttonNode.clicked()
 	Globals.characters.append("Scarlett")
 	player.set_playerID("Scarlett")
-	player.set_tile("TRHall")
+	player.set_tile(Globals.board.get_room("TRHall"))
+	player.playerNumber = number 
+	number += 1
 
 	
 
@@ -59,7 +66,10 @@ func _on_WhiteButton_button_up():
 	playersReady = playersReady + buttonNode.clicked()
 	Globals.characters.append("White")
 	player.set_playerID("White")
-	player.set_tile("BRHall")
+	player.set_tile(Globals.board.get_room("BRHall"))
+	player.playerNumber = number 
+	number += 1
+
 
 
 
@@ -74,7 +84,9 @@ func _on_GreenButton_button_up():
 	playersReady = playersReady + buttonNode.clicked()
 	Globals.characters.append("Green")
 	player.set_playerID("Green")
-	player.set_tile("BLHall")
+	player.set_tile(Globals.board.get_room("BLHall"))
+	player.playerNumber = number 
+	number += 1
 
 	
 
@@ -89,7 +101,9 @@ func _on_MustardButton_button_up():
 	playersReady = playersReady + buttonNode.clicked()
 	Globals.characters.append("Mustard")
 	player.set_playerID("Mustard")
-	player.set_tile("TDRHall")
+	player.set_tile(Globals.board.get_room("TDRHall"))
+	player.playerNumber = number 
+	number += 1
 
 	
 
@@ -104,7 +118,9 @@ func _on_PlumbButton_button_up():
 	playersReady = playersReady + buttonNode.clicked()
 	Globals.characters.append("Plumb")
 	player.set_playerID("Plumb")
-	player.set_tile("TDLHall")
+	player.set_tile(Globals.board.get_room("TDLHall"))
+	player.playerNumber = number 
+	number += 1
 
 
 

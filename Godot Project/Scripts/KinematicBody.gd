@@ -8,6 +8,7 @@ var player
 var destination = Vector3.ZERO
 var gap = Vector3.ZERO
 onready var position = Vector3.ZERO
+var stopPoint
 
 
 # var b = "text"
@@ -19,7 +20,17 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
+	#Unit vector pointing at the target position from the characters position
+	#var direction = position.direction_to(destination)
+	#velocity = direction * speed
+	#gap = destination.distance_to(self.global_transform.origin)
+	#print(gap)
+	#move_and_slide(velocity)
+	#if(gap < .5):
+	#	self.set_global_translation(destination)
+	#	velocity = Vector3.ZERO
 	pass
+	
 
 	
 func move_up():
@@ -40,15 +51,33 @@ func move_secret_passage():
 func move_pawn_direction( direction : String) ->void:
 	var pawn = get_parent()
 	var currtile = pawn.get_tile()
+	
 	if(Globals.turn == 1):
 		self.set_global_translation(pawn.get_location())
 		return
+	position = currtile.get_location()
 	var pos = currtile.get_moveset().find(direction)
 	var adjNodeList = currtile.get_adjacenet()
-	var nextTile = Globals.board.get_room(adjNodeList[pos])
+	var nextTile = adjNodeList[pos]
 	destination = nextTile.get_location()
-	self.set_global_translation(nextTile.get_location())
-	pawn.set_tile(adjNodeList[pos])
+	self.set_global_translation(destination + pawn_offset(nextTile))
+	currtile.remove_occupant(pawn.get_ID())
+	nextTile.set_occupant(pawn.get_ID())
+	pawn.set_tile(nextTile)
+	Globals.currentTilesArray[pawn.playerNumber] = nextTile
 	
 func test():
 	pass
+	
+#takes in teh adjacent tile calculates if an offset is needed and applies it
+func pawn_offset(tile : Tile)->Vector3:
+	if(tile.is_Hall()):
+		return Vector3.ZERO
+	var counter := 0
+	for x in tile.get_occupants():
+		if(x == tile.Empty):
+			return Globals.offSetArray[counter]
+		counter += 1
+	return Vector3.ZERO
+		
+		
