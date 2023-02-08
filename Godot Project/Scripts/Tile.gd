@@ -7,12 +7,15 @@ var adjacent:  Array
 var moveset: Array
 var isHall: bool
 var location: Vector3
+var occupants: Array
+const Empty = "" 
 
 func _init(_name:String, _moveSet:Array, _isHall: bool, _location: Vector3):
 	name = _name
 	moveset	= _moveSet
 	isHall = _isHall
 	location = _location
+	occupants = [Empty,Empty,Empty,Empty,Empty,Empty]
 	
 
 
@@ -36,4 +39,22 @@ func is_Hall()-> bool:
 
 func get_location()-> Vector3:
 	return location
+	
+func get_occupants()->Array:
+	return occupants
+	
+func set_occupant(name : String) -> void:
+	var counter := 0
+	for x in occupants:
+		if(x == Empty):
+			occupants[counter] = name
+			return
+		counter += 1
 
+func remove_occupant(name : String) -> void:
+	var counter := 0
+	for x in occupants:
+		if(x == name):
+			occupants[counter] = Empty
+			return
+		counter += 1
