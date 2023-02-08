@@ -60,8 +60,16 @@ func move_pawn_direction( direction : String) ->void:
 	var adjNodeList = currtile.get_adjacenet()
 	var nextTile = adjNodeList[pos]
 	destination = nextTile.get_location()
-	self.set_global_translation(nextTile.get_location())
+	if(!nextTile.is_Hall()):
+		destination = destination + Globals.offSetArray[pawn.playerNumber]
+	self.set_global_translation(destination)
 	pawn.set_tile(nextTile)
+	Globals.currentTilesArray[pawn.playerNumber] = nextTile
+	print(Globals.currentTilesArray)
 	
 func test():
 	pass
+	
+#takes in teh adjacent tile calculates if an offset is needed and applies it
+
+		

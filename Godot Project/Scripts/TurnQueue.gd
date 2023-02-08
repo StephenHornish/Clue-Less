@@ -9,6 +9,7 @@ signal nextTurn
 signal currPlayer
 
 
+
 func initialize()-> void:
 	active_player = get_child(0)
 	active_player.set_active()
@@ -63,7 +64,6 @@ func legal_move(movement : String)->bool:
 	var currtile = active_player.get_tile()
 	#First move is always legal and so are secret passage moves
 	if(Globals.turn == 1 || (movement == "Secret Passage" && currtile.get_moveset().has("Secret Passage"))):
-		print("if statement works")
 		return true
 	#Checks to see if the current palyer tile has the move inputed by the player if 
 	#so it goes through all children to see if they are in that tile if they are and 

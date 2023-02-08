@@ -6,6 +6,7 @@ onready var tile : Tile
 onready var moveset : Array
 onready var adjacent : Array
 var playID : String
+var playerNumber: int
 
 
 func _ready():
@@ -50,3 +51,4 @@ func get_adjacent() -> Array:
 func get_moveset() -> Array:
 	return adjacent
 
+	
