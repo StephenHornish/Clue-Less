@@ -1,7 +1,7 @@
 extends KinematicBody
 
 export var gravity = Vector3.DOWN * 10
-export var speed = 5
+export var speed = 200
 var velocity = Vector3.ZERO
 var character 
 var player 
@@ -20,6 +20,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
+	
 	#Unit vector pointing at the target position from the characters position
 	#var direction = position.direction_to(destination)
 	#velocity = direction * speed
@@ -27,8 +28,8 @@ func _physics_process(delta):
 	#print(gap)
 	#move_and_slide(velocity)
 	#if(gap < .5):
-	#	self.set_global_translation(destination)
-	#	velocity = Vector3.ZERO
+		#self.set_global_translation(destination)
+		#velocity = Vector3.ZERO
 	pass
 	
 

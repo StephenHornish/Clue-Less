@@ -8,6 +8,7 @@ var moveset: Array
 var isHall: bool
 var location: Vector3
 var occupants: Array
+var weapon = ""
 const Empty = "" 
 
 func _init(_name:String, _moveSet:Array, _isHall: bool, _location: Vector3):
@@ -43,6 +44,12 @@ func get_location()-> Vector3:
 func get_occupants()->Array:
 	return occupants
 	
+func set_weapon(wep : String) ->void:
+	weapon = wep
+	
+func get_weapon() ->String:
+	return weapon
+
 func set_occupant(name : String) -> void:
 	var counter := 0
 	for x in occupants:
