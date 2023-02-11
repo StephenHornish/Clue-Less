@@ -7,6 +7,7 @@ var scene = load("res://Characters/Pawn.tscn")
 onready var turn = get_node("CanvasLayer/Turn Margin Container/Turn").hide() 
 signal turn_queue
 signal initialize_turn_queue
+signal randomize_weapons
 onready var timer = get_node("CanvasLayer/Turn Margin Container/Turn/Timer")
 onready var vbox = get_node("CanvasLayer/CharacterContainer/VBoxContainer/VBoxContainer")
 var playersReady = 0
@@ -131,6 +132,7 @@ func _on_Button_button_up() -> void:
 		turn.text = "Turn " + str(Globals.turn)
 		vbox.get_parent().hide()
 		emit_signal("initialize_turn_queue")
+		emit_signal("randomize_weapons")
 		$"CanvasLayer/MarginContainer".hide()
 		turn.show()
 		timer.start()	
