@@ -4,6 +4,7 @@ extends Node
 # playing 
 
 var scene = load("res://Characters/Pawn.tscn")
+var player_obj = load("res://Scripts/Player.gd")
 onready var turn = get_node("CanvasLayer/Turn Margin Container/Turn").hide() 
 signal turn_queue
 signal initialize_turn_queue
@@ -20,6 +21,10 @@ func _ready():
 
 func _on_PeacockButton_button_up():
 	#Grabs the scene to add the player to, the button node and the creates teh desired color
+	var p = player_obj.new("Bob", player_obj.Players.MUSTARD)
+	print(p.get_character())
+	print(p.get_characterTest())
+	
 	var player = scene.instance()
 	var buttonNode = vbox.get_node("MarginContainer1/PeacockButton")
 	var color = Color( 0, 0.501961, 0.501961, 1 )
