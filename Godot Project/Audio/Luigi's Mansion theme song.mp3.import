@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Luigi's Mansion theme song.mp3-3e355d7eddec055ede0ebd1e7dcf2506.mp3str"
+
+[deps]
+
+source_file="res://Audio/Luigi's Mansion theme song.mp3"
+dest_files=[ "res://.import/Luigi's Mansion theme song.mp3-3e355d7eddec055ede0ebd1e7dcf2506.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0
