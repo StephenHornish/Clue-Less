@@ -12,7 +12,6 @@ signal randomize_weapons
 onready var timer = get_node("CanvasLayer/Turn Margin Container/Turn/Timer")
 onready var vbox = get_node("CanvasLayer/CharacterContainer/VBoxContainer/VBoxContainer")
 var playersReady = 0
-onready var offset = Vector3.ZERO
 onready var number = 0 
 
 
@@ -21,10 +20,8 @@ func _ready():
 
 func _on_PeacockButton_button_up():
 	#Grabs the scene to add the player to, the button node and the creates teh desired color
-	var p = player_obj.new("Bob", player_obj.Players.MUSTARD)
-	print(p.get_character())
-	print(p.get_characterTest())
-	
+	var p = player_obj.new("Bob", player_obj.Players.PEACOCK)
+
 	var player = scene.instance()
 	var buttonNode = vbox.get_node("MarginContainer1/PeacockButton")
 	var color = Color( 0, 0.501961, 0.501961, 1 )
