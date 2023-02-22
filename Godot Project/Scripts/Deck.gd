@@ -38,7 +38,7 @@ func _init():
 	randomize() 
 	deck.shuffle()
 	_createSecretDeck()
-	print(secretEnvelop)
+	#print(secretEnvelop)
 
 #picks the three game winning cards and removes them from the rest of the deck
 func _createSecretDeck()->Array:
@@ -47,7 +47,7 @@ func _createSecretDeck()->Array:
 	var c 
 	var counter = 0
 	for x in deck :
-		print(x.get_type())
+		#print(x.get_type())
 		if(x.get_type() == 0 && a == null):
 			a = x 
 			deck.remove(counter)
