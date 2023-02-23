@@ -14,11 +14,11 @@ var secretEnvelop = []
 var deck = []
 
 func _init():
-	deck.append(Card.new("Ms.Scarlett", CardType.CHARACTER))
-	deck.append(Card.new("Mrs.Peacock", CardType.CHARACTER))
-	deck.append(Card.new("Mrs.White", CardType.CHARACTER))
-	deck.append(Card.new("Mr.Plumb", CardType.CHARACTER))
-	deck.append(Card.new("Mr.Green", CardType.CHARACTER))
+	deck.append(Card.new("Miss Scarlett", CardType.CHARACTER))
+	deck.append(Card.new("Mrs Peacock", CardType.CHARACTER))
+	deck.append(Card.new("Mrs White", CardType.CHARACTER))
+	deck.append(Card.new("Prof Plumb", CardType.CHARACTER))
+	deck.append(Card.new("Mr Green", CardType.CHARACTER))
 	deck.append(Card.new("Col Mustard", CardType.CHARACTER))
 	deck.append(Card.new("Hall", CardType.ROOM))
 	deck.append(Card.new("Lounge", CardType.ROOM))

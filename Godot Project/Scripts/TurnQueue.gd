@@ -3,10 +3,13 @@ extends Node
 
 class_name TurnQueue
 
+onready var cardDis = load("res://Scenes/CardDispaly.tscn")
 var active_player
 var active : bool = false
+
 signal nextTurn
 signal currPlayer
+signal addCards
 
 
 
@@ -96,6 +99,11 @@ func dealCards() -> void:
 			Globals.playDeck.deck.remove(0)
 		var player = get_child(x)
 		player.set_hand(hand)
+		
+		#where we add the scene to each players view in multiplayer
+		var cardDisplay = cardDis.instance()
+		cardDisplay.buildPlayerView(hand)
+		emit_signal("addCards",cardDisplay)
 	
 		
 	for x in range(Globals.numberOfPlayers):

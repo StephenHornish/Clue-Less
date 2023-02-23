@@ -29,3 +29,6 @@ func _to_string()->String:
 
 func get_type():
 	return type
+
+func get_name():
+	return cardname

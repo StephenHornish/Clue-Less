@@ -8,8 +8,8 @@ var scene = load("res://Characters/Pawn.tscn")
 onready var turn = get_node("CanvasLayer/Turn Margin Container/Turn").hide() 
 signal turn_queue
 signal initialize_turn_queue
-
 signal randomize_weapons
+
 onready var timer = get_node("CanvasLayer/Turn Margin Container/Turn/Timer")
 onready var vbox = get_node("CanvasLayer/CharacterContainer/VBoxContainer/VBoxContainer")
 var playersReady = 0
@@ -153,3 +153,7 @@ func incrementTurn() -> void:
 #deals the global cards to each player 
 
 	
+
+
+func _on_TurnQueue_addCards(cardScene):
+	$CanvasLayer.add_child(cardScene)
