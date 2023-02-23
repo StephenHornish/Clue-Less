@@ -1,0 +1,270 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://Credits/Mono_dynamicfont.tres" type="DynamicFont" id=1]
+[ext_resource path="res://Images/adam_simpson_clue.jpg" type="Texture" id=2]
+[ext_resource path="res://Credits/Credits.gd" type="Script" id=3]
+[ext_resource path="res://Credits/Antique_dynamicfont.tres" type="DynamicFont" id=4]
+[ext_resource path="res://Images/Dialog Box.png" type="Texture" id=5]
+[ext_resource path="res://Audio/Luigi's Mansion theme song.mp3" type="AudioStream" id=6]
+
+[sub_resource type="Animation" id=4]
+resource_name = "DialogBoxFade"
+length = 5.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("Panel:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 3, 4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0.901961 ), Color( 1, 1, 1, 0.901961 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=1]
+resource_name = "Fade in and out"
+length = 5.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("VBoxContainer/Title:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 3, 4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("VBoxContainer/Name:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 3, 4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("VBoxContainer/Title:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("VBoxContainer/Name:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Panel:self_modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "DialogBoxFade"
+length = 5.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("Panel:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 3, 4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0.901961 ), Color( 1, 1, 1, 0.901961 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "Fade in and out"
+length = 5.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("VBoxContainer/Title:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 3, 4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("VBoxContainer/Name:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 3, 4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=7]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("VBoxContainer/Title:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("VBoxContainer/Name:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Panel:self_modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="StyleBoxTexture" id=3]
+texture = ExtResource( 5 )
+region_rect = Rect2( 0, 0, 400, 100 )
+
+[node name="Credits" type="Control"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -512.0
+margin_top = -600.0
+margin_right = 512.0
+script = ExtResource( 3 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -160.0
+margin_top = -357.0
+margin_right = 160.0
+margin_bottom = -217.0
+
+[node name="Title" type="Label" parent="VBoxContainer"]
+modulate = Color( 1, 1, 1, 0 )
+margin_right = 320.0
+margin_bottom = 24.0
+custom_colors/font_color = Color( 0.941176, 0.94902, 0.121569, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_as_outline = 50
+custom_fonts/font = ExtResource( 4 )
+align = 1
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Name" type="Label" parent="VBoxContainer"]
+modulate = Color( 1, 1, 1, 0 )
+margin_top = 28.0
+margin_right = 320.0
+margin_bottom = 45.0
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_as_outline = 18
+custom_fonts/font = ExtResource( 1 )
+align = 1
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2( 985, 0 )
+
+[node name="Background" type="TextureRect" parent="ParallaxBackground/ParallaxLayer"]
+margin_left = 13.0
+margin_top = -1.0
+margin_right = 1025.0
+margin_bottom = 599.0
+size_flags_horizontal = 5
+size_flags_vertical = 5
+texture = ExtResource( 2 )
+expand = true
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 6.0
+autostart = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/DialogBoxFade = SubResource( 4 )
+"anims/Fade in and out" = SubResource( 1 )
+anims/RESET = SubResource( 2 )
+
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="."]
+anims/DialogBoxFade = SubResource( 5 )
+"anims/Fade in and out" = SubResource( 6 )
+anims/RESET = SubResource( 7 )
+
+[node name="Panel" type="Panel" parent="."]
+self_modulate = Color( 1, 1, 1, 0 )
+show_behind_parent = true
+margin_left = 327.0
+margin_top = 216.0
+margin_right = 707.0
+margin_bottom = 316.0
+custom_styles/panel = SubResource( 3 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
+volume_db = -20.0
+
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

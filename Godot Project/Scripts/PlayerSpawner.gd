@@ -4,14 +4,15 @@ extends Node
 # playing 
 
 var scene = load("res://Characters/Pawn.tscn")
+
 onready var turn = get_node("CanvasLayer/Turn Margin Container/Turn").hide() 
 signal turn_queue
 signal initialize_turn_queue
+
 signal randomize_weapons
 onready var timer = get_node("CanvasLayer/Turn Margin Container/Turn/Timer")
 onready var vbox = get_node("CanvasLayer/CharacterContainer/VBoxContainer/VBoxContainer")
 var playersReady = 0
-onready var offset = Vector3.ZERO
 onready var number = 0 
 
 
@@ -19,12 +20,12 @@ func _ready():
 	pass
 
 func _on_PeacockButton_button_up():
-	#Grabs the scene to add the player to, the button node and the creates teh desired color
+	#Grabs the scene to add the player to, the button node and sets desired color
+	#Replace bob with what ever the multiplayer ID becomes later on
 	var player = scene.instance()
+	player.build("Bob", player.Players.PEACOCK,Color( 0, 0.501961, 0.501961, 1 ))
 	var buttonNode = vbox.get_node("MarginContainer1/PeacockButton")
-	var color = Color( 0, 0.501961, 0.501961, 1 )
-	#sets player color and adds them to the scene 
-	player.set_color(color)
+
 	emit_signal("turn_queue",player)
 
 	#places the character in the starting location and marks the button as clicked 
@@ -32,7 +33,6 @@ func _on_PeacockButton_button_up():
 	playersReady = playersReady + buttonNode.clicked()
 	
 	Globals.characters.append("Peacock")
-	player.set_playerID("Peacock")
 	player.set_tile(Globals.board.get_room("BULHall"))
 	player.playerNumber = number 
 	number += 1
@@ -41,15 +41,14 @@ func _on_PeacockButton_button_up():
 
 
 func _on_ScarlettButton_button_up():
+	
 	var player = scene.instance()
+	player.build("Bob", player.Players.SCARLETT,Color( 0.9, 0, 0, 1 ))
 	var buttonNode = vbox.get_node("MarginContainer2/ScarlettButton")
-	var color = Color( 0.9, 0, 0, 1 )  
-	player.set_color(color)
 	emit_signal("turn_queue",player)
 	player.set_global_translation(Vector3(-14.5 ,0,26))
 	playersReady = playersReady + buttonNode.clicked()
 	Globals.characters.append("Scarlett")
-	player.set_playerID("Scarlett")
 	player.set_tile(Globals.board.get_room("TRHall"))
 	player.playerNumber = number 
 	number += 1
@@ -58,15 +57,14 @@ func _on_ScarlettButton_button_up():
 
 
 func _on_WhiteButton_button_up():
+	
 	var player = scene.instance()
+	player.build("Bob", player.Players.WHITE,Color( 0.980392, 0.921569, 0.843137, 1 ))
 	var buttonNode = vbox.get_node("MarginContainer3/WhiteButton")
-	var color = Color( 0.980392, 0.921569, 0.843137, 1 ) 
-	player.set_color(color)
 	emit_signal("turn_queue",player)
 	player.set_global_translation(Vector3(-14.5 ,0, -26))
 	playersReady = playersReady + buttonNode.clicked()
 	Globals.characters.append("White")
-	player.set_playerID("White")
 	player.set_tile(Globals.board.get_room("BRHall"))
 	player.playerNumber = number 
 	number += 1
@@ -74,34 +72,31 @@ func _on_WhiteButton_button_up():
 
 
 
-
 func _on_GreenButton_button_up():
+	
 	var player = scene.instance()
+	player.build("Bob", player.Players.GREEN,Color( 0.133333, 0.545098, 0.133333, 1 ))
 	var buttonNode = vbox.get_node("MarginContainer4/GreenButton")
-	var color =  Color( 0.133333, 0.545098, 0.133333, 1 )
-	player.set_color(color)
 	emit_signal("turn_queue",player)
 	player.set_global_translation(Vector3(9 ,0, -26))
 	playersReady = playersReady + buttonNode.clicked()
 	Globals.characters.append("Green")
-	player.set_playerID("Green")
 	player.set_tile(Globals.board.get_room("BLHall"))
 	player.playerNumber = number 
 	number += 1
-
 	
 
 
 func _on_MustardButton_button_up():
+
+	
 	var player = scene.instance()
+	player.build("Bob", player.Players.MUSTARD,Color( 0.8, 0.9, 0, 1 ) )
 	var buttonNode = vbox.get_node("MarginContainer5/MustardButton")
-	var color = Color( 0.8, 0.9, 0, 1 ) 
-	player.set_color(color)
 	emit_signal("turn_queue",player)
 	player.set_global_translation(Vector3(-30 ,0, 11.5))
 	playersReady = playersReady + buttonNode.clicked()
 	Globals.characters.append("Mustard")
-	player.set_playerID("Mustard")
 	player.set_tile(Globals.board.get_room("TDRHall"))
 	player.playerNumber = number 
 	number += 1
@@ -110,15 +105,14 @@ func _on_MustardButton_button_up():
 
 
 func _on_PlumbButton_button_up():
+
 	var player = scene.instance()
+	player.build("Bob", player.Players.PLUMB,Color( 0.576471, 0.439216, 0.858824, 1 ) )
 	var buttonNode = vbox.get_node("MarginContainer6/PlumbButton")
-	var color = Color( 0.576471, 0.439216, 0.858824, 1 )
-	player.set_color(color)
 	emit_signal("turn_queue",player)
 	player.set_global_translation(Vector3(25 ,0,11.5))
 	playersReady = playersReady + buttonNode.clicked()
 	Globals.characters.append("Plumb")
-	player.set_playerID("Plumb")
 	player.set_tile(Globals.board.get_room("TDLHall"))
 	player.playerNumber = number 
 	number += 1
@@ -155,4 +149,7 @@ func incrementTurn() -> void:
 	turn.text = "Turn " + str(Globals.turn)
 	turn.show()
 	timer.start()
+
+#deals the global cards to each player 
+
 	

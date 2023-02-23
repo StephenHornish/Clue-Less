@@ -50,11 +50,11 @@ func set_weapon(wep : String) ->void:
 func get_weapon() ->String:
 	return weapon
 
-func set_occupant(name : String) -> void:
+func set_occupant(_name : String) -> void:
 	var counter := 0
 	for x in occupants:
 		if(x == Empty):
-			occupants[counter] = name
+			occupants[counter] = _name
 			return
 		counter += 1
 

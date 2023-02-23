@@ -16,7 +16,7 @@ func _on_Character_Selection_randomize_weapons():
 	board.get_child(2).set_global_translation( weapons_location[2])
 	place_weapon(2,"Pistol")
 	board.get_child(3).set_global_translation( weapons_location[3])
-	place_weapon(3,"Candle Stick")
+	place_weapon(3,"Candlestick")
 	board.get_child(4).set_global_translation( weapons_location[4])
 	place_weapon(4,"Wrench")
 	board.get_child(5).set_global_translation( weapons_location[5])

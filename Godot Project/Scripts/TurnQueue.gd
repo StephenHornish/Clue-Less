@@ -14,6 +14,7 @@ func initialize()-> void:
 	active_player = get_child(0)
 	active_player.set_active()
 	activateKeyListener()
+	dealCards()
 
 # Turnqueue that cycles through all the nodes each time a player makes their turn
 # will also emit a singla to the UI lettting everyone know that round is over
@@ -24,7 +25,7 @@ func play_turn() -> Node:
 		#Should say round instead of turn will fix later
 		emit_signal("nextTurn")
 	active_player = get_child(new_player)
-	print(active_player.playID)
+	print(active_player.get_character_string())
 	active_player.set_active()
 	return active_player
 	
@@ -52,7 +53,6 @@ func _process(delta) -> void:
 			active_player.get_child(0).velocity = Vector3.ZERO
 			play_turn()
 		if Input.is_action_just_pressed("Secret Passage") :
-			print("Q pressed")
 			if(legal_move("Secret Passage")):
 				active_player.get_child(0).move_secret_passage()
 		 
@@ -84,3 +84,23 @@ func legal_move(movement : String)->bool:
 func _on_Character_Selection_turn_queue(player):
 	add_child(player)
 
+func dealCards() -> void:
+	var cardsPerPlayer = 18/Globals.numberOfPlayers  
+	var leftOver = 18%Globals.numberOfPlayers 
+	
+	for x in range(Globals.numberOfPlayers):
+		var hand = []
+		for y in range(cardsPerPlayer):
+			var card = Globals.playDeck.deck[0]
+			hand.append(card)
+			Globals.playDeck.deck.remove(0)
+		var player = get_child(x)
+		player.set_hand(hand)
+	
+		
+	for x in range(Globals.numberOfPlayers):
+		var player = get_child(x)
+		print("Player " + str(x + 1))
+		print(player.hand)
+	print("Cards That everyone can see")
+	print(Globals.playDeck.deck)

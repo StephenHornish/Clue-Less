@@ -3,6 +3,7 @@ extends Node
 class_name boardDB
 
 var board : Array
+var players : Array
 var tile = load("res://Scripts/Tile.gd")
 # Called when the node enters the scene tree for the first time.
 func _ready():
