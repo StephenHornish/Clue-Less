@@ -100,5 +100,7 @@ func dealCards() -> void:
 		
 	for x in range(Globals.numberOfPlayers):
 		var player = get_child(x)
+		print("Player " + str(x + 1))
 		print(player.hand)
+	print("Cards That everyone can see")
 	print(Globals.playDeck.deck)

@@ -17,7 +17,15 @@ func _init(_name: String, _type):
 	self.type = _type
 	
 func _to_string()->String:
-	return str(cardname) + "|" + str(type)
+	var temp
+	match type:
+		CardType.CHARACTER:
+			temp = "Character Card"
+		CardType.ROOM:
+			temp =  "Room Card"
+		CardType.WEAPON:
+			temp = "Weapon Card"
+	return str(cardname) + "|" +  temp
 
 func get_type():
 	return type
