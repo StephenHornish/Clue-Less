@@ -156,4 +156,5 @@ func incrementTurn() -> void:
 
 
 func _on_TurnQueue_addCards(cardScene):
-	$CanvasLayer.add_child(cardScene)
+	$CanvasLayer/CardDisplay.add_child(cardScene)
+

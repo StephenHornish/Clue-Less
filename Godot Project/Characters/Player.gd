@@ -87,3 +87,5 @@ func get_hand()-> Array:
 func set_hand(_hand:Array) -> void:
 	hand = _hand
 	
+func get_player_number() -> int:
+	return playerNumber

@@ -8,8 +8,8 @@ var active_player
 var active : bool = false
 
 signal nextTurn
-signal currPlayer
 signal addCards
+signal updateCards
 
 
 
@@ -18,6 +18,7 @@ func initialize()-> void:
 	active_player.set_active()
 	activateKeyListener()
 	dealCards()
+	emit_signal("updateCards",active_player.get_player_number())
 
 # Turnqueue that cycles through all the nodes each time a player makes their turn
 # will also emit a singla to the UI lettting everyone know that round is over
@@ -28,6 +29,7 @@ func play_turn() -> Node:
 		#Should say round instead of turn will fix later
 		emit_signal("nextTurn")
 	active_player = get_child(new_player)
+	emit_signal("updateCards",active_player.get_player_number())
 	print(active_player.get_character_string())
 	active_player.set_active()
 	return active_player
@@ -82,14 +84,14 @@ func legal_move(movement : String)->bool:
 		return true
 	else:
 		return false
-	
+
 
 func _on_Character_Selection_turn_queue(player):
 	add_child(player)
 
 func dealCards() -> void:
 	var cardsPerPlayer = 18/Globals.numberOfPlayers  
-	var leftOver = 18%Globals.numberOfPlayers 
+	#var leftOver = 18%Globals.numberOfPlayers 
 	
 	for x in range(Globals.numberOfPlayers):
 		var hand = []
@@ -103,6 +105,8 @@ func dealCards() -> void:
 		#where we add the scene to each players view in multiplayer
 		var cardDisplay = cardDis.instance()
 		cardDisplay.buildPlayerView(hand)
+		#later should be changed to the player ID when multiplayer is implemented
+		cardDisplay.playerID = player.get_player_number()
 		emit_signal("addCards",cardDisplay)
 	
 		

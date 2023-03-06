@@ -40,7 +40,3 @@ shape = SubResource( 1 )
 transform = Transform( 1, 0, 0, 0, 0.0652714, 0, 0, 0, 1, 0.135994, 0, -0.0376807 )
 mesh = SubResource( 2 )
 material/0 = SubResource( 3 )
-
-[node name="States" type="Node" parent="."]
-
-[node name="Move" type="Node" parent="States"]

@@ -63,9 +63,9 @@ func _init():
 	
 	
 func get_room(room : String)->Tile:
-	for tile in board:
-		if(tile.get_name() == room):
-			return tile
+	for _tile in board:
+		if(_tile.get_name() == room):
+			return _tile
 	print("not found")
 	return null
 	

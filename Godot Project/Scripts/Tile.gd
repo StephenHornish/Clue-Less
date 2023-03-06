@@ -58,10 +58,10 @@ func set_occupant(_name : String) -> void:
 			return
 		counter += 1
 
-func remove_occupant(name : String) -> void:
+func remove_occupant(_name : String) -> void:
 	var counter := 0
 	for x in occupants:
-		if(x == name):
+		if(x == _name):
 			occupants[counter] = Empty
 			return
 		counter += 1
