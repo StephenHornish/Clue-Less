@@ -7,12 +7,14 @@ signal leftbut
 func buildMoves(moveSet:Array) -> void:
 	if(Globals.turn == 1):
 		pass
-	else:
+	if(Globals.turn == 2):
 		get_child(0).show()
 		get_child(1).show()
 		get_child(2).show()
 		get_child(3).show()
-		get_child(5).hide()
+		queue_free_children(get_child(5))
+		free_children(get_child(5))
+	else:
 		$EndTurnContainer/EndTurn.disabled = false
 		print(moveSet)
 		for move in moveSet:
@@ -59,6 +61,7 @@ func connectButtons():
 	get_child(1).hide()
 	get_child(2).hide()
 	get_child(3).hide()
+	get_child(4).hide()
 	
 	
 
