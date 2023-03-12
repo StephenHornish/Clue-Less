@@ -2,10 +2,10 @@ extends MarginContainer
 
 
 
-func _on_TurnQueue_updateMoves(player):
+func _on_TurnQueue_updateMoves(player,legalMoveSet):
 	print(player.get_player_number())
 	var moveButtons = get_child(player.get_player_number())
-	moveButtons.buildMoves(player.get_moveset())
+	moveButtons.buildMoves(legalMoveSet)
 	
 	
 	#this will need to be done away with once mutliplayer is implemented
@@ -19,3 +19,7 @@ func _on_TurnQueue_updateMoves(player):
 
 func _on_TurnQueue_disableButtons(playerNumber):
 	get_child(playerNumber).disableButtons()
+
+
+func _on_TurnQueue_disableMoveButtons(playerNumber):
+	get_child(playerNumber).disableMoveButtons()

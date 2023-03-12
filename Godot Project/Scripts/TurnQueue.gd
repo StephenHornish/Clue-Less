@@ -14,6 +14,7 @@ signal addMoves
 signal updateMoves
 signal releaseMoves
 signal disableButtons
+signal disableMoveButtons
 
 
 func initialize()-> void:
@@ -33,8 +34,7 @@ func play_turn() -> Node:
 		emit_signal("nextTurn")
 	active_player = get_child(new_player)
 	emit_signal("updateCards",active_player.get_player_number())
-	emit_signal("updateMoves",active_player)
-	
+	emit_signal("updateMoves",active_player,buildLegalMoveSetButtons(active_player.get_moveset()))
 	print(active_player.get_character_string())
 	active_player.set_active()
 	return active_player
@@ -125,35 +125,49 @@ func dealCards() -> void:
 	print(Globals.playDeck.deck)
 
 
+func buildLegalMoveSetButtons(moveSet : Array) -> Array:
+	var legalMoveSet = []
+	for x in moveSet:
+		if(legal_move(x)):
+			legalMoveSet.append(x)
+	return legalMoveSet
+			
 
-func _on_TurnQueue_updateMoves():
-	pass # Replace with function body.
-	
-	
 func _on_LeftButton_button_up():
-	print("Left Button Pressed!")
+	emit_signal("disableMoveButtons",active_player.get_player_number())
+	active_player.get_child(0).move_left()
 
 
 func _on_UpButton_button_up():
-	print("Up Button presssed!")
+	emit_signal("disableMoveButtons",active_player.get_player_number())
+	active_player.get_child(0).move_up()
 
 
 func _on_DownButton_button_up():
-	print("Down Button presssed!")
+	emit_signal("disableMoveButtons",active_player.get_player_number())
+	active_player.get_child(0).move_down()
 
 
 func _on_RightButton_button_up():
-	print("Right Button presssed!")
+	emit_signal("disableMoveButtons",active_player.get_player_number())
+	active_player.get_child(0).move_right()
 
 
 func _on_SecretButton_button_up():
-	print("Secret Passage Button presssed!")
+	emit_signal("disableMoveButtons",active_player.get_player_number())
+	active_player.get_child(0).move_secret_passage()
 
 
 func _on_EndTurn_button_up():
-	print("End Turn Pressed")
+	active_player.get_child(0).velocity = Vector3.ZERO
+	emit_signal("disableButtons",active_player.get_player_number())
+	play_turn()
 
 
 func _on_EnterButton_button_up():
-	print("Entering Masion")
+	active_player.get_child(0).move_up()
+	active_player.get_child(0).velocity = Vector3.ZERO
+	emit_signal("disableButtons",active_player.get_player_number())
+	play_turn()
+
 
