@@ -79,7 +79,7 @@ func get_adjacent() -> Array:
 	return adjacent
 	
 func get_moveset() -> Array:
-	return adjacent
+	return moveset
 
 func get_hand()-> Array:
 	return hand

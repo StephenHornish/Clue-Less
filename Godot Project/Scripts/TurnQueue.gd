@@ -13,6 +13,7 @@ signal updateCards
 signal addMoves
 signal updateMoves
 signal releaseMoves
+signal disableButtons
 
 
 func initialize()-> void:
@@ -60,7 +61,9 @@ func _process(delta) -> void:
 				active_player.get_child(0).move_right()
 		if Input.is_action_just_pressed("ui_accept"):
 			active_player.get_child(0).velocity = Vector3.ZERO
+			emit_signal("disableButtons",active_player.get_player_number())
 			play_turn()
+			
 		if Input.is_action_just_pressed("Secret Passage") :
 			if(legal_move("Secret Passage")):
 				active_player.get_child(0).move_secret_passage()
@@ -125,3 +128,32 @@ func dealCards() -> void:
 
 func _on_TurnQueue_updateMoves():
 	pass # Replace with function body.
+	
+	
+func _on_LeftButton_button_up():
+	print("Left Button Pressed!")
+
+
+func _on_UpButton_button_up():
+	print("Up Button presssed!")
+
+
+func _on_DownButton_button_up():
+	print("Down Button presssed!")
+
+
+func _on_RightButton_button_up():
+	print("Right Button presssed!")
+
+
+func _on_SecretButton_button_up():
+	print("Secret Passage Button presssed!")
+
+
+func _on_EndTurn_button_up():
+	print("End Turn Pressed")
+
+
+func _on_EnterButton_button_up():
+	print("Entering Masion")
+

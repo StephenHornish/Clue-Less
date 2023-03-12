@@ -157,9 +157,10 @@ func _build_move_sets():
 	var i = 0
 	for x in range (0,Globals.numberOfPlayers):
 		var MoveButtons = MoveBut.instance()
-		MoveButtons.buildMoves()
 		MoveButtons.playerID = i 
 		$CanvasLayer/MoveSet.add_child(MoveButtons)
+		MoveButtons.buildMoves([])
+		MoveButtons.connectButtons()
 		i = i+1
 
 	
