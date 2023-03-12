@@ -6,6 +6,7 @@ extends Node
 var scene = load("res://Characters/Pawn.tscn")
 
 onready var turn = get_node("CanvasLayer/Turn Margin Container/Turn").hide() 
+onready var MoveBut = load("res://Scenes/MoveButtons.tscn")
 signal turn_queue
 signal initialize_turn_queue
 signal randomize_weapons
@@ -123,6 +124,7 @@ func _on_PlumbButton_button_up():
 func _on_Button_button_up() -> void:
 	turn = get_node("CanvasLayer/Turn Margin Container/Turn")
 	if(playersReady == Globals.numberOfPlayers):
+		_build_move_sets()
 		turn.text = "Turn " + str(Globals.turn)
 		vbox.get_parent().hide()
 		emit_signal("initialize_turn_queue")
@@ -150,11 +152,21 @@ func incrementTurn() -> void:
 	turn.show()
 	timer.start()
 
-#deals the global cards to each player 
+#Gives Each player a move set Pannel
+func _build_move_sets():
+	var i = 0
+	for x in range (0,Globals.numberOfPlayers):
+		var MoveButtons = MoveBut.instance()
+		MoveButtons.buildMoves()
+		MoveButtons.playerID = i 
+		$CanvasLayer/MoveSet.add_child(MoveButtons)
+		i = i+1
 
 	
 
 
 func _on_TurnQueue_addCards(cardScene):
 	$CanvasLayer/CardDisplay.add_child(cardScene)
+
+
 

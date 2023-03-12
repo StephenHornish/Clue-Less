@@ -3,14 +3,16 @@ extends Node
 
 class_name TurnQueue
 
-onready var cardDis = load("res://Scenes/CardDispaly.tscn")
+onready var cardDis = load("res://Scenes/CardDisplay.tscn")
 var active_player
 var active : bool = false
 
 signal nextTurn
 signal addCards
 signal updateCards
-
+signal addMoves
+signal updateMoves
+signal releaseMoves
 
 
 func initialize()-> void:
@@ -30,6 +32,8 @@ func play_turn() -> Node:
 		emit_signal("nextTurn")
 	active_player = get_child(new_player)
 	emit_signal("updateCards",active_player.get_player_number())
+	emit_signal("updateMoves",active_player)
+	
 	print(active_player.get_character_string())
 	active_player.set_active()
 	return active_player
@@ -108,7 +112,7 @@ func dealCards() -> void:
 		#later should be changed to the player ID when multiplayer is implemented
 		cardDisplay.playerID = player.get_player_number()
 		emit_signal("addCards",cardDisplay)
-	
+		
 		
 	for x in range(Globals.numberOfPlayers):
 		var player = get_child(x)
@@ -116,3 +120,8 @@ func dealCards() -> void:
 		print(player.hand)
 	print("Cards That everyone can see")
 	print(Globals.playDeck.deck)
+
+
+
+func _on_TurnQueue_updateMoves():
+	pass # Replace with function body.
