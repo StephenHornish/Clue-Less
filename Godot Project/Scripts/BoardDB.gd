@@ -72,12 +72,12 @@ func get_room(room : String)->Tile:
 
 func _to_string()->String:
 	var temp = ""
-	for tile in board:
-		temp = temp + tile.get_name()
-		if(tile.is_Hall()):
+	for til in board:
+		temp = temp + til.get_name()
+		if(til.is_Hall()):
 			return temp + ", "
 		else:
-			var weapon = tile.get_weapon()
+			var weapon = til.get_weapon()
 			if(weapon == ""):
 				weapon = "None"
 			temp = temp + ": Weapons -> " + weapon + ", "

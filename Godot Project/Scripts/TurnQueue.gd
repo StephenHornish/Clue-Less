@@ -10,9 +10,7 @@ var active : bool = false
 signal nextTurn
 signal addCards
 signal updateCards
-signal addMoves
 signal updateMoves
-signal releaseMoves
 signal disableButtons
 signal disableMoveButtons
 
@@ -26,7 +24,7 @@ func initialize()-> void:
 
 # Turnqueue that cycles through all the nodes each time a player makes their turn
 # will also emit a singla to the UI lettting everyone know that round is over
-func play_turn() -> Node:
+func play_turn() -> void:
 	active_player.set_inactive()
 	var new_player : int = (active_player.get_index() + 1) % get_child_count()
 	if((active_player.get_index() + 1) % Globals.numberOfPlayers == 0):
@@ -37,7 +35,7 @@ func play_turn() -> Node:
 	emit_signal("updateMoves",active_player,buildLegalMoveSetButtons(active_player.get_moveset()))
 	print(active_player.get_character_string())
 	active_player.set_active()
-	return active_player
+
 	
 
 # Key listener that takes the input Delta is basically each tick fo the game engine
@@ -45,7 +43,7 @@ func play_turn() -> Node:
 # players have spawned in and selected ready this way players can move pieces early
 # when user input is made it checks if thats a legal move. If so it calls on the kin-
 # ematic body of the pawn to phycially move it 
-func _process(delta) -> void: 
+func _process(_delta) -> void: 
 	if(active):
 		if Input.is_action_just_pressed("Up"):
 			if(legal_move("Up")):
@@ -102,7 +100,7 @@ func dealCards() -> void:
 	
 	for x in range(Globals.numberOfPlayers):
 		var hand = []
-		for y in range(cardsPerPlayer):
+		for _y in range(cardsPerPlayer):
 			var card = Globals.playDeck.deck[0]
 			hand.append(card)
 			Globals.playDeck.deck.remove(0)
@@ -125,6 +123,8 @@ func dealCards() -> void:
 	print(Globals.playDeck.deck)
 
 
+#Takes the players moveset and build a new one for all the legal moves around them
+#this is done as to not interfer with the keyboard controls for playing hte game
 func buildLegalMoveSetButtons(moveSet : Array) -> Array:
 	var legalMoveSet = []
 	for x in moveSet:

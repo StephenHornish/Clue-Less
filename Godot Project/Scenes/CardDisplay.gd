@@ -1,5 +1,5 @@
 extends MarginContainer
-signal pressed
+
 var playerID
 
 func buildPlayerView(hand: Array)->void:

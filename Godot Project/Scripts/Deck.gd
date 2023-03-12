@@ -29,7 +29,7 @@ func _init():
 	deck.append(Card.new("Billiard Room", CardType.ROOM))
 	deck.append(Card.new("Library", CardType.ROOM))
 	deck.append(Card.new("Study", CardType.ROOM))
-	deck.append(Card.new("Candlestick", CardType.WEAPON))
+	deck.append(Card.new("CandleStick", CardType.WEAPON))
 	deck.append(Card.new("Pipe", CardType.WEAPON))
 	deck.append(Card.new("Pistol", CardType.WEAPON))
 	deck.append(Card.new("Wrench", CardType.WEAPON))
@@ -41,7 +41,7 @@ func _init():
 	#print(secretEnvelop)
 
 #picks the three game winning cards and removes them from the rest of the deck
-func _createSecretDeck()->Array:
+func _createSecretDeck()->void:
 	var a 
 	var b 
 	var c 
@@ -61,8 +61,7 @@ func _createSecretDeck()->Array:
 	secretEnvelop.append(a)
 	secretEnvelop.append(b)
 	secretEnvelop.append(c)
-	return secretEnvelop
-	
+
 
 func _to_string()->String:
 	var printOut = ""

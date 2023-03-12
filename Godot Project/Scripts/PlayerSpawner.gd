@@ -155,7 +155,7 @@ func incrementTurn() -> void:
 #Gives Each player a move set Pannel
 func _build_move_sets():
 	var i = 0
-	for x in range (0,Globals.numberOfPlayers):
+	for _x in range (0,Globals.numberOfPlayers):
 		var MoveButtons = MoveBut.instance()
 		MoveButtons.playerID = i 
 		$CanvasLayer/MoveSet.add_child(MoveButtons)

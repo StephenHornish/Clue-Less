@@ -2,7 +2,6 @@ extends HBoxContainer
 # ["Left","Up","Right,"Down","Secret Passage ]
 var playerID
 export var mainGameScene : PackedScene
-signal leftbut
 
 func buildMoves(moveSet:Array) -> void:
 	if(Globals.turn == 1):
@@ -59,13 +58,15 @@ static func free_children(node: Node) -> void:
 		node.free()
 
 func connectButtons():
-	$LeftContainer/LeftButton.connect("button_up", get_node("/root/Boardgame3Tris/TurnQueue"), "_on_LeftButton_button_up")
-	$VBoxContainer/DownContainer/DownButton.connect("button_up", get_node("/root/Boardgame3Tris/TurnQueue"), "_on_DownButton_button_up")
-	$VBoxContainer/UpContainer/UpButton.connect("button_up", get_node("/root/Boardgame3Tris/TurnQueue"), "_on_UpButton_button_up")
-	$RightContainer/RightButton.connect("button_up", get_node("/root/Boardgame3Tris/TurnQueue"), "_on_RightButton_button_up")
-	$EndTurnContainer/EndTurn.connect("button_up", get_node("/root/Boardgame3Tris/TurnQueue"), "_on_EndTurn_button_up")
-	$SecretContainer/SecretButton.connect("button_up", get_node("/root/Boardgame3Tris/TurnQueue"), "_on_SecretButton_button_up")
-	$EnterContainer/EnterButton.connect("button_up",get_node("/root/Boardgame3Tris/TurnQueue"),"_on_EnterButton_button_up")
+	#have to connect to a random variable or else the compiler complains 
+	var _random_var 
+	_random_var =$LeftContainer/LeftButton.connect("button_up", get_node("/root/Boardgame3Tris/TurnQueue"), "_on_LeftButton_button_up")
+	_random_var =$VBoxContainer/DownContainer/DownButton.connect("button_up", get_node("/root/Boardgame3Tris/TurnQueue"), "_on_DownButton_button_up")
+	_random_var =$VBoxContainer/UpContainer/UpButton.connect("button_up", get_node("/root/Boardgame3Tris/TurnQueue"), "_on_UpButton_button_up")
+	_random_var =$RightContainer/RightButton.connect("button_up", get_node("/root/Boardgame3Tris/TurnQueue"), "_on_RightButton_button_up")
+	_random_var =$EndTurnContainer/EndTurn.connect("button_up", get_node("/root/Boardgame3Tris/TurnQueue"), "_on_EndTurn_button_up")
+	_random_var =$SecretContainer/SecretButton.connect("button_up", get_node("/root/Boardgame3Tris/TurnQueue"), "_on_SecretButton_button_up")
+	_random_var =$EnterContainer/EnterButton.connect("button_up",get_node("/root/Boardgame3Tris/TurnQueue"),"_on_EnterButton_button_up")
 	get_child(0).hide()
 	get_child(1).hide()
 	get_child(2).hide()
