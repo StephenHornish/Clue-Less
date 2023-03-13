@@ -1,11 +1,13 @@
 extends HBoxContainer
 # ["Left","Up","Right,"Down","Secret Passage ]
 var playerID
+var character
 export var mainGameScene : PackedScene
 
 func buildMoves(moveSet:Array) -> void:
 	if(Globals.turn == 1):
-		pass
+		print("Buttons: " + character)
+		setColors()
 	if(Globals.turn == 2):
 		setUpButtons(get_child(5))
 	$EndTurnContainer/EndTurn.disabled = false
@@ -74,5 +76,39 @@ func connectButtons():
 	get_child(4).hide()
 	
 	
+func setColors() -> void: 
+	match character:
+		"Peacock":
+			$VBoxContainer/UpContainer/UpButton.modulate = Color(0.5, 0.7, 1.0)
+			$LeftContainer/LeftButton.modulate  = Color(0.5, 0.7, 1.0)
+			$RightContainer/RightButton.modulate  = Color(0.5, 0.7, 1.0)
+			$VBoxContainer/DownContainer/DownButton.modulate  = Color(0.5, 0.7, 1.0)
+			$SecretContainer/SecretButton.modulate  = Color(0.5, 0.7, 1.0)
+		"Scarlett":
+			$VBoxContainer/UpContainer/UpButton.modulate = Color(0.858824, 0.439216, 0.576471, 1)
+			$LeftContainer/LeftButton.modulate  = Color(0.858824, 0.439216, 0.576471, 1)
+			$RightContainer/RightButton.modulate  = Color(0.858824, 0.439216, 0.576471, 1)
+			$VBoxContainer/DownContainer/DownButton.modulate  = Color(0.858824, 0.439216, 0.576471, 1)
+			$SecretContainer/SecretButton.modulate  = Color(0.858824, 0.439216, 0.576471, 1)
+		"Plumb":
+			$VBoxContainer/UpContainer/UpButton.modulate = Color(0.576471, 0.439216, 0.858824, 1)
+			$LeftContainer/LeftButton.modulate  = Color(0.576471, 0.439216, 0.858824, 1)
+			$RightContainer/RightButton.modulate  =Color(0.576471, 0.439216, 0.858824, 1)
+			$VBoxContainer/DownContainer/DownButton.modulate  = Color(0.576471, 0.439216, 0.858824, 1)
+			$SecretContainer/SecretButton.modulate  = Color(0.576471, 0.439216, 0.858824, 1)
+		"Mustard":
+			$VBoxContainer/UpContainer/UpButton.modulate = Color(1.0, 0.9, 0.5)
+			$LeftContainer/LeftButton.modulate  = Color(1.0, 0.9, 0.5)
+			$RightContainer/RightButton.modulate  = Color(1.0, 0.9, 0.5)
+			$VBoxContainer/DownContainer/DownButton.modulate  = Color(1.0, 0.9, 0.5)
+			$SecretContainer/SecretButton.modulate  = Color(1.0, 0.9, 0.5)
+		"Green":
+			$VBoxContainer/UpContainer/UpButton.modulate = Color(0.5, 1.0, 0.5)
+			$LeftContainer/LeftButton.modulate  = Color(0.5, 1.0, 0.5)
+			$RightContainer/RightButton.modulate  = Color(0.5, 1.0, 0.5)
+			$VBoxContainer/DownContainer/DownButton.modulate  = Color(0.5, 1.0, 0.5)
+			$SecretContainer/SecretButton.modulate  = Color(0.5, 1.0, 0.5)
 
+			
+	
 

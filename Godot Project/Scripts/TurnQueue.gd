@@ -6,6 +6,7 @@ class_name TurnQueue
 onready var cardDis = load("res://Scenes/CardDisplay.tscn")
 var active_player
 var active : bool = false
+var turnFlag = true
 
 signal nextTurn
 signal addCards
@@ -26,6 +27,7 @@ func initialize()-> void:
 # will also emit a singla to the UI lettting everyone know that round is over
 func play_turn() -> void:
 	active_player.set_inactive()
+	turnFlag = true
 	var new_player : int = (active_player.get_index() + 1) % get_child_count()
 	if((active_player.get_index() + 1) % Globals.numberOfPlayers == 0):
 		#Should say round instead of turn will fix later
@@ -33,7 +35,6 @@ func play_turn() -> void:
 	active_player = get_child(new_player)
 	emit_signal("updateCards",active_player.get_player_number())
 	emit_signal("updateMoves",active_player,buildLegalMoveSetButtons(active_player.get_moveset()))
-	print(active_player.get_character_string())
 	active_player.set_active()
 
 	
@@ -46,25 +47,35 @@ func play_turn() -> void:
 func _process(_delta) -> void: 
 	if(active):
 		if Input.is_action_just_pressed("Up"):
-			if(legal_move("Up")):
+			if(legal_move("Up") && turnFlag):
 				active_player.get_child(0).move_up()
+				turnFlag = false
+				emit_signal("disableMoveButtons",active_player.get_player_number())
 		if Input.is_action_just_pressed("Down"):
-			if(legal_move("Down")):
+			if(legal_move("Down")&& turnFlag):
 				active_player.get_child(0).move_down()
+				turnFlag = false
+				emit_signal("disableMoveButtons",active_player.get_player_number())
 		if Input.is_action_just_pressed("Left") :
-			if(legal_move("Left")):
+			if(legal_move("Left")&& turnFlag):
 				active_player.get_child(0).move_left()
+				turnFlag = false
+				emit_signal("disableMoveButtons",active_player.get_player_number())
 		if Input.is_action_just_pressed("Right") :
-			if(legal_move("Right")):
+			if(legal_move("Right")&& turnFlag):
 				active_player.get_child(0).move_right()
+				turnFlag = false
+				emit_signal("disableMoveButtons",active_player.get_player_number())
 		if Input.is_action_just_pressed("ui_accept"):
 			active_player.get_child(0).velocity = Vector3.ZERO
 			emit_signal("disableButtons",active_player.get_player_number())
+			turnFlag = true
 			play_turn()
-			
 		if Input.is_action_just_pressed("Secret Passage") :
-			if(legal_move("Secret Passage")):
+			if(legal_move("Secret Passage")&& turnFlag):
 				active_player.get_child(0).move_secret_passage()
+				turnFlag = false
+				emit_signal("disableMoveButtons",active_player.get_player_number())
 		 
 func activateKeyListener() -> void:
 	active = true
@@ -135,26 +146,31 @@ func buildLegalMoveSetButtons(moveSet : Array) -> Array:
 
 func _on_LeftButton_button_up():
 	emit_signal("disableMoveButtons",active_player.get_player_number())
+	turnFlag = false
 	active_player.get_child(0).move_left()
 
 
 func _on_UpButton_button_up():
 	emit_signal("disableMoveButtons",active_player.get_player_number())
+	turnFlag = false
 	active_player.get_child(0).move_up()
 
 
 func _on_DownButton_button_up():
 	emit_signal("disableMoveButtons",active_player.get_player_number())
+	turnFlag = false
 	active_player.get_child(0).move_down()
 
 
 func _on_RightButton_button_up():
 	emit_signal("disableMoveButtons",active_player.get_player_number())
+	turnFlag = false
 	active_player.get_child(0).move_right()
 
 
 func _on_SecretButton_button_up():
 	emit_signal("disableMoveButtons",active_player.get_player_number())
+	turnFlag = false
 	active_player.get_child(0).move_secret_passage()
 
 
