@@ -28,5 +28,14 @@ func add_items():
 	
 func connectButtons():
 	var _random_var
-	_random_var =dropdownCharacter.connect("button_up", get_node("/root/Boardgame3Tris/TurnQueue"), "_on_Suggest_button_up")
-	_random_var =dropdownCharacter.connect("button_up", get_node("/root/Boardgame3Tris/TurnQueue"), "_on_Accuse_button_up")
+	_random_var =$HBoxContainer/SuggestButton.connect("button_up", get_node("/root/Boardgame3Tris/TurnQueue"), "_on_Suggest_button_up")
+	_random_var =$HBoxContainer/AccuseButton.connect("button_up", get_node("/root/Boardgame3Tris/TurnQueue"), "_on_Accuse_button_up")
+
+func update_room(Player : Node) -> void:
+	var tile = Player.get_current_tile()
+	if(tile.is_Hall()):
+		$HBoxContainer/VBoxContainer/Label.text = "Unable Suggestion"
+		$HBoxContainer/SuggestButton.disabled = true
+	else:
+		$HBoxContainer/VBoxContainer/Label.text = tile.get_name()
+		$HBoxContainer/SuggestButton.disabled = false

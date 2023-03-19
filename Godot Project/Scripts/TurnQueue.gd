@@ -14,6 +14,7 @@ signal updateCards
 signal updateMoves
 signal disableButtons
 signal disableMoveButtons
+signal displayLocation
 
 
 func initialize()-> void:
@@ -35,6 +36,7 @@ func play_turn() -> void:
 	active_player = get_child(new_player)
 	emit_signal("updateCards",active_player.get_player_number())
 	emit_signal("updateMoves",active_player,buildLegalMoveSetButtons(active_player.get_moveset()))
+	emit_signal("displayLocation",active_player)
 	active_player.set_active()
 
 	
@@ -188,9 +190,9 @@ func _on_EnterButton_button_up():
 
 #Move the player that was suggested into the room and also the weapon then begin the suggestion check
 func _on_Suggest_button_up():
-	pass 
+	print("Suggestion Made!")
 	
 #Check and see if the selected items match the secret envolope
 func _on_Accuse_button_up():
-	pass
+	print("Accusation Made!")
 
