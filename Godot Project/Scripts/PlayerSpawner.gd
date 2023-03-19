@@ -7,6 +7,7 @@ var scene = load("res://Characters/Pawn.tscn")
 
 onready var turn = get_node("CanvasLayer/Turn Margin Container/Turn").hide() 
 onready var MoveBut = load("res://Scenes/MoveButtons.tscn")
+onready var Sugg = load("res://Scenes/Suggestion.tscn")
 signal turn_queue
 signal initialize_turn_queue
 signal randomize_weapons
@@ -124,7 +125,7 @@ func _on_PlumbButton_button_up():
 func _on_Button_button_up() -> void:
 	turn = get_node("CanvasLayer/Turn Margin Container/Turn")
 	if(playersReady == Globals.numberOfPlayers):
-		_build_move_sets()
+		_build_player_ui()
 		turn.text = "Turn " + str(Globals.turn)
 		vbox.get_parent().hide()
 		emit_signal("initialize_turn_queue")
@@ -152,16 +153,20 @@ func incrementTurn() -> void:
 	turn.show()
 	timer.start()
 
-#Gives Each player a move set Pannel
-func _build_move_sets():
+#Gives Each player a move set Pannel and a suggestion pannel
+func _build_player_ui():
 	var i = 0
 	for _x in range (0,Globals.numberOfPlayers):
 		var MoveButtons = MoveBut.instance()
+		var SugestionSet = Sugg.instance()
 		MoveButtons.playerID = i 
+		SugestionSet.playerID = i
 		MoveButtons.character = Globals.characters[i]
 		$CanvasLayer/MoveSet.add_child(MoveButtons)
+		$CanvasLayer/SuggestionSet.add_child(SugestionSet)
 		MoveButtons.buildMoves([])
 		MoveButtons.connectButtons()
+		SugestionSet.connectButtons()
 		i = i+1
 
 	

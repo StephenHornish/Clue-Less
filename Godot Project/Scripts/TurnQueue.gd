@@ -186,4 +186,11 @@ func _on_EnterButton_button_up():
 	emit_signal("disableButtons",active_player.get_player_number())
 	play_turn()
 
+#Move the player that was suggested into the room and also the weapon then begin the suggestion check
+func _on_Suggest_button_up():
+	pass 
+	
+#Check and see if the selected items match the secret envolope
+func _on_Accuse_button_up():
+	pass
 

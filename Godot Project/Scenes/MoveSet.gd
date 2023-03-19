@@ -3,7 +3,6 @@ extends MarginContainer
 
 
 func _on_TurnQueue_updateMoves(player,legalMoveSet):
-	print(player.get_player_number())
 	var moveButtons = get_child(player.get_player_number())
 	moveButtons.buildMoves(legalMoveSet)
 	
