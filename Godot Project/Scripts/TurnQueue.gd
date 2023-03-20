@@ -53,21 +53,25 @@ func _process(_delta) -> void:
 				active_player.get_child(0).move_up()
 				turnFlag = false
 				emit_signal("disableMoveButtons",active_player.get_player_number())
+				emit_signal("displayLocation",active_player)
 		if Input.is_action_just_pressed("Down"):
 			if(legal_move("Down")&& turnFlag):
 				active_player.get_child(0).move_down()
 				turnFlag = false
 				emit_signal("disableMoveButtons",active_player.get_player_number())
+				emit_signal("displayLocation",active_player)
 		if Input.is_action_just_pressed("Left") :
 			if(legal_move("Left")&& turnFlag):
 				active_player.get_child(0).move_left()
 				turnFlag = false
 				emit_signal("disableMoveButtons",active_player.get_player_number())
+				emit_signal("displayLocation",active_player)
 		if Input.is_action_just_pressed("Right") :
 			if(legal_move("Right")&& turnFlag):
 				active_player.get_child(0).move_right()
 				turnFlag = false
 				emit_signal("disableMoveButtons",active_player.get_player_number())
+				emit_signal("displayLocation",active_player)
 		if Input.is_action_just_pressed("ui_accept"):
 			active_player.get_child(0).velocity = Vector3.ZERO
 			emit_signal("disableButtons",active_player.get_player_number())
@@ -78,6 +82,7 @@ func _process(_delta) -> void:
 				active_player.get_child(0).move_secret_passage()
 				turnFlag = false
 				emit_signal("disableMoveButtons",active_player.get_player_number())
+				emit_signal("displayLocation",active_player)
 		 
 func activateKeyListener() -> void:
 	active = true
@@ -150,30 +155,36 @@ func _on_LeftButton_button_up():
 	emit_signal("disableMoveButtons",active_player.get_player_number())
 	turnFlag = false
 	active_player.get_child(0).move_left()
+	emit_signal("displayLocation",active_player)
 
 
 func _on_UpButton_button_up():
 	emit_signal("disableMoveButtons",active_player.get_player_number())
 	turnFlag = false
 	active_player.get_child(0).move_up()
+	emit_signal("displayLocation",active_player)
 
 
 func _on_DownButton_button_up():
 	emit_signal("disableMoveButtons",active_player.get_player_number())
 	turnFlag = false
 	active_player.get_child(0).move_down()
+	emit_signal("displayLocation",active_player)
 
 
 func _on_RightButton_button_up():
 	emit_signal("disableMoveButtons",active_player.get_player_number())
 	turnFlag = false
 	active_player.get_child(0).move_right()
+	emit_signal("displayLocation",active_player)
 
 
 func _on_SecretButton_button_up():
 	emit_signal("disableMoveButtons",active_player.get_player_number())
+	
 	turnFlag = false
 	active_player.get_child(0).move_secret_passage()
+	emit_signal("displayLocation",active_player)
 
 
 func _on_EndTurn_button_up():

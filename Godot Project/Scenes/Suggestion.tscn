@@ -1,14 +1,6 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://Main.gd" type="Script" id=1]
-
-[sub_resource type="StyleBoxFlat" id=1]
-bg_color = Color( 0.262745, 0.262745, 0.262745, 1 )
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_blend = true
+[ext_resource path="res://Scripts/Suggestion.gd" type="Script" id=1]
 
 [node name="Main" type="Control"]
 anchor_right = 1.0
@@ -16,8 +8,9 @@ anchor_bottom = 1.0
 margin_left = 197.0
 margin_top = 1.0
 margin_right = -251.0
-margin_bottom = -540.0
+margin_bottom = -516.0
 script = ExtResource( 1 )
+dropdown_path_room = NodePath("HBoxContainer/VBoxContainer/DropDownRoom")
 dropdown_path_weapon = NodePath("HBoxContainer/VBoxContainer/DropDownWeapon")
 dropdown_path_character = NodePath("HBoxContainer/VBoxContainer/DropDownCharacter")
 
@@ -26,35 +19,37 @@ margin_right = 548.0
 margin_bottom = 40.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
-margin_right = 44.0
-margin_bottom = 64.0
+margin_right = 29.0
+margin_bottom = 68.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
 
-[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer"]
-margin_right = 44.0
-margin_bottom = 16.0
-custom_styles/normal = SubResource( 1 )
-text = "ROOM"
+[node name="DropDownRoom" type="OptionButton" parent="HBoxContainer/VBoxContainer"]
+margin_right = 29.0
+margin_bottom = 20.0
 
 [node name="DropDownCharacter" type="OptionButton" parent="HBoxContainer/VBoxContainer"]
-margin_top = 20.0
-margin_right = 44.0
-margin_bottom = 40.0
+margin_top = 24.0
+margin_right = 29.0
+margin_bottom = 44.0
 size_flags_horizontal = 3
 
 [node name="DropDownWeapon" type="OptionButton" parent="HBoxContainer/VBoxContainer"]
-margin_top = 44.0
-margin_right = 44.0
-margin_bottom = 64.0
+margin_top = 48.0
+margin_right = 29.0
+margin_bottom = 68.0
 size_flags_horizontal = 3
 
-[node name="SuggestButton" type="Button" parent="HBoxContainer"]
-margin_left = 48.0
-margin_right = 109.0
-margin_bottom = 64.0
-text = "Suggest"
-
 [node name="AccuseButton" type="Button" parent="HBoxContainer"]
-margin_left = 113.0
-margin_right = 171.0
-margin_bottom = 64.0
+margin_left = 33.0
+margin_right = 91.0
+margin_bottom = 68.0
+size_flags_horizontal = 0
 text = "Accuse"
+
+[node name="SuggestButton" type="Button" parent="HBoxContainer"]
+margin_left = 95.0
+margin_right = 156.0
+margin_bottom = 68.0
+size_flags_horizontal = 0
+text = "Suggest"
