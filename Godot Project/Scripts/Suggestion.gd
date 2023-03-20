@@ -47,6 +47,7 @@ func connectButtons():
 	$HBoxContainer/AccuseButton.disabled = true
 
 func update_room(Player : Node) -> void:
+	$HBoxContainer.show()
 	var tile = Player.get_current_tile()
 	$HBoxContainer/AccuseButton.disabled = false
 	if(tile.is_Hall()):
