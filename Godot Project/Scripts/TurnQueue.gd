@@ -7,6 +7,8 @@ onready var cardDis = load("res://Scenes/CardDisplay.tscn")
 var active_player
 var active : bool = false
 var turnFlag = true
+var loserOffset = Vector3(0,0,0)
+var numberOfLosers
 
 signal nextTurn
 signal addCards
@@ -38,6 +40,8 @@ func play_turn() -> void:
 	emit_signal("updateMoves",active_player,buildLegalMoveSetButtons(active_player.get_moveset()))
 	emit_signal("displayLocation",active_player)
 	active_player.set_active()
+	if(active_player.get_tile().get_name() == "LosersBox"):
+		play_turn()
 
 	
 
@@ -200,10 +204,28 @@ func _on_EnterButton_button_up():
 	play_turn()
 
 #Move the player that was suggested into the room and also the weapon then begin the suggestion check
-func _on_Suggest_button_up():
-	print("Suggestion Made!")
+func _on_Suggest_button_up(suggestion):
+	print(Globals.playDeck.secretEnvelop)
+	print(suggestion)
 	
-#Check and see if the selected items match the secret envolope
-func _on_Accuse_button_up():
-	print("Accusation Made!")
 
+
+#Check and see if the selected items match the secret envolope
+#If correct winner
+#If incorrect remove players piece from teh board player now is only there to disprove suggestions
+func _on_Accuse_button_up(accusation):
+	if(Globals.playDeck.checkWinner(accusation)):
+		print("Winner!")
+		_endgame()
+	else:
+		print("LOSER!")
+		active_player.set_tile(Globals.board.get_room("LosersBox"))
+		active_player.get_child(0).set_global_translation(active_player.get_location() + loserOffset)
+		loserOffset = loserOffset + Vector3(0,0,4)
+		play_turn()
+		if(Globals.numberOfPlayers == numberOfLosers):
+			_endgame()
+		
+	
+func _endgame():
+	print("Game Over")

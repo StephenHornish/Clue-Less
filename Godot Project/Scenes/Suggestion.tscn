@@ -53,3 +53,9 @@ margin_right = 156.0
 margin_bottom = 68.0
 size_flags_horizontal = 0
 text = "Suggest"
+
+[connection signal="item_selected" from="HBoxContainer/VBoxContainer/DropDownRoom" to="." method="_on_DropDownRoom_item_selected"]
+[connection signal="item_selected" from="HBoxContainer/VBoxContainer/DropDownCharacter" to="." method="_on_DropDownCharacter_item_selected"]
+[connection signal="item_selected" from="HBoxContainer/VBoxContainer/DropDownWeapon" to="." method="_on_DropDownWeapon_item_selected"]
+[connection signal="button_up" from="HBoxContainer/AccuseButton" to="." method="_on_AccuseButton_button_up"]
+[connection signal="button_up" from="HBoxContainer/SuggestButton" to="." method="_on_SuggestButton_button_up"]

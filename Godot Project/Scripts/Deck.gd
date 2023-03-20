@@ -68,3 +68,7 @@ func _to_string()->String:
 	for x in deck:
 		printOut = printOut + ", " + str(x)
 	return printOut
+
+func checkWinner(accusation):
+	return (accusation.has(secretEnvelop[0].get_name()) && accusation.has(secretEnvelop[1].get_name()) && accusation.has(secretEnvelop[2].get_name()))
+		

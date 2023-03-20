@@ -33,6 +33,8 @@ func _init():
 	var tdmHall = tile.new("TDMHall", ["Up","Down"],true,   Vector3(-2.3,0,10.8))
 	var tdrHall = tile.new("TDRHall", ["Up","Down"],true,   Vector3( -26 ,0, 10.8))
 	
+	var losersBox = tile.new("LosersBox", [],true,    Vector3(36 ,0,11.5))
+	
 	#setting the adjacency for each tile
 	board.append(ballroom.set_adjacent([blHall,bumHall,brHall]))
 	board.append(conservatory.set_adjacent([bulHall,blHall,lounge]))
@@ -56,6 +58,7 @@ func _init():
 	board.append(tdlHall.set_adjacent([study,library]))
 	board.append(tdmHall.set_adjacent([hall,billardsroom]))
 	board.append(tdrHall.set_adjacent([lounge,dinningroom]))
+	board.append(losersBox)
 
 
 
