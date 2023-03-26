@@ -44,7 +44,7 @@ func play_turn() -> void:
 	if(active_player.get_tile().get_name() == "LosersBox"):
 		play_turn()
 
-	
+
 
 # Key listener that takes the input Delta is basically each tick fo the game engine
 # not required for what we are doing right now. Key Listener becomes active once all
@@ -210,14 +210,26 @@ func _on_Suggest_button_up(suggestion):
 	var room = suggestion[0]
 	var weapon = suggestion[1]
 	var player = suggestion[2]
+	var counterSuggestion = []
 	emit_signal("placeWeapon",weapon,room)
 	for i in range(self.get_child_count()):
 		var playerNode = self.get_child(i)
 		if(playerNode.get_character_string() == player):
 			playerNode.get_child(0).move_room_suggestion(Globals.board.get_room(room))
-	#print(suggestion)
-	
-
+	#Iterate through each player 
+	for i in range(self.get_child_count()):
+		var playerNode = self.get_child(i)
+		var hand = playerNode.get_hand()
+		var validCards = []
+		for card in hand:
+			if(card.get_name() == room || card.get_name() == weapon ||card.get_name() == player):
+				validCards.append(card)
+		if(validCards.size() == 1):
+			counterSuggestion.append(validCards[0])
+		#fgiure outcounter suggestion
+		if(validCards.size() > 1):
+			pass
+	print(counterSuggestion)
 
 #Check and see if the selected items match the secret envolope
 #If correct winner

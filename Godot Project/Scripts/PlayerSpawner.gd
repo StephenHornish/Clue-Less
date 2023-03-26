@@ -36,6 +36,7 @@ func _on_PeacockButton_button_up():
 	
 	Globals.characters.append("Peacock")
 	player.set_tile(Globals.board.get_room("BULHall"))
+	rpc("button_pressed")
 	player.playerNumber = number 
 	number += 1
 
