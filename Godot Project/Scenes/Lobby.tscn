@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Scenes/PlaySpace.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Lobby.gd" type="Script" id=2]
+
+[node name="Lobby" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+mainGameScene = ExtResource( 1 )
+
+[node name="Host" type="Button" parent="."]
+margin_left = 314.0
+margin_top = 241.0
+margin_right = 514.0
+margin_bottom = 291.0
+text = "Host"
+
+[node name="Join" type="Button" parent="."]
+margin_left = 571.0
+margin_top = 239.0
+margin_right = 771.0
+margin_bottom = 289.0
+rect_scale = Vector2( 0.98242, 1 )
+text = "Join"
+
+[connection signal="button_up" from="Host" to="." method="_on_Host_button_up"]
+[connection signal="button_up" from="Join" to="." method="_on_Join_button_up"]

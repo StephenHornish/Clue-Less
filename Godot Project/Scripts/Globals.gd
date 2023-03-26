@@ -13,6 +13,8 @@ var boardDb = preload("res://Scripts/BoardDB.gd")
 var DeckDb = load("res://Scripts/Deck.gd")
 var board
 var playDeck
+var player_ids = []
+var net_id
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	board = boardDb.new()
