@@ -221,10 +221,12 @@ func _on_Suggest_button_up(suggestion):
 		var playerNode = self.get_child(i)
 		var hand = playerNode.get_hand()
 		var validCards = []
+		emit_signal("updateCards",playerNode.get_player_number())
+		emit_signal("updateMoves",playerNode,buildLegalMoveSetButtons([]))
+		
 		#give each player the scene control disable their end turn button and moves 
 		#Put a time limit on the player to pick 
 		#emit signal from the cardDisplay back to the turnqueue with the valid suggestion cards
-
 
 #Check and see if the selected items match the secret envolope
 #If correct winner
