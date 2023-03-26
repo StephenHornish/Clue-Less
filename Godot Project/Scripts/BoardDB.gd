@@ -8,7 +8,7 @@ var tile = load("res://Scripts/Tile.gd")
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass
-	
+
 func _init():
 	var ballroom = tile.new("BallRoom",  ["Left","Up","Right"],false,Vector3( -2.3 ,0, -22.5))
 	var conservatory = tile.new("Conservatory", ["Up","Right", "Secret Passage"],false,Vector3( 22 ,0, -22.5))

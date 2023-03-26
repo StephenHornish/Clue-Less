@@ -17,6 +17,7 @@ signal updateMoves
 signal disableButtons
 signal disableMoveButtons
 signal displayLocation
+signal placeWeapon(weapon, room)
 
 
 func initialize()-> void:
@@ -206,7 +207,15 @@ func _on_EnterButton_button_up():
 #Move the player that was suggested into the room and also the weapon then begin the suggestion check
 func _on_Suggest_button_up(suggestion):
 	print(Globals.playDeck.secretEnvelop)
-	print(suggestion)
+	var room = suggestion[0]
+	var weapon = suggestion[1]
+	var player = suggestion[2]
+	emit_signal("placeWeapon",weapon,room)
+	for i in range(self.get_child_count()):
+		var playerNode = self.get_child(i)
+		if(playerNode.get_character_string() == player):
+			playerNode.get_child(0).move_room_suggestion(Globals.board.get_room(room))
+	#print(suggestion)
 	
 
 

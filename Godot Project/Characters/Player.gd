@@ -30,17 +30,17 @@ func get_character():
 func get_character_string():
 	match character:
 		Players.PEACOCK:
-			return "Mrs.Peacock"
+			return "Mrs Peacock"
 		Players.PLUMB:
-			return "Professor Plumb"
+			return "Prof Plumb"
 		Players.WHITE:
-			return "Mrs.White"
+			return "Mrs White"
 		Players.MUSTARD:
 			return "Col Mustard"
 		Players.GREEN:
-			return "Mr.Green"
+			return "Mr Green"
 		Players.SCARLETT:
-			return "Mrs.Scarlett"
+			return "Miss Scarlett"
 	
 func _set_color(color : Color):
 	var newMaterial = SpatialMaterial.new()

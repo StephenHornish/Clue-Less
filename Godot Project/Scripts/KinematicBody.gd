@@ -32,7 +32,17 @@ func _physics_process(_delta):
 		#velocity = Vector3.ZERO
 	pass
 	
-
+func move_room_suggestion(_tile):
+	print(_tile)
+	var pawn = get_parent()
+	var currtile = pawn.get_tile()
+	var nextTile = _tile
+	destination = nextTile.get_location()
+	self.set_global_translation(destination + pawn_offset(nextTile))
+	currtile.remove_occupant(pawn.get_ID())
+	nextTile.set_occupant(pawn.get_ID())
+	pawn.set_tile(nextTile)
+	Globals.currentTilesArray[pawn.playerNumber] = nextTile
 	
 func move_up():
 	move_pawn_direction("Up")

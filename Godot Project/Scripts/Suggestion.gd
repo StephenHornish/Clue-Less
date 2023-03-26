@@ -49,7 +49,6 @@ func connectButtons():
 	_random_var = connect("suggestionSignal", get_node("/root/Boardgame3Tris/TurnQueue"), "_on_Suggest_button_up")
 	_random_var = connect("accusationSignal", get_node("/root/Boardgame3Tris/TurnQueue"), "_on_Accuse_button_up")
 	$HBoxContainer/SuggestButton.disabled = true
-	$HBoxContainer/AccuseButton.disabled = true
 
 func update_room(Player : Node) -> void:
 	$HBoxContainer.show()
@@ -89,11 +88,13 @@ func _on_DropDownRoom_item_selected(index):
 
 
 func _on_DropDownCharacter_item_selected(index):
-	accusation[1]  = $HBoxContainer/VBoxContainer/DropDownCharacter.get_item_text(index)
+	accusation[2]  = $HBoxContainer/VBoxContainer/DropDownCharacter.get_item_text(index)
+	suggestion[2] = $HBoxContainer/VBoxContainer/DropDownCharacter.get_item_text(index)
 
 
 func _on_DropDownWeapon_item_selected(index):
-	accusation[2] = $HBoxContainer/VBoxContainer/DropDownWeapon.get_item_text(index)
+	accusation[1] = $HBoxContainer/VBoxContainer/DropDownWeapon.get_item_text(index)
+	suggestion[1] = $HBoxContainer/VBoxContainer/DropDownWeapon.get_item_text(index)
 
 
 func _on_AccuseButton_button_up():
@@ -101,4 +102,7 @@ func _on_AccuseButton_button_up():
 
 
 func _on_SuggestButton_button_up():
+	print(suggestion)
 	emit_signal("suggestionSignal",suggestion)
+	$HBoxContainer/SuggestButton.disabled = true
+	

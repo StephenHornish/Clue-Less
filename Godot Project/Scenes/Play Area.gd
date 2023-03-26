@@ -16,7 +16,7 @@ func _on_Character_Selection_randomize_weapons():
 	board.get_child(2).set_global_translation( weapons_location[2])
 	place_weapon(2,"Pistol")
 	board.get_child(3).set_global_translation( weapons_location[3])
-	place_weapon(3,"Candlestick")
+	place_weapon(3,"CandleStick")
 	board.get_child(4).set_global_translation( weapons_location[4])
 	place_weapon(4,"Wrench")
 	board.get_child(5).set_global_translation( weapons_location[5])
@@ -45,3 +45,48 @@ func place_weapon(i : int, _weapon : String):
 		temp_tile = Globals.board.get_room("Lounge")
 	
 	temp_tile.set_weapon(_weapon)
+
+
+func _on_TurnQueue_placeWeapon(_weapon, _room):
+	#Update the tile 
+	var temp_tile = Globals.board.get_room(_room)
+	temp_tile.set_weapon(_weapon)
+	#get a reference to the weapon node so it can be moved on the UI
+	var weaponNode = _get_weapon_child(_weapon)
+	var location 
+	if(_room == "Conservatory"):
+		location = Vector3(21.4,0.5,-28.8)
+	if(_room == "BallRoom"):
+		location = Vector3(-1.8,0.5,-28.8)
+	if(_room == "Kitchen"):
+		location = Vector3(-26,0.5,-28.8)
+	if(_room == "DinningRoom"):
+		location = Vector3(-26,0.5,-5.9)
+	if(_room == "BillardsRoom"):
+		location = Vector3(-2.1,0.5,-5.9)
+	if(_room == "Library"):
+		location = Vector3(21.4,0.5,-5.9)
+	if(_room == "Study"):
+		location = Vector3(22,0.5,16.7)
+	if(_room == "Hall"):
+		location = Vector3(-2.2,0.5,16.7)
+	if(_room == "Lounge"):
+		location = Vector3(-25,0.5,16.7)
+	weaponNode.set_global_translation(location)
+	
+	
+func _get_weapon_child(_weapon) -> Node:
+	var weaponRef
+	if(_weapon == "Knife"):
+		weaponRef = board.get_child(0)
+	if(_weapon == "Pipe"):
+		weaponRef = board.get_child(1)
+	if(_weapon == "Pistol"):
+		weaponRef = board.get_child(2)
+	if(_weapon == "CandleStick"):
+		weaponRef = board.get_child(3)
+	if(_weapon == "Wrench"):
+		weaponRef = board.get_child(4)
+	if(_weapon == "Rope"):
+		weaponRef = board.get_child(5)
+	return weaponRef
