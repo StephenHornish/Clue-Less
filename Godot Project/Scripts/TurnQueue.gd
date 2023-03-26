@@ -216,20 +216,15 @@ func _on_Suggest_button_up(suggestion):
 		var playerNode = self.get_child(i)
 		if(playerNode.get_character_string() == player):
 			playerNode.get_child(0).move_room_suggestion(Globals.board.get_room(room))
-	#Iterate through each player 
+	#Iterate through each player each player has to go because it would be unfair
 	for i in range(self.get_child_count()):
 		var playerNode = self.get_child(i)
 		var hand = playerNode.get_hand()
 		var validCards = []
-		for card in hand:
-			if(card.get_name() == room || card.get_name() == weapon ||card.get_name() == player):
-				validCards.append(card)
-		if(validCards.size() == 1):
-			counterSuggestion.append(validCards[0])
-		#fgiure outcounter suggestion
-		if(validCards.size() > 1):
-			pass
-	print(counterSuggestion)
+		#give each player the scene control disable their end turn button and moves 
+		#Put a time limit on the player to pick 
+		#emit signal from the cardDisplay back to the turnqueue with the valid suggestion cards
+
 
 #Check and see if the selected items match the secret envolope
 #If correct winner
