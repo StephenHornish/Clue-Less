@@ -17,12 +17,16 @@ func _on_TurnQueue_suggestionGather(_suggestion):
 	var suggestioncounter = 0 
 	suggestions = _suggestion
 	for child in get_children():
-		child.requestSuggestion()
-		while not child.suggestionMade && suggestions.has(child.cardclicked):
+		child.requestSuggestion(suggestions)
+		while not child.suggestionMade:
 			yield(get_tree().create_timer(0.1), "timeout")
-		counterSuggestion.append(child.cardclicked)
+		if(_valid_suggestion(child.cardclicked) == false):
+			child.requestSuggestion(suggestions)
+			counterSuggestion.append(child.cardclicked)
 		print(counterSuggestion)
 	
 
 
 	
+func _valid_suggestion(suggest):
+	return suggestions.has(suggest)

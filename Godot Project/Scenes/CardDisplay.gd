@@ -26,3 +26,4 @@ func _on_button_pressed(var name):
 
 func requestSuggestion():
 	print("makeSuggestion")
+	suggestionMade = false
