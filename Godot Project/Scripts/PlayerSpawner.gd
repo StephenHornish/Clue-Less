@@ -8,6 +8,7 @@ var scene = load("res://Characters/Pawn.tscn")
 onready var turn = get_node("CanvasLayer/Turn Margin Container/Turn").hide() 
 onready var MoveBut = load("res://Scenes/MoveButtons.tscn")
 onready var Sugg = load("res://Scenes/Suggestion.tscn")
+onready var gameSheet = load("res://Scenes/Clue_Game_Sheet.tscn")
 signal turn_queue
 signal initialize_turn_queue
 signal randomize_weapons
@@ -36,7 +37,6 @@ func _on_PeacockButton_button_up():
 	
 	Globals.characters.append("Peacock")
 	player.set_tile(Globals.board.get_room("BULHall"))
-	rpc("button_pressed")
 	player.playerNumber = number 
 	number += 1
 
@@ -160,11 +160,14 @@ func _build_player_ui():
 	for _x in range (0,Globals.numberOfPlayers):
 		var MoveButtons = MoveBut.instance()
 		var SugestionSet = Sugg.instance()
+		var GameSheet = gameSheet.instance()
 		MoveButtons.playerID = i 
 		SugestionSet.playerID = i
+		GameSheet.playerID = i
 		MoveButtons.character = Globals.characters[i]
 		$CanvasLayer/MoveSet.add_child(MoveButtons)
 		$CanvasLayer/SuggestionSet.add_child(SugestionSet)
+		$CanvasLayer/ClueSheet.add_child(GameSheet)
 		MoveButtons.buildMoves([])
 		MoveButtons.connectButtons()
 		SugestionSet.connectButtons()

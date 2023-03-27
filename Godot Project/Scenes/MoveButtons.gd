@@ -11,7 +11,6 @@ func buildMoves(moveSet:Array) -> void:
 	if(Globals.turn == 2):
 		setUpButtons(get_child(5))
 	$EndTurnContainer/EndTurn.disabled = false
-	print(moveSet)
 	for move in moveSet:
 		match move: 
 			"Up":

@@ -1,0 +1,291 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Images/Smalls-the-red-cross-on-blood-png-image_6185642 copy Small.jpeg" type="Texture" id=1]
+[ext_resource path="res://Images/Score Sheet.png" type="Texture" id=2]
+[ext_resource path="res://Images/HD_transparent_picture.png" type="Texture" id=3]
+[ext_resource path="res://Scenes/Clue_Game_Sheet.gd" type="Script" id=4]
+
+[node name="ClueGameSheet" type="Control"]
+anchor_left = 0.84
+anchor_right = 0.84
+margin_left = -135.0
+margin_top = -3.0
+margin_right = -49.0
+margin_bottom = 563.0
+rect_min_size = Vector2( 20, 20 )
+script = ExtResource( 4 )
+
+[node name="Control" type="Control" parent="."]
+margin_left = 88.0
+margin_top = 24.0
+margin_right = 282.0
+margin_bottom = 589.0
+
+[node name="TextureButton" type="TextureButton" parent="Control"]
+margin_left = 88.0
+margin_top = 40.0
+margin_right = 106.0
+margin_bottom = 57.0
+toggle_mode = true
+shortcut_in_tooltip = false
+texture_normal = ExtResource( 3 )
+texture_pressed = ExtResource( 1 )
+expand = true
+stretch_mode = 6
+
+[node name="TextureButton2" type="TextureButton" parent="Control"]
+margin_left = 90.0
+margin_top = 59.0
+margin_right = 106.0
+margin_bottom = 72.0
+toggle_mode = true
+shortcut_in_tooltip = false
+texture_normal = ExtResource( 3 )
+texture_pressed = ExtResource( 1 )
+expand = true
+stretch_mode = 6
+
+[node name="TextureButton3" type="TextureButton" parent="Control"]
+margin_left = 88.0
+margin_top = 74.0
+margin_right = 108.0
+margin_bottom = 89.0
+toggle_mode = true
+shortcut_in_tooltip = false
+texture_normal = ExtResource( 3 )
+texture_pressed = ExtResource( 1 )
+expand = true
+stretch_mode = 6
+
+[node name="TextureButton4" type="TextureButton" parent="Control"]
+margin_left = 86.0
+margin_top = 89.0
+margin_right = 106.0
+margin_bottom = 107.0
+toggle_mode = true
+shortcut_in_tooltip = false
+texture_normal = ExtResource( 3 )
+texture_pressed = ExtResource( 1 )
+expand = true
+stretch_mode = 6
+
+[node name="TextureButton5" type="TextureButton" parent="Control"]
+margin_left = 88.0
+margin_top = 105.0
+margin_right = 107.0
+margin_bottom = 122.0
+toggle_mode = true
+shortcut_in_tooltip = false
+texture_normal = ExtResource( 3 )
+texture_pressed = ExtResource( 1 )
+expand = true
+stretch_mode = 6
+
+[node name="TextureButton6" type="TextureButton" parent="Control"]
+margin_left = 87.0
+margin_top = 122.0
+margin_right = 105.0
+margin_bottom = 139.0
+toggle_mode = true
+shortcut_in_tooltip = false
+texture_normal = ExtResource( 3 )
+texture_pressed = ExtResource( 1 )
+expand = true
+stretch_mode = 6
+
+[node name="TextureButton7" type="TextureButton" parent="Control"]
+margin_left = 88.0
+margin_top = 163.0
+margin_right = 106.0
+margin_bottom = 177.0
+toggle_mode = true
+shortcut_in_tooltip = false
+texture_normal = ExtResource( 3 )
+texture_pressed = ExtResource( 1 )
+expand = true
+stretch_mode = 6
+
+[node name="TextureButton8" type="TextureButton" parent="Control"]
+margin_left = 89.0
+margin_top = 182.0
+margin_right = 106.0
+margin_bottom = 198.0
+toggle_mode = true
+shortcut_in_tooltip = false
+texture_normal = ExtResource( 3 )
+texture_pressed = ExtResource( 1 )
+expand = true
+stretch_mode = 6
+
+[node name="TextureButton9" type="TextureButton" parent="Control"]
+margin_left = 89.0
+margin_top = 196.0
+margin_right = 106.0
+margin_bottom = 213.0
+toggle_mode = true
+shortcut_in_tooltip = false
+texture_normal = ExtResource( 3 )
+texture_pressed = ExtResource( 1 )
+expand = true
+stretch_mode = 6
+
+[node name="TextureButton10" type="TextureButton" parent="Control"]
+margin_left = 87.0
+margin_top = 214.0
+margin_right = 107.0
+margin_bottom = 229.0
+toggle_mode = true
+shortcut_in_tooltip = false
+texture_normal = ExtResource( 3 )
+texture_pressed = ExtResource( 1 )
+expand = true
+stretch_mode = 6
+
+[node name="TextureButton11" type="TextureButton" parent="Control"]
+margin_left = 86.0
+margin_top = 230.0
+margin_right = 106.0
+margin_bottom = 247.0
+toggle_mode = true
+shortcut_in_tooltip = false
+texture_normal = ExtResource( 3 )
+texture_pressed = ExtResource( 1 )
+expand = true
+stretch_mode = 6
+
+[node name="TextureButton12" type="TextureButton" parent="Control"]
+margin_left = 86.0
+margin_top = 244.0
+margin_right = 107.0
+margin_bottom = 260.0
+toggle_mode = true
+shortcut_in_tooltip = false
+texture_normal = ExtResource( 3 )
+texture_pressed = ExtResource( 1 )
+expand = true
+stretch_mode = 6
+
+[node name="TextureButton13" type="TextureButton" parent="Control"]
+margin_left = 91.0
+margin_top = 329.0
+margin_right = 105.0
+margin_bottom = 343.0
+toggle_mode = true
+shortcut_in_tooltip = false
+texture_normal = ExtResource( 3 )
+texture_pressed = ExtResource( 1 )
+expand = true
+stretch_mode = 6
+
+[node name="TextureButton14" type="TextureButton" parent="Control"]
+margin_left = 87.0
+margin_top = 345.0
+margin_right = 108.0
+margin_bottom = 361.0
+toggle_mode = true
+shortcut_in_tooltip = false
+texture_normal = ExtResource( 3 )
+texture_pressed = ExtResource( 1 )
+expand = true
+stretch_mode = 6
+
+[node name="TextureButton15" type="TextureButton" parent="Control"]
+margin_left = 87.0
+margin_top = 360.0
+margin_right = 109.0
+margin_bottom = 377.0
+toggle_mode = true
+shortcut_in_tooltip = false
+texture_normal = ExtResource( 3 )
+texture_pressed = ExtResource( 1 )
+expand = true
+stretch_mode = 6
+
+[node name="TextureButton16" type="TextureButton" parent="Control"]
+margin_left = 89.0
+margin_top = 379.0
+margin_right = 107.0
+margin_bottom = 396.0
+toggle_mode = true
+shortcut_in_tooltip = false
+texture_normal = ExtResource( 3 )
+texture_pressed = ExtResource( 1 )
+expand = true
+stretch_mode = 6
+
+[node name="TextureButton17" type="TextureButton" parent="Control"]
+margin_left = 88.0
+margin_top = 399.0
+margin_right = 107.0
+margin_bottom = 414.0
+toggle_mode = true
+shortcut_in_tooltip = false
+texture_normal = ExtResource( 3 )
+texture_pressed = ExtResource( 1 )
+expand = true
+stretch_mode = 6
+
+[node name="TextureButton18" type="TextureButton" parent="Control"]
+margin_left = 85.0
+margin_top = 413.0
+margin_right = 104.0
+margin_bottom = 428.0
+toggle_mode = true
+shortcut_in_tooltip = false
+texture_normal = ExtResource( 3 )
+texture_pressed = ExtResource( 1 )
+expand = true
+stretch_mode = 6
+
+[node name="TextureButton19" type="TextureButton" parent="Control"]
+margin_left = 87.0
+margin_top = 428.0
+margin_right = 108.0
+margin_bottom = 443.0
+toggle_mode = true
+shortcut_in_tooltip = false
+texture_normal = ExtResource( 3 )
+texture_pressed = ExtResource( 1 )
+expand = true
+stretch_mode = 6
+
+[node name="TextureButton20" type="TextureButton" parent="Control"]
+margin_left = 87.0
+margin_top = 444.0
+margin_right = 107.0
+margin_bottom = 461.0
+toggle_mode = true
+shortcut_in_tooltip = false
+texture_normal = ExtResource( 3 )
+texture_pressed = ExtResource( 1 )
+expand = true
+stretch_mode = 6
+
+[node name="TextureButton21" type="TextureButton" parent="Control"]
+margin_left = 85.0
+margin_top = 461.0
+margin_right = 104.0
+margin_bottom = 478.0
+toggle_mode = true
+shortcut_in_tooltip = false
+texture_normal = ExtResource( 3 )
+texture_pressed = ExtResource( 1 )
+expand = true
+stretch_mode = 6
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
+light_mask = 2
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -193.32
+margin_top = -15.0
+margin_right = 17.6799
+margin_bottom = 566.0
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="Control/VBoxContainer"]
+light_mask = 2
+margin_right = 211.0
+margin_bottom = 581.0
+texture = ExtResource( 2 )
+stretch_mode = 1

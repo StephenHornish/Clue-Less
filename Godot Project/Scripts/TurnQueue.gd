@@ -18,6 +18,8 @@ signal disableButtons
 signal disableMoveButtons
 signal displayLocation
 signal placeWeapon(weapon, room)
+signal suggestionGather
+signal updateClueSheet
 
 
 func initialize()-> void:
@@ -26,10 +28,12 @@ func initialize()-> void:
 	activateKeyListener()
 	dealCards()
 	emit_signal("updateCards",active_player.get_player_number())
+	print("Secret Envelope Contains: " + str(Globals.playDeck.secretEnvelop))
 
 # Turnqueue that cycles through all the nodes each time a player makes their turn
 # will also emit a singla to the UI lettting everyone know that round is over
 func play_turn() -> void:
+	print("Player: " + str(active_player.get_player_number()) + "  " + "Character:  " + active_player.get_character_string() )
 	active_player.set_inactive()
 	turnFlag = true
 	var new_player : int = (active_player.get_index() + 1) % get_child_count()
@@ -40,7 +44,9 @@ func play_turn() -> void:
 	emit_signal("updateCards",active_player.get_player_number())
 	emit_signal("updateMoves",active_player,buildLegalMoveSetButtons(active_player.get_moveset()))
 	emit_signal("displayLocation",active_player)
+	emit_signal("updateClueSheet", active_player)
 	active_player.set_active()
+	print("Sharing active Player State with other clients")
 	if(active_player.get_tile().get_name() == "LosersBox"):
 		play_turn()
 
@@ -217,12 +223,9 @@ func _on_Suggest_button_up(suggestion):
 		if(playerNode.get_character_string() == player):
 			playerNode.get_child(0).move_room_suggestion(Globals.board.get_room(room))
 	#Iterate through each player each player has to go because it would be unfair
-	for i in range(self.get_child_count()):
-		var playerNode = self.get_child(i)
-		var hand = playerNode.get_hand()
-		var validCards = []
-		emit_signal("updateCards",playerNode.get_player_number())
-		emit_signal("updateMoves",playerNode,buildLegalMoveSetButtons([]))
+	print("Gathering Suggestions From other players")
+	#emit_signal("suggestionGather",suggestion)
+		
 		
 		#give each player the scene control disable their end turn button and moves 
 		#Put a time limit on the player to pick 
@@ -247,3 +250,7 @@ func _on_Accuse_button_up(accusation):
 	
 func _endgame():
 	print("Game Over")
+
+
+func _on_Timer_timeout():
+	print("Timeout")

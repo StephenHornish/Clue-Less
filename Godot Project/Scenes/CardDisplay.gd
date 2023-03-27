@@ -1,6 +1,8 @@
 extends MarginContainer
 
 var playerID
+var cardclicked
+var suggestionMade = false
 
 func buildPlayerView(hand: Array)->void:
 	
@@ -19,5 +21,8 @@ func buildPlayerView(hand: Array)->void:
 	#This function needs to see if the clicked card is a valid counter to a suggestion if so 
 func _on_button_pressed(var name):
 	# Perform the desired action here
-	print("Button clicked with texture:" + name)
-	print(playerID)
+	cardclicked = name
+	suggestionMade = true
+
+func requestSuggestion():
+	print("makeSuggestion")

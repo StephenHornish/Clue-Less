@@ -33,7 +33,6 @@ func _physics_process(_delta):
 	pass
 	
 func move_room_suggestion(_tile):
-	print(_tile)
 	var pawn = get_parent()
 	var currtile = pawn.get_tile()
 	var nextTile = _tile
