@@ -1,0 +1,40 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Scripts/Lobby.gd" type="Script" id=2]
+
+[node name="Lobby" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+
+[node name="Host" type="Button" parent="."]
+margin_left = 314.0
+margin_top = 241.0
+margin_right = 514.0
+margin_bottom = 291.0
+text = "Host"
+
+[node name="Join" type="Button" parent="."]
+margin_left = 571.0
+margin_top = 239.0
+margin_right = 771.0
+margin_bottom = 289.0
+rect_scale = Vector2( 0.98242, 1 )
+text = "Join"
+
+[node name="LineEdit" type="LineEdit" parent="."]
+margin_left = 340.0
+margin_top = 151.0
+margin_right = 740.0
+margin_bottom = 201.0
+
+[node name="Label" type="Label" parent="."]
+margin_left = 453.0
+margin_top = 123.0
+margin_right = 625.0
+margin_bottom = 148.0
+text = "ENTER MULTIPLAYER NAME"
+
+[connection signal="button_up" from="Host" to="." method="_on_Host_button_up"]
+[connection signal="button_up" from="Join" to="." method="_on_Join_button_up"]
+[connection signal="text_changed" from="LineEdit" to="." method="_on_LineEdit_text_changed"]

@@ -19,7 +19,7 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _physics_process(delta):
+func _physics_process(_delta):
 	
 	#Unit vector pointing at the target position from the characters position
 	#var direction = position.direction_to(destination)
@@ -32,7 +32,16 @@ func _physics_process(delta):
 		#velocity = Vector3.ZERO
 	pass
 	
-
+func move_room_suggestion(_tile):
+	var pawn = get_parent()
+	var currtile = pawn.get_tile()
+	var nextTile = _tile
+	destination = nextTile.get_location()
+	self.set_global_translation(destination + pawn_offset(nextTile))
+	currtile.remove_occupant(pawn.get_ID())
+	nextTile.set_occupant(pawn.get_ID())
+	pawn.set_tile(nextTile)
+	Globals.currentTilesArray[pawn.playerNumber] = nextTile
 	
 func move_up():
 	move_pawn_direction("Up")

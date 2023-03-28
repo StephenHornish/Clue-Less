@@ -14,11 +14,11 @@ var secretEnvelop = []
 var deck = []
 
 func _init():
-	deck.append(Card.new("Ms.Scarlett", CardType.CHARACTER))
-	deck.append(Card.new("Mrs.Peacock", CardType.CHARACTER))
-	deck.append(Card.new("Mrs.White", CardType.CHARACTER))
-	deck.append(Card.new("Mr.Plumb", CardType.CHARACTER))
-	deck.append(Card.new("Mr.Green", CardType.CHARACTER))
+	deck.append(Card.new("Miss Scarlett", CardType.CHARACTER))
+	deck.append(Card.new("Mrs Peacock", CardType.CHARACTER))
+	deck.append(Card.new("Mrs White", CardType.CHARACTER))
+	deck.append(Card.new("Prof Plumb", CardType.CHARACTER))
+	deck.append(Card.new("Mr Green", CardType.CHARACTER))
 	deck.append(Card.new("Col Mustard", CardType.CHARACTER))
 	deck.append(Card.new("Hall", CardType.ROOM))
 	deck.append(Card.new("Lounge", CardType.ROOM))
@@ -29,7 +29,7 @@ func _init():
 	deck.append(Card.new("Billiard Room", CardType.ROOM))
 	deck.append(Card.new("Library", CardType.ROOM))
 	deck.append(Card.new("Study", CardType.ROOM))
-	deck.append(Card.new("Candlestick", CardType.WEAPON))
+	deck.append(Card.new("CandleStick", CardType.WEAPON))
 	deck.append(Card.new("Pipe", CardType.WEAPON))
 	deck.append(Card.new("Pistol", CardType.WEAPON))
 	deck.append(Card.new("Wrench", CardType.WEAPON))
@@ -41,7 +41,7 @@ func _init():
 	#print(secretEnvelop)
 
 #picks the three game winning cards and removes them from the rest of the deck
-func _createSecretDeck()->Array:
+func _createSecretDeck()->void:
 	var a 
 	var b 
 	var c 
@@ -61,11 +61,14 @@ func _createSecretDeck()->Array:
 	secretEnvelop.append(a)
 	secretEnvelop.append(b)
 	secretEnvelop.append(c)
-	return secretEnvelop
-	
+
 
 func _to_string()->String:
 	var printOut = ""
 	for x in deck:
 		printOut = printOut + ", " + str(x)
 	return printOut
+
+func checkWinner(accusation):
+	return (accusation.has(secretEnvelop[0].get_name()) && accusation.has(secretEnvelop[1].get_name()) && accusation.has(secretEnvelop[2].get_name()))
+		

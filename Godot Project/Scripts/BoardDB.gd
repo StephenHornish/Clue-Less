@@ -8,7 +8,7 @@ var tile = load("res://Scripts/Tile.gd")
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass
-	
+
 func _init():
 	var ballroom = tile.new("BallRoom",  ["Left","Up","Right"],false,Vector3( -2.3 ,0, -22.5))
 	var conservatory = tile.new("Conservatory", ["Up","Right", "Secret Passage"],false,Vector3( 22 ,0, -22.5))
@@ -33,6 +33,8 @@ func _init():
 	var tdmHall = tile.new("TDMHall", ["Up","Down"],true,   Vector3(-2.3,0,10.8))
 	var tdrHall = tile.new("TDRHall", ["Up","Down"],true,   Vector3( -26 ,0, 10.8))
 	
+	var losersBox = tile.new("LosersBox", [],true,    Vector3(36 ,0,11.5))
+	
 	#setting the adjacency for each tile
 	board.append(ballroom.set_adjacent([blHall,bumHall,brHall]))
 	board.append(conservatory.set_adjacent([bulHall,blHall,lounge]))
@@ -56,6 +58,7 @@ func _init():
 	board.append(tdlHall.set_adjacent([study,library]))
 	board.append(tdmHall.set_adjacent([hall,billardsroom]))
 	board.append(tdrHall.set_adjacent([lounge,dinningroom]))
+	board.append(losersBox)
 
 
 
@@ -63,21 +66,21 @@ func _init():
 	
 	
 func get_room(room : String)->Tile:
-	for tile in board:
-		if(tile.get_name() == room):
-			return tile
+	for _tile in board:
+		if(_tile.get_name() == room):
+			return _tile
 	print("not found")
 	return null
 	
 
 func _to_string()->String:
 	var temp = ""
-	for tile in board:
-		temp = temp + tile.get_name()
-		if(tile.is_Hall()):
+	for til in board:
+		temp = temp + til.get_name()
+		if(til.is_Hall()):
 			return temp + ", "
 		else:
-			var weapon = tile.get_weapon()
+			var weapon = til.get_weapon()
 			if(weapon == ""):
 				weapon = "None"
 			temp = temp + ": Weapons -> " + weapon + ", "

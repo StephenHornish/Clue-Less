@@ -1,0 +1,63 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Scripts/Suggestion.gd" type="Script" id=1]
+
+[node name="Main" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 197.0
+margin_top = 1.0
+margin_right = -251.0
+margin_bottom = -516.0
+script = ExtResource( 1 )
+dropdown_path_room = NodePath("HBoxContainer/VBoxContainer/DropDownRoom")
+dropdown_path_weapon = NodePath("HBoxContainer/VBoxContainer/DropDownWeapon")
+dropdown_path_character = NodePath("HBoxContainer/VBoxContainer/DropDownCharacter")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+margin_right = 548.0
+margin_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+margin_right = 29.0
+margin_bottom = 68.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="DropDownRoom" type="OptionButton" parent="HBoxContainer/VBoxContainer"]
+margin_right = 29.0
+margin_bottom = 20.0
+
+[node name="DropDownCharacter" type="OptionButton" parent="HBoxContainer/VBoxContainer"]
+margin_top = 24.0
+margin_right = 29.0
+margin_bottom = 44.0
+size_flags_horizontal = 3
+
+[node name="DropDownWeapon" type="OptionButton" parent="HBoxContainer/VBoxContainer"]
+margin_top = 48.0
+margin_right = 29.0
+margin_bottom = 68.0
+size_flags_horizontal = 3
+
+[node name="AccuseButton" type="Button" parent="HBoxContainer"]
+margin_left = 33.0
+margin_right = 91.0
+margin_bottom = 68.0
+focus_mode = 0
+size_flags_horizontal = 0
+text = "Accuse"
+
+[node name="SuggestButton" type="Button" parent="HBoxContainer"]
+margin_left = 95.0
+margin_right = 156.0
+margin_bottom = 68.0
+focus_mode = 0
+size_flags_horizontal = 0
+text = "Suggest"
+
+[connection signal="item_selected" from="HBoxContainer/VBoxContainer/DropDownRoom" to="." method="_on_DropDownRoom_item_selected"]
+[connection signal="item_selected" from="HBoxContainer/VBoxContainer/DropDownCharacter" to="." method="_on_DropDownCharacter_item_selected"]
+[connection signal="item_selected" from="HBoxContainer/VBoxContainer/DropDownWeapon" to="." method="_on_DropDownWeapon_item_selected"]
+[connection signal="button_up" from="HBoxContainer/AccuseButton" to="." method="_on_AccuseButton_button_up"]
+[connection signal="button_up" from="HBoxContainer/SuggestButton" to="." method="_on_SuggestButton_button_up"]

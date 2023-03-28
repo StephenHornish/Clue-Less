@@ -30,17 +30,17 @@ func get_character():
 func get_character_string():
 	match character:
 		Players.PEACOCK:
-			return "Mrs.Peacock"
+			return "Mrs Peacock"
 		Players.PLUMB:
-			return "Professor Plumb"
+			return "Prof Plumb"
 		Players.WHITE:
-			return "Mrs.White"
+			return "Mrs White"
 		Players.MUSTARD:
 			return "Col Mustard"
 		Players.GREEN:
-			return "Mr.Green"
+			return "Mr Green"
 		Players.SCARLETT:
-			return "Mrs.Scarlett"
+			return "Miss Scarlett"
 	
 func _set_color(color : Color):
 	var newMaterial = SpatialMaterial.new()
@@ -79,7 +79,7 @@ func get_adjacent() -> Array:
 	return adjacent
 	
 func get_moveset() -> Array:
-	return adjacent
+	return moveset
 
 func get_hand()-> Array:
 	return hand
@@ -87,3 +87,5 @@ func get_hand()-> Array:
 func set_hand(_hand:Array) -> void:
 	hand = _hand
 	
+func get_player_number() -> int:
+	return playerNumber
