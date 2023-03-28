@@ -6,19 +6,17 @@
 [ext_resource path="res://Scenes/Clue_Game_Sheet.gd" type="Script" id=4]
 
 [node name="ClueGameSheet" type="Control"]
-anchor_left = 0.188
-anchor_right = 0.188
-margin_left = 616.0
-margin_top = 5.0
-margin_right = 849.0
-margin_bottom = 578.0
+margin_left = 2.59598
+margin_top = 5.336
+margin_right = 237.596
+margin_bottom = 577.752
 rect_min_size = Vector2( 20, 20 )
 script = ExtResource( 4 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 margin_left = 6.0
 margin_right = 231.0
-margin_bottom = 500.0
+margin_bottom = 581.0
 
 [node name="TextureRect" type="TextureRect" parent="VBoxContainer"]
 margin_right = 225.0
@@ -26,1019 +24,16 @@ margin_bottom = 581.0
 texture = ExtResource( 2 )
 stretch_mode = 1
 
-[node name="TextureButton" type="TextureButton" parent="."]
-margin_left = 118.224
-margin_top = 46.0
-margin_right = 133.224
-margin_bottom = 57.0
-toggle_mode = true
-shortcut_in_tooltip = false
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 1 )
-expand = true
-stretch_mode = 6
-
-[node name="TextureButton2" type="TextureButton" parent="."]
-margin_left = 120.224
-margin_top = 63.0
-margin_right = 134.224
-margin_bottom = 74.0
-toggle_mode = true
-shortcut_in_tooltip = false
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 1 )
-expand = true
-stretch_mode = 6
-
-[node name="TextureButton3" type="TextureButton" parent="."]
-margin_left = 719.0
-margin_top = 40.0
-margin_right = 733.0
-margin_bottom = 51.0
-toggle_mode = true
-shortcut_in_tooltip = false
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 1 )
-expand = true
-stretch_mode = 6
-
-[node name="TextureButton4" type="TextureButton" parent="."]
-margin_left = 735.0
-margin_top = 40.0
-margin_right = 749.0
-margin_bottom = 51.0
-toggle_mode = true
-shortcut_in_tooltip = false
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 1 )
-expand = true
-stretch_mode = 6
-
-[node name="TextureButton5" type="TextureButton" parent="."]
-margin_left = 751.0
-margin_top = 40.0
-margin_right = 763.0
-margin_bottom = 51.0
-toggle_mode = true
-shortcut_in_tooltip = false
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 1 )
-expand = true
-stretch_mode = 6
-
-[node name="TextureButton6" type="TextureButton" parent="."]
-margin_left = 688.0
-margin_top = 54.0
-margin_right = 703.0
-margin_bottom = 65.0
-toggle_mode = true
-shortcut_in_tooltip = false
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 1 )
-expand = true
-stretch_mode = 6
-
-[node name="TextureButton7" type="TextureButton" parent="."]
-margin_left = 704.0
-margin_top = 54.0
-margin_right = 718.0
-margin_bottom = 65.0
-toggle_mode = true
-shortcut_in_tooltip = false
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 1 )
-expand = true
-stretch_mode = 6
-
-[node name="TextureButton8" type="TextureButton" parent="."]
-margin_left = 719.0
-margin_top = 54.0
-margin_right = 733.0
-margin_bottom = 65.0
-toggle_mode = true
-shortcut_in_tooltip = false
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 1 )
-expand = true
-stretch_mode = 6
-
-[node name="TextureButton9" type="TextureButton" parent="."]
-margin_left = 735.0
-margin_top = 54.0
-margin_right = 749.0
-margin_bottom = 65.0
-toggle_mode = true
-shortcut_in_tooltip = false
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 1 )
-expand = true
-stretch_mode = 6
-
-[node name="TextureButton10" type="TextureButton" parent="."]
-margin_left = 751.0
-margin_top = 54.0
-margin_right = 763.0
-margin_bottom = 65.0
-toggle_mode = true
-shortcut_in_tooltip = false
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 1 )
-expand = true
-stretch_mode = 6
-
-[node name="TextureButton11" type="TextureButton" parent="."]
-margin_left = 688.0
-margin_top = 69.0
-margin_right = 703.0
-margin_bottom = 80.0
-toggle_mode = true
-shortcut_in_tooltip = false
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 1 )
-expand = true
-stretch_mode = 6
-
-[node name="TextureButton12" type="TextureButton" parent="."]
-margin_left = 704.0
-margin_top = 69.0
-margin_right = 718.0
-margin_bottom = 80.0
-toggle_mode = true
-shortcut_in_tooltip = false
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 1 )
-expand = true
-stretch_mode = 6
-
-[node name="TextureButton13" type="TextureButton" parent="."]
-margin_left = 719.0
-margin_top = 69.0
-margin_right = 733.0
-margin_bottom = 80.0
-toggle_mode = true
-shortcut_in_tooltip = false
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 1 )
-expand = true
-stretch_mode = 6
-
-[node name="TextureButton14" type="TextureButton" parent="."]
-margin_left = 735.0
-margin_top = 69.0
-margin_right = 749.0
-margin_bottom = 80.0
-toggle_mode = true
-shortcut_in_tooltip = false
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 1 )
-expand = true
-stretch_mode = 6
-
-[node name="TextureButton15" type="TextureButton" parent="."]
-margin_left = 751.0
-margin_top = 69.0
-margin_right = 763.0
-margin_bottom = 80.0
-toggle_mode = true
-shortcut_in_tooltip = false
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 1 )
-expand = true
-stretch_mode = 6
-
-[node name="TextureButton16" type="TextureButton" parent="."]
-margin_left = 688.0
-margin_top = 82.0
-margin_right = 703.0
-margin_bottom = 93.0
-toggle_mode = true
-shortcut_in_tooltip = false
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 1 )
-expand = true
-stretch_mode = 6
-
-[node name="TextureButton17" type="TextureButton" parent="."]
-margin_left = 704.0
-margin_top = 82.0
-margin_right = 718.0
-margin_bottom = 93.0
-toggle_mode = true
-shortcut_in_tooltip = false
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 1 )
-expand = true
-stretch_mode = 6
-
-[node name="TextureButton18" type="TextureButton" parent="."]
-margin_left = 719.0
-margin_top = 82.0
-margin_right = 733.0
-margin_bottom = 93.0
-toggle_mode = true
-shortcut_in_tooltip = false
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 1 )
-expand = true
-stretch_mode = 6
-
-[node name="TextureButton19" type="TextureButton" parent="."]
-margin_left = 735.0
-margin_top = 82.0
-margin_right = 749.0
-margin_bottom = 93.0
-toggle_mode = true
-shortcut_in_tooltip = false
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 1 )
-expand = true
-stretch_mode = 6
-
-[node name="TextureButton20" type="TextureButton" parent="."]
-margin_left = 751.0
-margin_top = 82.0
-margin_right = 763.0
-margin_bottom = 93.0
-toggle_mode = true
-shortcut_in_tooltip = false
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 1 )
-expand = true
-stretch_mode = 6
-
-[node name="TextureButton21" type="TextureButton" parent="."]
-margin_left = 688.0
-margin_top = 96.0
-margin_right = 703.0
-margin_bottom = 107.0
-toggle_mode = true
-shortcut_in_tooltip = false
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 1 )
-expand = true
-stretch_mode = 6
-
-[node name="TextureButton22" type="TextureButton" parent="."]
-margin_left = 704.0
-margin_top = 96.0
-margin_right = 718.0
-margin_bottom = 107.0
-toggle_mode = true
-shortcut_in_tooltip = false
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 1 )
-expand = true
-stretch_mode = 6
-
-[node name="TextureButton23" type="TextureButton" parent="."]
-margin_left = 719.0
-margin_top = 96.0
-margin_right = 733.0
-margin_bottom = 107.0
-toggle_mode = true
-shortcut_in_tooltip = false
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 1 )
-expand = true
-stretch_mode = 6
-
-[node name="TextureButton24" type="TextureButton" parent="."]
-margin_left = 735.0
-margin_top = 96.0
-margin_right = 749.0
-margin_bottom = 107.0
-toggle_mode = true
-shortcut_in_tooltip = false
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 1 )
-expand = true
-stretch_mode = 6
-
-[node name="TextureButton25" type="TextureButton" parent="."]
-margin_left = 751.0
-margin_top = 96.0
-margin_right = 763.0
-margin_bottom = 107.0
-toggle_mode = true
-shortcut_in_tooltip = false
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 1 )
-expand = true
-stretch_mode = 6
-
-[node name="TextureButton26" type="TextureButton" parent="."]
-margin_left = 688.0
-margin_top = 111.0
-margin_right = 703.0
-margin_bottom = 122.0
-toggle_mode = true
-shortcut_in_tooltip = false
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 1 )
-expand = true
-stretch_mode = 6
-
-[node name="TextureButton27" type="TextureButton" parent="."]
-margin_left = 704.0
-margin_top = 111.0
-margin_right = 718.0
-margin_bottom = 122.0
-toggle_mode = true
-shortcut_in_tooltip = false
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 1 )
-expand = true
-stretch_mode = 6
-
-[node name="TextureButton28" type="TextureButton" parent="."]
-margin_left = 719.0
-margin_top = 111.0
-margin_right = 733.0
-margin_bottom = 122.0
-toggle_mode = true
-shortcut_in_tooltip = false
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 1 )
-expand = true
-stretch_mode = 6
-
-[node name="TextureButton29" type="TextureButton" parent="."]
-margin_left = 735.0
-margin_top = 111.0
-margin_right = 749.0
-margin_bottom = 122.0
-toggle_mode = true
-shortcut_in_tooltip = false
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 1 )
-expand = true
-stretch_mode = 6
-
-[node name="TextureButton30" type="TextureButton" parent="."]
-margin_left = 751.0
-margin_top = 111.0
-margin_right = 763.0
-margin_bottom = 122.0
-toggle_mode = true
-shortcut_in_tooltip = false
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 1 )
-expand = true
-stretch_mode = 6
-
-[node name="TextureButton31" type="TextureButton" parent="."]
-margin_left = 688.0
-margin_top = 146.0
-margin_right = 703.0
-margin_bottom = 157.0
-toggle_mode = true
-shortcut_in_tooltip = false
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 1 )
-expand = true
-stretch_mode = 6
-
-[node name="TextureButton32" type="TextureButton" parent="."]
-margin_left = 704.0
-margin_top = 146.0
-margin_right = 718.0
-margin_bottom = 157.0
-toggle_mode = true
-shortcut_in_tooltip = false
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 1 )
-expand = true
-stretch_mode = 6
-
-[node name="TextureButton33" type="TextureButton" parent="."]
-margin_left = 719.0
-margin_top = 146.0
-margin_right = 733.0
-margin_bottom = 157.0
-toggle_mode = true
-shortcut_in_tooltip = false
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 1 )
-expand = true
-stretch_mode = 6
-
-[node name="TextureButton34" type="TextureButton" parent="."]
-margin_left = 735.0
-margin_top = 146.0
-margin_right = 749.0
-margin_bottom = 157.0
-toggle_mode = true
-shortcut_in_tooltip = false
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 1 )
-expand = true
-stretch_mode = 6
-
-[node name="TextureButton35" type="TextureButton" parent="."]
-margin_left = 751.0
-margin_top = 146.0
-margin_right = 763.0
-margin_bottom = 157.0
-toggle_mode = true
-shortcut_in_tooltip = false
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 1 )
-expand = true
-stretch_mode = 6
-
-[node name="TextureButton36" type="TextureButton" parent="."]
-margin_left = 688.0
-margin_top = 160.0
-margin_right = 703.0
-margin_bottom = 171.0
-toggle_mode = true
-shortcut_in_tooltip = false
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 1 )
-expand = true
-stretch_mode = 6
-
-[node name="TextureButton37" type="TextureButton" parent="."]
-margin_left = 704.0
-margin_top = 160.0
-margin_right = 718.0
-margin_bottom = 171.0
-toggle_mode = true
-shortcut_in_tooltip = false
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 1 )
-expand = true
-stretch_mode = 6
-
-[node name="TextureButton38" type="TextureButton" parent="."]
-margin_left = 719.0
-margin_top = 160.0
-margin_right = 733.0
-margin_bottom = 171.0
-toggle_mode = true
-shortcut_in_tooltip = false
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 1 )
-expand = true
-stretch_mode = 6
-
-[node name="TextureButton39" type="TextureButton" parent="."]
-margin_left = 735.0
-margin_top = 160.0
-margin_right = 749.0
-margin_bottom = 171.0
-toggle_mode = true
-shortcut_in_tooltip = false
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 1 )
-expand = true
-stretch_mode = 6
-
-[node name="TextureButton40" type="TextureButton" parent="."]
-margin_left = 751.0
-margin_top = 160.0
-margin_right = 763.0
-margin_bottom = 171.0
-toggle_mode = true
-shortcut_in_tooltip = false
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 1 )
-expand = true
-stretch_mode = 6
-
-[node name="TextureButton41" type="TextureButton" parent="."]
-margin_left = 688.0
-margin_top = 175.0
-margin_right = 703.0
-margin_bottom = 186.0
-toggle_mode = true
-shortcut_in_tooltip = false
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 1 )
-expand = true
-stretch_mode = 6
-
-[node name="TextureButton42" type="TextureButton" parent="."]
-margin_left = 704.0
-margin_top = 175.0
-margin_right = 718.0
-margin_bottom = 186.0
-toggle_mode = true
-shortcut_in_tooltip = false
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 1 )
-expand = true
-stretch_mode = 6
-
-[node name="TextureButton43" type="TextureButton" parent="."]
-margin_left = 719.0
-margin_top = 175.0
-margin_right = 733.0
-margin_bottom = 186.0
-toggle_mode = true
-shortcut_in_tooltip = false
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 1 )
-expand = true
-stretch_mode = 6
-
-[node name="TextureButton44" type="TextureButton" parent="."]
-margin_left = 735.0
-margin_top = 175.0
-margin_right = 749.0
-margin_bottom = 186.0
-toggle_mode = true
-shortcut_in_tooltip = false
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 1 )
-expand = true
-stretch_mode = 6
-
-[node name="TextureButton45" type="TextureButton" parent="."]
-margin_left = 751.0
-margin_top = 175.0
-margin_right = 763.0
-margin_bottom = 186.0
-toggle_mode = true
-shortcut_in_tooltip = false
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 1 )
-expand = true
-stretch_mode = 6
-
-[node name="TextureButton46" type="TextureButton" parent="."]
-margin_left = 688.0
-margin_top = 188.0
-margin_right = 703.0
-margin_bottom = 199.0
-toggle_mode = true
-shortcut_in_tooltip = false
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 1 )
-expand = true
-stretch_mode = 6
-
-[node name="TextureButton47" type="TextureButton" parent="."]
-margin_left = 704.0
-margin_top = 188.0
-margin_right = 718.0
-margin_bottom = 199.0
-toggle_mode = true
-shortcut_in_tooltip = false
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 1 )
-expand = true
-stretch_mode = 6
-
-[node name="TextureButton48" type="TextureButton" parent="."]
-margin_left = 719.0
-margin_top = 188.0
-margin_right = 733.0
-margin_bottom = 199.0
-toggle_mode = true
-shortcut_in_tooltip = false
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 1 )
-expand = true
-stretch_mode = 6
-
-[node name="TextureButton49" type="TextureButton" parent="."]
-margin_left = 735.0
-margin_top = 188.0
-margin_right = 749.0
-margin_bottom = 199.0
-toggle_mode = true
-shortcut_in_tooltip = false
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 1 )
-expand = true
-stretch_mode = 6
-
-[node name="TextureButton50" type="TextureButton" parent="."]
-margin_left = 751.0
-margin_top = 188.0
-margin_right = 763.0
-margin_bottom = 199.0
-toggle_mode = true
-shortcut_in_tooltip = false
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 1 )
-expand = true
-stretch_mode = 6
-
-[node name="TextureButton51" type="TextureButton" parent="."]
-margin_left = 722.0
-margin_top = 196.0
-margin_right = 737.0
-margin_bottom = 207.0
-toggle_mode = true
-shortcut_in_tooltip = false
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 1 )
-expand = true
-stretch_mode = 6
-
-[node name="TextureButton52" type="TextureButton" parent="."]
-margin_left = 704.0
-margin_top = 202.0
-margin_right = 718.0
-margin_bottom = 213.0
-toggle_mode = true
-shortcut_in_tooltip = false
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 1 )
-expand = true
-stretch_mode = 6
-
-[node name="TextureButton53" type="TextureButton" parent="."]
-margin_left = 719.0
-margin_top = 202.0
-margin_right = 733.0
-margin_bottom = 213.0
-toggle_mode = true
-shortcut_in_tooltip = false
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 1 )
-expand = true
-stretch_mode = 6
-
-[node name="TextureButton54" type="TextureButton" parent="."]
-margin_left = 735.0
-margin_top = 202.0
-margin_right = 749.0
-margin_bottom = 213.0
-toggle_mode = true
-shortcut_in_tooltip = false
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 1 )
-expand = true
-stretch_mode = 6
-
-[node name="TextureButton55" type="TextureButton" parent="."]
-margin_left = 751.0
-margin_top = 202.0
-margin_right = 763.0
-margin_bottom = 213.0
-toggle_mode = true
-shortcut_in_tooltip = false
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 1 )
-expand = true
-stretch_mode = 6
-
-[node name="TextureButton56" type="TextureButton" parent="."]
-margin_left = 688.0
-margin_top = 217.0
-margin_right = 703.0
-margin_bottom = 228.0
-toggle_mode = true
-shortcut_in_tooltip = false
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 1 )
-expand = true
-stretch_mode = 6
-
-[node name="TextureButton57" type="TextureButton" parent="."]
-margin_left = 704.0
-margin_top = 217.0
-margin_right = 718.0
-margin_bottom = 228.0
-toggle_mode = true
-shortcut_in_tooltip = false
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 1 )
-expand = true
-stretch_mode = 6
-
-[node name="TextureButton58" type="TextureButton" parent="."]
-margin_left = 719.0
-margin_top = 217.0
-margin_right = 733.0
-margin_bottom = 228.0
-toggle_mode = true
-shortcut_in_tooltip = false
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 1 )
-expand = true
-stretch_mode = 6
-
-[node name="TextureButton59" type="TextureButton" parent="."]
-margin_left = 735.0
-margin_top = 217.0
-margin_right = 749.0
-margin_bottom = 228.0
-toggle_mode = true
-shortcut_in_tooltip = false
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 1 )
-expand = true
-stretch_mode = 6
-
-[node name="TextureButton60" type="TextureButton" parent="."]
-margin_left = 751.0
-margin_top = 217.0
-margin_right = 763.0
-margin_bottom = 228.0
-toggle_mode = true
-shortcut_in_tooltip = false
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 1 )
-expand = true
-stretch_mode = 6
-
-[node name="TextureButton61" type="TextureButton" parent="."]
-margin_left = 688.0
-margin_top = 288.0
-margin_right = 703.0
-margin_bottom = 299.0
-toggle_mode = true
-shortcut_in_tooltip = false
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 1 )
-expand = true
-stretch_mode = 6
-
-[node name="TextureButton62" type="TextureButton" parent="."]
-margin_left = 704.0
-margin_top = 288.0
-margin_right = 718.0
-margin_bottom = 299.0
-toggle_mode = true
-shortcut_in_tooltip = false
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 1 )
-expand = true
-stretch_mode = 6
-
-[node name="TextureButton63" type="TextureButton" parent="."]
-margin_left = 719.0
-margin_top = 288.0
-margin_right = 733.0
-margin_bottom = 299.0
-toggle_mode = true
-shortcut_in_tooltip = false
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 1 )
-expand = true
-stretch_mode = 6
-
-[node name="TextureButton64" type="TextureButton" parent="."]
-margin_left = 735.0
-margin_top = 288.0
-margin_right = 749.0
-margin_bottom = 299.0
-toggle_mode = true
-shortcut_in_tooltip = false
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 1 )
-expand = true
-stretch_mode = 6
-
-[node name="TextureButton65" type="TextureButton" parent="."]
-margin_left = 751.0
-margin_top = 288.0
-margin_right = 763.0
-margin_bottom = 299.0
-toggle_mode = true
-shortcut_in_tooltip = false
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 1 )
-expand = true
-stretch_mode = 6
-
-[node name="TextureButton66" type="TextureButton" parent="."]
-margin_left = 688.0
-margin_top = 302.0
-margin_right = 703.0
-margin_bottom = 313.0
-toggle_mode = true
-shortcut_in_tooltip = false
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 1 )
-expand = true
-stretch_mode = 6
-
-[node name="TextureButton67" type="TextureButton" parent="."]
-margin_left = 704.0
-margin_top = 302.0
-margin_right = 718.0
-margin_bottom = 313.0
-toggle_mode = true
-shortcut_in_tooltip = false
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 1 )
-expand = true
-stretch_mode = 6
-
-[node name="TextureButton68" type="TextureButton" parent="."]
-margin_left = 719.0
-margin_top = 302.0
-margin_right = 733.0
-margin_bottom = 313.0
-toggle_mode = true
-shortcut_in_tooltip = false
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 1 )
-expand = true
-stretch_mode = 6
-
-[node name="TextureButton69" type="TextureButton" parent="."]
-margin_left = 735.0
-margin_top = 302.0
-margin_right = 749.0
-margin_bottom = 313.0
-toggle_mode = true
-shortcut_in_tooltip = false
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 1 )
-expand = true
-stretch_mode = 6
-
-[node name="TextureButton70" type="TextureButton" parent="."]
-margin_left = 751.0
-margin_top = 302.0
-margin_right = 763.0
-margin_bottom = 313.0
-toggle_mode = true
-shortcut_in_tooltip = false
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 1 )
-expand = true
-stretch_mode = 6
-
-[node name="TextureButton71" type="TextureButton" parent="."]
-margin_left = 688.0
-margin_top = 317.0
-margin_right = 703.0
-margin_bottom = 328.0
-toggle_mode = true
-shortcut_in_tooltip = false
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 1 )
-expand = true
-stretch_mode = 6
-
-[node name="TextureButton72" type="TextureButton" parent="."]
-margin_left = 704.0
-margin_top = 317.0
-margin_right = 718.0
-margin_bottom = 328.0
-toggle_mode = true
-shortcut_in_tooltip = false
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 1 )
-expand = true
-stretch_mode = 6
-
-[node name="TextureButton73" type="TextureButton" parent="."]
-margin_left = 719.0
-margin_top = 317.0
-margin_right = 733.0
-margin_bottom = 328.0
-toggle_mode = true
-shortcut_in_tooltip = false
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 1 )
-expand = true
-stretch_mode = 6
-
-[node name="TextureButton74" type="TextureButton" parent="."]
-margin_left = 735.0
-margin_top = 317.0
-margin_right = 749.0
-margin_bottom = 328.0
-toggle_mode = true
-shortcut_in_tooltip = false
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 1 )
-expand = true
-stretch_mode = 6
-
-[node name="TextureButton75" type="TextureButton" parent="."]
-margin_left = 751.0
-margin_top = 317.0
-margin_right = 763.0
-margin_bottom = 328.0
-toggle_mode = true
-shortcut_in_tooltip = false
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 1 )
-expand = true
-stretch_mode = 6
-
-[node name="TextureButton76" type="TextureButton" parent="."]
-margin_left = 688.0
-margin_top = 330.0
-margin_right = 703.0
-margin_bottom = 341.0
-toggle_mode = true
-shortcut_in_tooltip = false
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 1 )
-expand = true
-stretch_mode = 6
-
-[node name="TextureButton77" type="TextureButton" parent="."]
-margin_left = 704.0
-margin_top = 330.0
-margin_right = 718.0
-margin_bottom = 341.0
-toggle_mode = true
-shortcut_in_tooltip = false
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 1 )
-expand = true
-stretch_mode = 6
-
-[node name="TextureButton78" type="TextureButton" parent="."]
-margin_left = 719.0
-margin_top = 330.0
-margin_right = 733.0
-margin_bottom = 341.0
-toggle_mode = true
-shortcut_in_tooltip = false
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 1 )
-expand = true
-stretch_mode = 6
-
-[node name="TextureButton79" type="TextureButton" parent="."]
-margin_left = 735.0
-margin_top = 330.0
-margin_right = 749.0
-margin_bottom = 341.0
-toggle_mode = true
-shortcut_in_tooltip = false
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 1 )
-expand = true
-stretch_mode = 6
-
-[node name="TextureButton80" type="TextureButton" parent="."]
-margin_left = 751.0
-margin_top = 330.0
-margin_right = 763.0
-margin_bottom = 341.0
-toggle_mode = true
-shortcut_in_tooltip = false
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 1 )
-expand = true
-stretch_mode = 6
-
-[node name="TextureButton81" type="TextureButton" parent="."]
-margin_left = 688.0
-margin_top = 344.0
-margin_right = 703.0
-margin_bottom = 355.0
-toggle_mode = true
-shortcut_in_tooltip = false
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 1 )
-expand = true
-stretch_mode = 6
-
-[node name="TextureButton82" type="TextureButton" parent="."]
-margin_left = 704.0
-margin_top = 344.0
-margin_right = 718.0
-margin_bottom = 355.0
-toggle_mode = true
-shortcut_in_tooltip = false
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 1 )
-expand = true
-stretch_mode = 6
-
-[node name="TextureButton83" type="TextureButton" parent="."]
-margin_left = 719.0
-margin_top = 344.0
-margin_right = 733.0
-margin_bottom = 355.0
-toggle_mode = true
-shortcut_in_tooltip = false
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 1 )
-expand = true
-stretch_mode = 6
-
-[node name="TextureButton84" type="TextureButton" parent="."]
-margin_left = 735.0
-margin_top = 344.0
-margin_right = 749.0
-margin_bottom = 355.0
-toggle_mode = true
-shortcut_in_tooltip = false
-texture_normal = ExtResource( 3 )
-texture_pressed = ExtResource( 1 )
-expand = true
-stretch_mode = 6
+[node name="Control" type="Control" parent="."]
+margin_left = 115.0
+margin_top = 44.0
+margin_right = 134.0
+margin_bottom = 477.0
 
-[node name="TextureButton85" type="TextureButton" parent="."]
-margin_left = 751.0
-margin_top = 344.0
-margin_right = 763.0
-margin_bottom = 355.0
+[node name="TextureButton" type="TextureButton" parent="Control"]
+margin_top = 2.0
+margin_right = 19.0
+margin_bottom = 14.0
 toggle_mode = true
 shortcut_in_tooltip = false
 texture_normal = ExtResource( 3 )
@@ -1046,11 +41,12 @@ texture_pressed = ExtResource( 1 )
 expand = true
 stretch_mode = 6
 
-[node name="TextureButton86" type="TextureButton" parent="."]
-margin_left = 688.0
-margin_top = 359.0
-margin_right = 703.0
-margin_bottom = 370.0
+[node name="TextureButton2" type="TextureButton" parent="Control"]
+anchor_top = 0.038
+anchor_bottom = 0.038
+margin_top = 2.0
+margin_right = 19.0
+margin_bottom = 14.0
 toggle_mode = true
 shortcut_in_tooltip = false
 texture_normal = ExtResource( 3 )
@@ -1058,11 +54,12 @@ texture_pressed = ExtResource( 1 )
 expand = true
 stretch_mode = 6
 
-[node name="TextureButton87" type="TextureButton" parent="."]
-margin_left = 704.0
-margin_top = 359.0
-margin_right = 718.0
-margin_bottom = 370.0
+[node name="TextureButton3" type="TextureButton" parent="Control"]
+anchor_top = 0.076
+anchor_bottom = 0.076
+margin_top = 2.0
+margin_right = 19.0
+margin_bottom = 14.0
 toggle_mode = true
 shortcut_in_tooltip = false
 texture_normal = ExtResource( 3 )
@@ -1070,11 +67,12 @@ texture_pressed = ExtResource( 1 )
 expand = true
 stretch_mode = 6
 
-[node name="TextureButton88" type="TextureButton" parent="."]
-margin_left = 719.0
-margin_top = 359.0
-margin_right = 733.0
-margin_bottom = 370.0
+[node name="TextureButton4" type="TextureButton" parent="Control"]
+anchor_top = 0.115
+anchor_bottom = 0.115
+margin_top = 2.0
+margin_right = 19.0
+margin_bottom = 14.0
 toggle_mode = true
 shortcut_in_tooltip = false
 texture_normal = ExtResource( 3 )
@@ -1082,11 +80,12 @@ texture_pressed = ExtResource( 1 )
 expand = true
 stretch_mode = 6
 
-[node name="TextureButton89" type="TextureButton" parent="."]
-margin_left = 735.0
-margin_top = 359.0
-margin_right = 749.0
-margin_bottom = 370.0
+[node name="TextureButton5" type="TextureButton" parent="Control"]
+anchor_top = 0.152
+anchor_bottom = 0.152
+margin_top = 2.0
+margin_right = 19.0
+margin_bottom = 14.0
 toggle_mode = true
 shortcut_in_tooltip = false
 texture_normal = ExtResource( 3 )
@@ -1094,11 +93,12 @@ texture_pressed = ExtResource( 1 )
 expand = true
 stretch_mode = 6
 
-[node name="TextureButton90" type="TextureButton" parent="."]
-margin_left = 751.0
-margin_top = 359.0
-margin_right = 763.0
-margin_bottom = 370.0
+[node name="TextureButton6" type="TextureButton" parent="Control"]
+anchor_top = 0.19
+anchor_bottom = 0.19
+margin_top = 2.0
+margin_right = 19.0
+margin_bottom = 14.0
 toggle_mode = true
 shortcut_in_tooltip = false
 texture_normal = ExtResource( 3 )
@@ -1106,11 +106,12 @@ texture_pressed = ExtResource( 1 )
 expand = true
 stretch_mode = 6
 
-[node name="TextureButton91" type="TextureButton" parent="."]
-margin_left = 688.0
-margin_top = 371.0
-margin_right = 703.0
-margin_bottom = 382.0
+[node name="TextureButton7" type="TextureButton" parent="Control"]
+anchor_top = 0.288
+anchor_bottom = 0.288
+margin_top = 2.0
+margin_right = 19.0
+margin_bottom = 14.0
 toggle_mode = true
 shortcut_in_tooltip = false
 texture_normal = ExtResource( 3 )
@@ -1118,11 +119,12 @@ texture_pressed = ExtResource( 1 )
 expand = true
 stretch_mode = 6
 
-[node name="TextureButton92" type="TextureButton" parent="."]
-margin_left = 704.0
-margin_top = 371.0
-margin_right = 718.0
-margin_bottom = 382.0
+[node name="TextureButton8" type="TextureButton" parent="Control"]
+anchor_top = 0.325
+anchor_bottom = 0.325
+margin_top = 2.0
+margin_right = 19.0
+margin_bottom = 14.0
 toggle_mode = true
 shortcut_in_tooltip = false
 texture_normal = ExtResource( 3 )
@@ -1130,11 +132,12 @@ texture_pressed = ExtResource( 1 )
 expand = true
 stretch_mode = 6
 
-[node name="TextureButton93" type="TextureButton" parent="."]
-margin_left = 719.0
-margin_top = 371.0
-margin_right = 733.0
-margin_bottom = 382.0
+[node name="TextureButton9" type="TextureButton" parent="Control"]
+anchor_top = 0.36
+anchor_bottom = 0.36
+margin_top = 2.0
+margin_right = 19.0
+margin_bottom = 14.0
 toggle_mode = true
 shortcut_in_tooltip = false
 texture_normal = ExtResource( 3 )
@@ -1142,11 +145,12 @@ texture_pressed = ExtResource( 1 )
 expand = true
 stretch_mode = 6
 
-[node name="TextureButton94" type="TextureButton" parent="."]
-margin_left = 735.0
-margin_top = 371.0
-margin_right = 749.0
-margin_bottom = 382.0
+[node name="TextureButton10" type="TextureButton" parent="Control"]
+anchor_top = 0.398
+anchor_bottom = 0.398
+margin_top = 2.0
+margin_right = 19.0
+margin_bottom = 14.0
 toggle_mode = true
 shortcut_in_tooltip = false
 texture_normal = ExtResource( 3 )
@@ -1154,11 +158,12 @@ texture_pressed = ExtResource( 1 )
 expand = true
 stretch_mode = 6
 
-[node name="TextureButton95" type="TextureButton" parent="."]
-margin_left = 751.0
-margin_top = 371.0
-margin_right = 763.0
-margin_bottom = 382.0
+[node name="TextureButton11" type="TextureButton" parent="Control"]
+anchor_top = 0.435
+anchor_bottom = 0.435
+margin_top = 2.0
+margin_right = 19.0
+margin_bottom = 14.0
 toggle_mode = true
 shortcut_in_tooltip = false
 texture_normal = ExtResource( 3 )
@@ -1166,11 +171,12 @@ texture_pressed = ExtResource( 1 )
 expand = true
 stretch_mode = 6
 
-[node name="TextureButton96" type="TextureButton" parent="."]
-margin_left = 688.0
-margin_top = 385.0
-margin_right = 703.0
-margin_bottom = 396.0
+[node name="TextureButton12" type="TextureButton" parent="Control"]
+anchor_top = 0.475
+anchor_bottom = 0.475
+margin_top = 2.0
+margin_right = 19.0
+margin_bottom = 14.0
 toggle_mode = true
 shortcut_in_tooltip = false
 texture_normal = ExtResource( 3 )
@@ -1178,11 +184,12 @@ texture_pressed = ExtResource( 1 )
 expand = true
 stretch_mode = 6
 
-[node name="TextureButton97" type="TextureButton" parent="."]
-margin_left = 704.0
-margin_top = 385.0
-margin_right = 718.0
-margin_bottom = 396.0
+[node name="TextureButton13" type="TextureButton" parent="Control"]
+anchor_top = 0.662
+anchor_bottom = 0.662
+margin_top = 2.0
+margin_right = 19.0
+margin_bottom = 14.0
 toggle_mode = true
 shortcut_in_tooltip = false
 texture_normal = ExtResource( 3 )
@@ -1190,11 +197,12 @@ texture_pressed = ExtResource( 1 )
 expand = true
 stretch_mode = 6
 
-[node name="TextureButton98" type="TextureButton" parent="."]
-margin_left = 719.0
-margin_top = 385.0
-margin_right = 733.0
-margin_bottom = 396.0
+[node name="TextureButton14" type="TextureButton" parent="Control"]
+anchor_top = 0.702
+anchor_bottom = 0.702
+margin_top = 2.0
+margin_right = 19.0
+margin_bottom = 14.0
 toggle_mode = true
 shortcut_in_tooltip = false
 texture_normal = ExtResource( 3 )
@@ -1202,11 +210,12 @@ texture_pressed = ExtResource( 1 )
 expand = true
 stretch_mode = 6
 
-[node name="TextureButton99" type="TextureButton" parent="."]
-margin_left = 735.0
-margin_top = 385.0
-margin_right = 749.0
-margin_bottom = 396.0
+[node name="TextureButton15" type="TextureButton" parent="Control"]
+anchor_top = 0.745
+anchor_bottom = 0.745
+margin_top = 2.0
+margin_right = 19.0
+margin_bottom = 14.0
 toggle_mode = true
 shortcut_in_tooltip = false
 texture_normal = ExtResource( 3 )
@@ -1214,11 +223,12 @@ texture_pressed = ExtResource( 1 )
 expand = true
 stretch_mode = 6
 
-[node name="TextureButton100" type="TextureButton" parent="."]
-margin_left = 751.0
-margin_top = 385.0
-margin_right = 763.0
-margin_bottom = 396.0
+[node name="TextureButton16" type="TextureButton" parent="Control"]
+anchor_top = 0.78
+anchor_bottom = 0.78
+margin_top = 2.0
+margin_right = 19.0
+margin_bottom = 14.0
 toggle_mode = true
 shortcut_in_tooltip = false
 texture_normal = ExtResource( 3 )
@@ -1226,11 +236,12 @@ texture_pressed = ExtResource( 1 )
 expand = true
 stretch_mode = 6
 
-[node name="TextureButton101" type="TextureButton" parent="."]
-margin_left = 688.0
-margin_top = 400.0
-margin_right = 703.0
-margin_bottom = 411.0
+[node name="TextureButton17" type="TextureButton" parent="Control"]
+anchor_top = 0.82
+anchor_bottom = 0.82
+margin_top = 2.0
+margin_right = 19.0
+margin_bottom = 14.0
 toggle_mode = true
 shortcut_in_tooltip = false
 texture_normal = ExtResource( 3 )
@@ -1238,11 +249,12 @@ texture_pressed = ExtResource( 1 )
 expand = true
 stretch_mode = 6
 
-[node name="TextureButton102" type="TextureButton" parent="."]
-margin_left = 704.0
-margin_top = 400.0
-margin_right = 718.0
-margin_bottom = 411.0
+[node name="TextureButton18" type="TextureButton" parent="Control"]
+anchor_top = 0.855
+anchor_bottom = 0.855
+margin_top = 2.0
+margin_right = 19.0
+margin_bottom = 14.0
 toggle_mode = true
 shortcut_in_tooltip = false
 texture_normal = ExtResource( 3 )
@@ -1250,11 +262,12 @@ texture_pressed = ExtResource( 1 )
 expand = true
 stretch_mode = 6
 
-[node name="TextureButton103" type="TextureButton" parent="."]
-margin_left = 719.0
-margin_top = 400.0
-margin_right = 733.0
-margin_bottom = 411.0
+[node name="TextureButton19" type="TextureButton" parent="Control"]
+anchor_top = 0.89
+anchor_bottom = 0.89
+margin_top = 2.0
+margin_right = 19.0
+margin_bottom = 14.0
 toggle_mode = true
 shortcut_in_tooltip = false
 texture_normal = ExtResource( 3 )
@@ -1262,11 +275,12 @@ texture_pressed = ExtResource( 1 )
 expand = true
 stretch_mode = 6
 
-[node name="TextureButton104" type="TextureButton" parent="."]
-margin_left = 735.0
-margin_top = 400.0
-margin_right = 749.0
-margin_bottom = 411.0
+[node name="TextureButton20" type="TextureButton" parent="Control"]
+anchor_top = 0.925
+anchor_bottom = 0.925
+margin_top = 2.0
+margin_right = 19.0
+margin_bottom = 14.0
 toggle_mode = true
 shortcut_in_tooltip = false
 texture_normal = ExtResource( 3 )
@@ -1274,11 +288,12 @@ texture_pressed = ExtResource( 1 )
 expand = true
 stretch_mode = 6
 
-[node name="TextureButton105" type="TextureButton" parent="."]
-margin_left = 751.0
-margin_top = 400.0
-margin_right = 763.0
-margin_bottom = 411.0
+[node name="TextureButton21" type="TextureButton" parent="Control"]
+anchor_top = 0.96
+anchor_bottom = 0.96
+margin_top = 2.0
+margin_right = 19.0
+margin_bottom = 14.0
 toggle_mode = true
 shortcut_in_tooltip = false
 texture_normal = ExtResource( 3 )
