@@ -1,7 +1,7 @@
 extends Control
 
 export var mainGameScene : PackedScene
-const DEFAULT_IP = "10.0.0.206"
+const DEFAULT_IP = "127.0.0.1"
 const DEFAULT_PORT = 4242
 const MAX_PLAYERS = 6
 
@@ -9,7 +9,7 @@ var players= {}
 var self_data = {name = ''}
 
 func _ready():
-	get_tree().connect("network_peer_disconnected", self, "_player_disconnected")
+	get_tree().connect("network_peer_connected", self, "_player_connected")
 
 func create_server(player_name):
 	self_data.name = player_name
@@ -17,6 +17,7 @@ func create_server(player_name):
 	var net = NetworkedMultiplayerENet.new()
 	net.create_server(DEFAULT_PORT,MAX_PLAYERS)
 	get_tree().set_network_peer(net)
+	print("Hosting")
 
 
 func connect_to_server(player_name):
@@ -29,7 +30,6 @@ func connect_to_server(player_name):
 	print("connected to Server")
 
 func _connected_to_server():
-	print("Called")
 	players[get_tree().get_network_unique_id()] = self_data
 	rpc('_send_player_info', get_tree().get_network_unique_id(), self_data)
 	

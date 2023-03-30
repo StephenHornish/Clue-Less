@@ -37,6 +37,7 @@ func _on_PeacockButton_button_up():
 	
 	Globals.characters.append("Peacock")
 	player.set_tile(Globals.board.get_room("BULHall"))
+	rpc("update_button_state", buttonNode)
 	player.playerNumber = number 
 	number += 1
 
@@ -141,7 +142,28 @@ func _on_Button_button_up() -> void:
 		turn.text = "Awaiting More players"
 		print("Waiting for everyone")
 
+func update_button_visual_appearance():
+	print(":HI")
 
+func _on_network_message(id, message):
+	print(id)
+	print(message)
+	if message.get_name() == "update_button_state":
+		#button_pressed = message.get_argument(0)
+		#update_button_visual_appearance()
+		pass
+		
+#Called on everyone elese machines 
+remote func update_button_state(button_node):
+	for button in get_tree().get_nodes_in_group("PlayerSelectionButtons"):
+		print(button.player.playerNumber)
+		print(button_node.player.playerNumber)
+		if button.player.playerNumber == button_node.player.playerNumber:
+			print(button_node.player.playerNumber)
+			button.clicked(playersReady & (1 << button.player.playerNumber) != 0)
+			print(playersReady)
+
+	
 func _on_Timer_timeout() -> void:
 	turn = get_node("CanvasLayer/Turn Margin Container/Turn")
 	turn.hide()
