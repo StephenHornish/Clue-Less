@@ -13,8 +13,8 @@ signal turn_queue
 signal initialize_turn_queue
 signal randomize_weapons
 
-onready var timer = get_node("CanvasLayer/Turn Margin Container/Turn/Timer")
-onready var vbox = get_node("CanvasLayer/CharacterContainer/VBoxContainer/VBoxContainer")
+export(NodePath) onready var timer = get_node(timer) as Timer
+export(NodePath) onready var characterSelection = get_node(characterSelection) as Control
 var playersReady = 0
 onready var number = 0 
 
@@ -27,7 +27,7 @@ func _on_PeacockButton_button_up():
 	#Replace bob with what ever the multiplayer ID becomes later on
 	var player = scene.instance()
 	player.build("Bob", player.Players.PEACOCK,Color( 0, 0.501961, 0.501961, 1 ))
-	var buttonNode = vbox.get_node("MarginContainer1/PeacockButton")
+	var buttonNode = characterSelection.get_node("MarginContainer1/PeacockButton")
 
 	emit_signal("turn_queue",player)
 
@@ -48,7 +48,7 @@ func _on_ScarlettButton_button_up():
 	
 	var player = scene.instance()
 	player.build("Bob", player.Players.SCARLETT,Color( 0.9, 0, 0, 1 ))
-	var buttonNode = vbox.get_node("MarginContainer2/ScarlettButton")
+	var buttonNode = characterSelection.get_node("MarginContainer2/ScarlettButton")
 	emit_signal("turn_queue",player)
 	player.set_global_translation(Vector3(-14.5 ,0,26))
 	playersReady = playersReady + buttonNode.clicked()
@@ -64,7 +64,7 @@ func _on_WhiteButton_button_up():
 	
 	var player = scene.instance()
 	player.build("Bob", player.Players.WHITE,Color( 0.980392, 0.921569, 0.843137, 1 ))
-	var buttonNode = vbox.get_node("MarginContainer3/WhiteButton")
+	var buttonNode = characterSelection.get_node("MarginContainer3/WhiteButton")
 	emit_signal("turn_queue",player)
 	player.set_global_translation(Vector3(-14.5 ,0, -26))
 	playersReady = playersReady + buttonNode.clicked()
@@ -80,7 +80,7 @@ func _on_GreenButton_button_up():
 	
 	var player = scene.instance()
 	player.build("Bob", player.Players.GREEN,Color( 0.133333, 0.545098, 0.133333, 1 ))
-	var buttonNode = vbox.get_node("MarginContainer4/GreenButton")
+	var buttonNode = characterSelection.get_node("MarginContainer4/GreenButton")
 	emit_signal("turn_queue",player)
 	player.set_global_translation(Vector3(9 ,0, -26))
 	playersReady = playersReady + buttonNode.clicked()
@@ -96,7 +96,7 @@ func _on_MustardButton_button_up():
 	
 	var player = scene.instance()
 	player.build("Bob", player.Players.MUSTARD,Color( 0.8, 0.9, 0, 1 ) )
-	var buttonNode = vbox.get_node("MarginContainer5/MustardButton")
+	var buttonNode = characterSelection.get_node("MarginContainer5/MustardButton")
 	emit_signal("turn_queue",player)
 	player.set_global_translation(Vector3(-30 ,0, 11.5))
 	playersReady = playersReady + buttonNode.clicked()
@@ -112,7 +112,7 @@ func _on_PlumbButton_button_up():
 
 	var player = scene.instance()
 	player.build("Bob", player.Players.PLUMB,Color( 0.576471, 0.439216, 0.858824, 1 ) )
-	var buttonNode = vbox.get_node("MarginContainer6/PlumbButton")
+	var buttonNode = characterSelection.get_node("MarginContainer6/PlumbButton")
 	emit_signal("turn_queue",player)
 	player.set_global_translation(Vector3(25 ,0,11.5))
 	playersReady = playersReady + buttonNode.clicked()
@@ -129,7 +129,7 @@ func _on_Button_button_up() -> void:
 	if(playersReady == Globals.numberOfPlayers):
 		_build_player_ui()
 		turn.text = "Turn " + str(Globals.turn)
-		vbox.get_parent().hide()
+		characterSelection.get_parent().hide()
 		emit_signal("initialize_turn_queue")
 		emit_signal("randomize_weapons")
 		$"CanvasLayer/MarginContainer".hide()
@@ -163,18 +163,17 @@ remote func update_button_state(button_node):
 			button.clicked(playersReady & (1 << button.player.playerNumber) != 0)
 			print(playersReady)
 
-	
+
 func _on_Timer_timeout() -> void:
-	turn = get_node("CanvasLayer/Turn Margin Container/Turn")
 	turn.hide()
 	timer.stop()
 	
 func incrementTurn() -> void:
-	turn = get_node("CanvasLayer/Turn Margin Container/Turn")
 	Globals.turn += 1
 	turn.text = "Turn " + str(Globals.turn)
 	turn.show()
 	timer.start()
+
 
 #Gives Each player a move set Pannel and a suggestion pannel
 func _build_player_ui():
@@ -197,7 +196,7 @@ func _build_player_ui():
 
 	
 
-
+#Might be redundant 
 func _on_TurnQueue_addCards(cardScene):
 	$CanvasLayer/CardDisplay.add_child(cardScene)
 

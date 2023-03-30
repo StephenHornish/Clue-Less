@@ -6,7 +6,7 @@ onready var board = get_child(0)
 func _ready():
 	randomize() 
 	weapons_location.shuffle()
-
+#Weapons are purely a UI element they have no actual game play affect nothing in this class needs to be networked
 func _on_Character_Selection_randomize_weapons():
 	
 	board.get_child(0).set_global_translation( weapons_location[0])

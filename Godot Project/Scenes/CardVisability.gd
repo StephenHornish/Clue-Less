@@ -14,7 +14,7 @@ func _on_TurnQueue_updateCards(current_playerID):
 
 
 func _on_TurnQueue_suggestionGather(_suggestion):
-	var suggestioncounter = 0 
+	#var suggestioncounter = 0 
 	suggestions = _suggestion
 	for child in get_children():
 		child.requestSuggestion(suggestions)

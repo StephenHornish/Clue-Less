@@ -22,4 +22,6 @@ func _on_Join_button_up():
 	_load_game()
 
 func _load_game():
-	get_tree().change_scene("res://Scenes/PlaySpace.tscn")
+	# Ignore unused return value from change_scene()
+	if get_tree().change_scene("res://Scenes/PlaySpace.tscn") != OK:
+		  print ("An unexpected error occured when trying to switch to the PlaySpace Scene")

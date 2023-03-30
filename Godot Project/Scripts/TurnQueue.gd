@@ -18,7 +18,6 @@ signal disableButtons
 signal disableMoveButtons
 signal displayLocation
 signal placeWeapon(weapon, room)
-signal suggestionGather
 signal updateClueSheet
 
 
@@ -216,7 +215,7 @@ func _on_Suggest_button_up(suggestion):
 	var room = suggestion[0]
 	var weapon = suggestion[1]
 	var player = suggestion[2]
-	var counterSuggestion = []
+	#var counterSuggestion = []
 	emit_signal("placeWeapon",weapon,room)
 	for i in range(self.get_child_count()):
 		var playerNode = self.get_child(i)

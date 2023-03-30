@@ -10,10 +10,14 @@ export var creditScene : PackedScene
 
 
 func _on_New_Game_button_up():
-	get_tree().change_scene(lobby.resource_path)
+	# Ignore unused return value from change_scene()
+	if get_tree().change_scene(lobby.resource_path) != OK:
+		  print ("An unexpected error occured when trying to switch to the Lobby scene")
 #Test test
 
 
 func _on_Credits_button_up():
-	get_tree().change_scene(creditScene.resource_path)
-	
+	# Ignore unused return value from change_scene()
+	if get_tree().change_scene(creditScene.resource_path) != OK:
+		  print ("An unexpected error occured when trying to switch to the Credits scene")
+
