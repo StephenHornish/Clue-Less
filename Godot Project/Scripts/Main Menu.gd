@@ -4,14 +4,13 @@ extends Node2D
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
-
-export var lobby : PackedScene
+export var playSpace : PackedScene
 export var creditScene : PackedScene
 
 
 func _on_New_Game_button_up():
 	# Ignore unused return value from change_scene()
-	if get_tree().change_scene(lobby.resource_path) != OK:
+	if get_tree().change_scene(playSpace.resource_path) != OK:
 		  print ("An unexpected error occured when trying to switch to the Lobby scene")
 
 

@@ -12,6 +12,7 @@ onready var gameSheet = load("res://Scenes/Clue_Game_Sheet.tscn")
 signal turn_queue
 signal initialize_turn_queue
 signal randomize_weapons
+var player
 
 onready var timer = get_node("CanvasLayer/Turn Margin Container/Turn/Timer")
 onready var vbox = get_node("CanvasLayer/CharacterContainer/VBoxContainer/VBoxContainer")
@@ -27,10 +28,10 @@ func _ready():
 		Globals.emit_signal("toggle_network_setup",false)
 
 func _instance_player(id):
-	var player = scene.instance()
+	player = scene.instance()
 	player.set_network_master(id)
 	player.name = str(id)
-	print("Code Runs")
+	print("You have Joined: " + str(id))
 
 func _player_connected(id):
 	print("Player " + str(id) + " has connected")
@@ -45,7 +46,6 @@ func _player_disconnected(id):
 func _on_PeacockButton_button_up():
 	#Grabs the scene to add the player to, the button node and sets desired color
 	#Replace bob with what ever the multiplayer ID becomes later on
-	var player = scene.instance()
 	player.build("Bob", player.Players.PEACOCK,Color( 0, 0.501961, 0.501961, 1 ))
 	var buttonNode = vbox.get_node("MarginContainer1/PeacockButton")
 
@@ -57,7 +57,7 @@ func _on_PeacockButton_button_up():
 	
 	Globals.characters.append("Peacock")
 	player.set_tile(Globals.board.get_room("BULHall"))
-	rpc("update_button_state", buttonNode)
+	rpc("update_button_state", 0)
 	player.playerNumber = number 
 	number += 1
 
@@ -175,13 +175,11 @@ func _on_network_message(id, message):
 		
 #Called on everyone elese machines 
 remote func update_button_state(button_node):
-	for button in get_tree().get_nodes_in_group("PlayerSelectionButtons"):
-		print(button.player.playerNumber)
-		print(button_node.player.playerNumber)
-		if button.player.playerNumber == button_node.player.playerNumber:
-			print(button_node.player.playerNumber)
-			button.clicked(playersReady & (1 << button.player.playerNumber) != 0)
-			print(playersReady)
+	print("Ran")
+	var nodef = get_node("CanvasLayer/CharacterContainer/VBoxContainer/VBoxContainer")
+	nodef = nodef.get_child(button_node).get_child(0)
+	print(nodef)
+	nodef.disable
 
 	
 func _on_Timer_timeout() -> void:

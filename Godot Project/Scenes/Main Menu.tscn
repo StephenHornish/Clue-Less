@@ -3,7 +3,7 @@
 [ext_resource path="res://Images/Clueless Logo6.png" type="Texture" id=1]
 [ext_resource path="res://Font/RottenBanquet-Regular 400.otf" type="DynamicFontData" id=2]
 [ext_resource path="res://Scripts/Main Menu.gd" type="Script" id=3]
-[ext_resource path="res://Scenes/Lobby.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scenes/PlaySpace.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Audio/yt5s.io - Henry Mancini - The Pink Panther Theme (From The Pink Panther) (Audio) (128 kbps).mp3" type="AudioStream" id=5]
 [ext_resource path="res://Credits/Credits.tscn" type="PackedScene" id=6]
 
@@ -43,7 +43,7 @@ corner_radius_bottom_left = 5
 [node name="Main Menu" type="Node2D"]
 position = Vector2( 0, -2 )
 script = ExtResource( 3 )
-lobby = ExtResource( 4 )
+playSpace = ExtResource( 4 )
 creditScene = ExtResource( 6 )
 
 [node name="TextureRect" type="TextureRect" parent="."]
