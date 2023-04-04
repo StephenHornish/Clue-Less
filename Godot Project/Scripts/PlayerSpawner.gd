@@ -20,7 +20,27 @@ onready var number = 0
 
 
 func _ready():
-	pass
+	get_tree().connect("network_peer_connected",self,"_player_connected")
+	get_tree().connect("network_peer_disconnected",self,"_player_disconnected")
+	Globals.connect("instance_player",self,"_instance_player")
+	if get_tree().network_peer != null:
+		Globals.emit_signal("toggle_network_setup",false)
+
+func _instance_player(id):
+	var player = scene.instance()
+	player.set_network_master(id)
+	player.name = str(id)
+	print("Code Runs")
+
+func _player_connected(id):
+	print("Player " + str(id) + " has connected")
+	_instance_player(id)
+	
+func _player_disconnected(id):
+	print("Player " + str(id) + " has disconnected")
+	if has_node(str(id)):
+		get_node(str(id)).queue_free()
+	
 
 func _on_PeacockButton_button_up():
 	#Grabs the scene to add the player to, the button node and sets desired color

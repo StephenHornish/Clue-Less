@@ -10,28 +10,27 @@ var self_data = {name = ''}
 
 func _ready():
 	get_tree().connect("network_peer_connected", self, "_player_connected")
+	get_tree().connect("connected_to_server",self,"_connected_to_server")
+	get_tree().connect("connection_failed", self, "_on_connection_failed")
+	get_tree().connect("server_disconnected", self, "_server_disconnected")
+
 
 func create_server(player_name):
 	self_data.name = player_name
 	players[1] = self_data
-	var net = NetworkedMultiplayerENet.new()
-	net.create_server(DEFAULT_PORT,MAX_PLAYERS)
-	get_tree().set_network_peer(net)
-	print("Hosting")
+	var server = NetworkedMultiplayerENet.new()
+	server.create_server(DEFAULT_PORT,MAX_PLAYERS)
+	get_tree().set_network_peer(server)
+	print("Creating Server")
 
 
 func connect_to_server(player_name):
+	print("Joining Server")
 	self_data.name = player_name
-	get_tree().connect("connected_to_server",self,"_connected_to_server")
-	get_tree().connect("connection_failed", self, "_on_connection_failed")
-	var net = NetworkedMultiplayerENet.new()
-	net.create_client(DEFAULT_IP,DEFAULT_PORT)
-	get_tree().set_network_peer(net)
-	print("connected to Server")
+	var client = NetworkedMultiplayerENet.new()
+	client.create_client(DEFAULT_IP,DEFAULT_PORT)
+	get_tree().set_network_peer(client)
 
-func _connected_to_server():
-	players[get_tree().get_network_unique_id()] = self_data
-	rpc('_send_player_info', get_tree().get_network_unique_id(), self_data)
 	
 remote func _send_player_info(id,info):
 	if get_tree().is_network_server():
@@ -40,12 +39,26 @@ remote func _send_player_info(id,info):
 	players[id] = info
 	#where you would add the nex player objects
 
+
 func _player_connected(id):
 	print('Player Connected: ' + str(id))
+
+func _connected_to_server():
+	print("Successfully connected to the server")
+
+func _on_connection_failed():
+	print("Failed To Connect")
+	reset_network_connection()
+	
+func _server_disconnected():
+	print("Disconnected from the server")
 
 func _player_disconnected(id):
 	print('Player Disconnected: ' + str(id))
 	players.erase(id)
 	
-func _on_connection_failed():
+func reset_network_connection():
+	if get_tree().has_network_peer():
+		get_tree().network_peer = null
+
 	print("Failed To Connect")

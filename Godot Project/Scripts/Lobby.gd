@@ -12,8 +12,8 @@ func _on_Host_button_up():
 	if _player_name == "":
 		return
 	Network.create_server(_player_name)
+	Globals.emit_signal("instance_player",get_tree().get_network_unique_id())
 	_load_game()
-	
 
 func _on_Join_button_up():
 	if _player_name == "":
@@ -22,4 +22,5 @@ func _on_Join_button_up():
 	_load_game()
 
 func _load_game():
-	get_tree().change_scene("res://Scenes/PlaySpace.tscn")
+	if get_tree().change_scene("res://Scenes/PlaySpace.tscn") != OK:
+		  print ("An unexpected error occured when trying to switch to the PlaySpace Scene")
