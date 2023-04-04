@@ -174,12 +174,12 @@ func _on_network_message(id, message):
 		pass
 		
 #Called on everyone elese machines 
-remote func update_button_state(button_node):
+remotesync func update_button_state(button_node):
 	print("Ran")
 	var nodef = get_node("CanvasLayer/CharacterContainer/VBoxContainer/VBoxContainer")
 	nodef = nodef.get_child(button_node).get_child(0)
 	print(nodef)
-	nodef.disable
+	nodef.disabled = true
 
 	
 func _on_Timer_timeout() -> void:
