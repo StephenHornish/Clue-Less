@@ -1,0 +1,203 @@
+2a60927148abd1d33b818b535e306557
+::res://::1679981674
+README.md::TextFile::-1::1675052936::0::1::::<><>::
+VERSION.md::TextFile::-1::1674935112::0::1::::<><>::
+::res://addons/::1674927269
+::res://addons/github-integration/::1679981619
+github-logo.png::CompressedTexture2D::6123005412306742150::1675052851::1679981675::1::::<><>::
+plugin.cfg::TextFile::-1::1674892232::0::1::::<><>::
+::res://addons/github-integration/fonts/::1679981619
+Roboto-Black.ttf::FontFile::7871697245709687646::1674892232::1679981675::1::::<><>::
+Roboto-Regular.ttf::FontFile::7323764804031316265::1674892232::1679981675::1::::<><>::
+SEGOEUI.TTF::FontFile::7790465816698742861::1674892232::1679981675::1::::<><>::
+SEGOEUIB.TTF::FontFile::560702161548171281::1674892232::1679981675::1::::<><>::
+::res://addons/github-integration/icons/::1679981619
+accept-w.png::CompressedTexture2D::3803080953902602352::1675052851::1679981675::1::::<><>::
+accept.png::CompressedTexture2D::681700734913422530::1675052851::1679981675::1::::<><>::
+arrow-down.png::CompressedTexture2D::6821486373678680048::1675052851::1679981675::1::::<><>::
+arrow-left.png::CompressedTexture2D::2938612968302804739::1675052851::1679981675::1::::<><>::
+arrow-left.svg::CompressedTexture2D::7477037681092733796::1674892232::1679981675::1::::<><>::
+arrow-right.png::CompressedTexture2D::5479623892988015955::1675052851::1679981675::1::::<><>::
+bell.png::CompressedTexture2D::6933527442128465414::1675052851::1679981675::1::::<><>::
+checked-white.png::CompressedTexture2D::1924344249891324647::1675052851::1679981675::1::::<><>::
+checked.png::CompressedTexture2D::5125412847394874886::1675052851::1679981675::1::::<><>::
+deny-w.png::CompressedTexture2D::1936936076846745452::1675052851::1679981675::1::::<><>::
+deny.png::CompressedTexture2D::769496943827517027::1675052851::1679981675::1::::<><>::
+option-arrow.png::CompressedTexture2D::7606727894020995353::1675052851::1679981675::1::::<><>::
+radioChecked.png::CompressedTexture2D::959444009903252764::1675052851::1679981675::1::::<><>::
+radioUncheckedhecked.png::CompressedTexture2D::6828594322583196243::1675052851::1679981675::1::::<><>::
+reload.png::CompressedTexture2D::4727120119954209500::1675052851::1679981675::1::::<><>::
+search.png::CompressedTexture2D::8681151185519171738::1675052851::1679981675::1::::<><>::
+unchecked-white.png::CompressedTexture2D::2692934651351204469::1675052851::1679981675::1::::<><>::
+unchecked.png::CompressedTexture2D::5844250013821479679::1675052851::1679981675::1::::<><>::
+::res://addons/github-integration/icons.pngs/::1674927270
+::res://addons/github-integration/resources/::1679981619
+github-logo.png::CompressedTexture2D::9125152119841330921::1675052851::1679981675::1::::<><>::
+proxy.png::CompressedTexture2D::8937531152841591889::1675052851::1679981675::1::::<><>::
+search.png::CompressedTexture2D::7368005902012590142::1675052851::1679981675::1::::<><>::
+::res://addons/github-integration/resources/loading/::1679981619
+throbber.png::CompressedTexture2D::8096475639293079019::1675052851::1679981675::1::::<><>::
+::res://addons/github-integration/resources/styles/::1679980917
+Branch-black.tres::StyleBoxFlat::-1::1679980917::0::1::::<><>::
+Branch-white.tres::StyleBoxFlat::-1::1679980917::0::1::::<><>::
+ContentesBG-dark.tres::StyleBoxFlat::-1::1679980917::0::1::::<><>::
+ContentesBG-white.tres::StyleBoxFlat::-1::1679980917::0::1::::<><>::
+List-black.tres::StyleBoxFlat::-1::1679980917::0::1::::<><>::
+List-white.tres::StyleBoxFlat::-1::1679980917::0::1::::<><>::
+Repohead-black.tres::StyleBoxFlat::-1::1679980917::0::1::::<><>::
+Repohead-white.tres::StyleBoxFlat::-1::1679980917::0::1::::<><>::
+::res://addons/github-integration/resources/themes/::1674968906
+GitHubTheme-Dark.tres::Theme::-1::1674968906::0::1::::<><>::
+GitHubTheme.tres::Theme::-1::1674968906::0::1::::<><>::
+::res://addons/github-integration/resources/user/::1679981619
+circle.png::CompressedTexture2D::141536903827755921::1675052851::1679981675::1::::<><>::
+discord.png::CompressedTexture2D::4959173129683595102::1675052851::1679981675::1::::<><>::
+paypal.png::CompressedTexture2D::97757060014259828::1675052851::1679981675::1::::<><>::
+placeholder.png::CompressedTexture2D::3949263757156270763::1675052851::1679981675::1::::<><>::
+RoundAvatar.tres::ShaderMaterial::-1::1679981619::0::1::::<><>::res://addons/github-integration/resources/user/circle.png
+::res://addons/github-integration/scenes/::1679981619
+Commit.tscn::PackedScene::-1::1679981619::0::1::::<><>::res://addons/github-integration/scripts/Commit.gd<>res://addons/github-integration/icons/arrow-left.svg<>res://addons/github-integration/resources/themes/GitHubTheme-Dark.tres
+ContributorClass.tscn::PackedScene::-1::1679981619::0::1::::<><>::res://addons/github-integration/resources/user/circle.png<>res://addons/github-integration/scripts/ContributorClass.gd<>res://addons/github-integration/resources/user/RoundAvatar.tres
+EditGist.tscn::PackedScene::-1::1679981619::0::1::::<><>::res://addons/file-editor/fonts/Roboto-Black.ttf
+Gist.tscn::PackedScene::-1::1679981619::0::1::::<><>::res://addons/github-integration/scripts/Gist.gd<>res://addons/github-integration/icons/arrow-left.svg<>res://addons/github-integration/resources/themes/GitHubTheme.tres<>res://addons/github-integration/scenes/RedBtn.tscn<>res://addons/github-integration/scenes/GreenBtn.tscn
+GistItem.tscn::PackedScene::-1::1679981619::0::1::::<><>::res://addons/github-integration/scripts/GistItem.gd
+GitHub.tscn::PackedScene::-1::1679981619::0::1::::<><>::res://addons/github-integration/scripts/GitHub.gd<>res://addons/github-integration/resources/themes/GitHubTheme-Dark.tres<>res://addons/github-integration/scenes/loading.tscn<>res://addons/github-integration/scenes/Header.tscn<>res://addons/github-integration/scenes/Commit.tscn<>res://addons/github-integration/scenes/SingIn.tscn<>res://addons/github-integration/scenes/UserPanel.tscn<>res://addons/github-integration/scenes/Repo.tscn<>res://addons/github-integration/scenes/Gist.tscn<>res://addons/github-integration/scenes/Notifications.tscn
+GreenBtn.tscn::PackedScene::-1::1679981619::0::1::::<><>::
+Header.tscn::PackedScene::-1::1679981619::0::1::::<><>::res://addons/github-integration/scripts/Header.gd<>res://addons/github-integration/resources/themes/GitHubTheme-Dark.tres<>res://addons/github-integration/icons/reload.png<>res://addons/github-integration/resources/user/circle.png<>res://addons/github-integration/icons/option-arrow.png<>res://addons/github-integration/icons/arrow-left.png<>res://addons/github-integration/resources/user/paypal.png<>res://addons/github-integration/resources/user/discord.png<>res://addons/github-integration/resources/user/placeholder.png<>res://addons/github-integration/resources/user/RoundAvatar.tres<>res://addons/github-integration/icons/bell.png
+InvitationItem.tscn::PackedScene::-1::1679981619::0::1::::<><>::res://addons/github-integration/scripts/InvitationItem.gd<>res://addons/github-integration/icons/deny.png<>res://addons/github-integration/icons/accept.png<>res://addons/github-integration/resources/user/circle.png<>res://addons/github-integration/resources/user/RoundAvatar.tres
+loading.tscn::PackedScene::-1::1679981619::0::1::::<><>::res://addons/github-integration/scripts/loading.gd<>res://addons/github-integration/resources/loading/throbber.png
+NewRepo.tscn::PackedScene::-1::1679981619::0::1::::<><>::res://addons/github-integration/scripts/WindowDialog.gd
+NormalBtn.tscn::PackedScene::-1::1679981619::0::1::::<><>::
+Notifications.tscn::PackedScene::-1::1679981619::0::1::::<><>::res://addons/github-integration/scripts/Notifications.gd<>res://addons/github-integration/resources/themes/GitHubTheme.tres
+RedBtn.tscn::PackedScene::-1::1679981619::0::1::::<><>::
+Repo.tscn::PackedScene::-1::1679981619::0::1::::<><>::res://addons/github-integration/scripts/Repo.gd<>res://addons/github-integration/resources/themes/GitHubTheme-Dark.tres<>res://addons/github-integration/scenes/RedBtn.tscn<>res://addons/github-integration/icons/arrow-right.png<>res://addons/github-integration/icons/arrow-down.png<>res://addons/github-integration/icons/arrow-left.svg<>res://addons/github-integration/resources/styles/ContentesBG-white.tres<>res://addons/github-integration/resources/styles/ContentesBG-dark.tres<>res://addons/github-integration/resources/styles/Branch-black.tres<>res://addons/github-integration/resources/styles/Repohead-black.tres<>res://addons/github-integration/scenes/GreenBtn.tscn
+RepositoryItem.tscn::PackedScene::-1::1679981619::0::1::::<><>::res://addons/github-integration/scripts/RepositoryItem.gd
+RestHandler.tscn::PackedScene::-1::1679980917::0::1::::<><>::res://addons/github-integration/scripts/RestHandler.gd
+SingIn.tscn::PackedScene::-1::1679981619::0::1::::<><>::res://addons/github-integration/scenes/RedBtn.tscn<>res://addons/github-integration/scenes/GreenBtn.tscn<>res://addons/github-integration/scripts/SignIn.gd<>res://addons/github-integration/github-logo.png<>res://addons/github-integration/resources/themes/GitHubTheme-Dark.tres
+UserPanel.tscn::PackedScene::-1::1679981619::0::1::::<><>::res://addons/github-integration/scripts/NewGist.gd<>res://addons/github-integration/resources/user/placeholder.png<>res://addons/github-integration/icons/search.png<>res://addons/github-integration/scripts/UserPanel.gd<>res://addons/github-integration/resources/themes/GitHubTheme-Dark.tres<>res://addons/github-integration/scenes/NormalBtn.tscn<>res://addons/github-integration/scenes/NewRepo.tscn<>res://addons/github-integration/resources/styles/List-black.tres<>res://addons/github-integration/icons/reload.png
+::res://addons/github-integration/scripts/::1679981619
+Commit.gd::GDScript::-1::1679981619::0::1::::<>RefCounted<>::
+ContributorClass.gd::GDScript::-1::1679981619::0::1::::<>RefCounted<>::
+Gist.gd::GDScript::-1::1679981619::0::1::::<>RefCounted<>::
+GistItem.gd::GDScript::-1::1679981619::0::1::::<>RefCounted<>::
+github-integration.gd::GDScript::-1::1679981619::0::1::::<>RefCounted<>::
+GitHub.gd::GDScript::-1::1679981619::0::1::::<>RefCounted<>::
+Header.gd::GDScript::-1::1679981619::0::1::::<>RefCounted<>::
+IconLoaderGithub.gd::GDScript::-1::1679981619::0::1::::<>RefCounted<>::
+InvitationItem.gd::GDScript::-1::1679981619::0::1::::<>RefCounted<>::
+loading.gd::GDScript::-1::1679981619::0::1::::<>RefCounted<>::
+NewGist.gd::GDScript::-1::1679981619::0::1::::<>RefCounted<>::
+Notifications.gd::GDScript::-1::1679981619::0::1::::<>RefCounted<>::
+PluginSettings.gd::GDScript::-1::1679981619::0::1::::<>RefCounted<>::
+Repo.gd::GDScript::-1::1679981619::0::1::::<>RefCounted<>::
+Repos.gd::GDScript::-1::1679981619::0::1::::<>RefCounted<>::
+RepositoryItem.gd::GDScript::-1::1679981619::0::1::::<>RefCounted<>::
+RestHandler.gd::GDScript::-1::1679981619::0::1::::<>RefCounted<>::
+SignIn.gd::GDScript::-1::1679981619::0::1::::<>RefCounted<>::
+UserPanel.gd::GDScript::-1::1679981619::0::1::::<>RefCounted<>::
+user_data.gd::GDScript::-1::1679981619::0::1::::<>RefCounted<>::
+WindowDialog.gd::GDScript::-1::1679981619::0::1::::<>RefCounted<>::
+::res://Audio/::1679981631
+Luigi's Mansion theme song.mp3::AudioStreamMP3::5652412651244029003::1679981631::1679981675::1::::<><>::
+TestEndingMusic_1.wav::AudioStreamWAV::4831468647333967507::1679981631::1679981679::1::::<><>::
+yt5s.io - Henry Mancini - The Pink Panther Theme (From The Pink Panther) (Audio) (128 kbps).mp3::AudioStreamMP3::2141487966516517207::1679981631::1679981675::1::::<><>::
+::res://Characters/::1679981631
+KinematicBody.gd::GDScript::-1::1679981619::0::1::::<>KinematicBody<>::
+Pawn.tscn::PackedScene::-1::1679981631::0::1::::<><>::res://Materials/Scarlet .material<>res://Scripts/KinematicBody.gd<>res://Characters/Player.gd
+Player.gd::GDScript::-1::1679981631::0::1::::<>Spatial<>::
+::res://Credits/::1679981631
+Antique_dynamicfont.tres::FontFile::-1::1679981631::0::1::::<><>::res://Font/antiquity-print.ttf
+Credits.gd::GDScript::-1::1679981631::0::1::::<>Control<>::
+Credits.tscn::PackedScene::-1::1679981631::0::1::::<><>::res://Credits/Mono_dynamicfont.tres<>res://Images/adam_simpson_clue.jpg<>res://Credits/Credits.gd<>res://Credits/Antique_dynamicfont.tres<>res://Images/Dialog Box.png<>res://Audio/Luigi's Mansion theme song.mp3
+Mono_dynamicfont.tres::FontFile::-1::1679981631::0::1::::<><>::res://Font/monogram.ttf
+::res://Font/::1679981631
+antiquity-print.ttf::FontFile::6330442440715940568::1679981631::1679981675::1::::<><>::
+monogram.ttf::FontFile::5538837149943852037::1679981631::1679981675::1::::<><>::
+RottenBanquet-Regular 400.otf::FontFile::1075600589352543264::1674892232::1679981675::1::::<><>::
+::res://Font/Button/::1679981631
+Enter.tres::StyleBoxFlat::-1::1679981631::0::1::::<><>::
+EnterPressed.tres::StyleBoxFlat::-1::1679981631::0::1::::<><>::
+::res://Images/::1679981632
+adam_simpson_clue.jpg::CompressedTexture2D::4494224212724695119::1679981632::1679981676::1::::<><>::
+clue-game-sheets.jpeg::CompressedTexture2D::8996555731832402600::1679981632::1679981675::1::::<><>::
+Clueless3.png::CompressedTexture2D::3856803528988670692::1679680038::1679981679::1::::<><>::
+Clueless Logo3.png::CompressedTexture2D::5229260315822470741::1675052850::1679981675::1::::<><>::
+Clueless Logo6.png::CompressedTexture2D::6253455573050303039::1675052850::1679981675::1::::<><>::
+Clueless Logo.png::CompressedTexture2D::1083473637485877564::1675052850::1679981675::1::::<><>::
+Dialog Box.png::CompressedTexture2D::6949371689092314056::1679981632::1679981675::1::::<><>::
+HD_transparent_picture.png::CompressedTexture2D::5988251983912949587::1679981632::1679981675::1::::<><>::
+pngaaa.com-487537.png::CompressedTexture2D::6702167099399218866::1679981632::1679981675::1::::<><>::
+pngtree-the-red-cross-on-blood-png-image_6185642 copy.jpg::CompressedTexture2D::387760323953035339::1679981632::1679981675::1::::<><>::
+pngtree-the-red-cross-on-blood-png-image_6185642.jpg::CompressedTexture2D::6890117613282676597::1679981632::1679981675::1::::<><>::
+Scarlett.png::CompressedTexture2D::7702951208222889949::1675052850::1679981675::1::::<><>::
+Score Sheet.png::CompressedTexture2D::8487478820703533706::1679981632::1679981675::1::::<><>::
+Screenshot 2023-02-08 at 1.41.56 PM.png::CompressedTexture2D::6642130100685919118::1679981632::1679981675::1::::<><>::
+Smalls-the-red-cross-on-blood-png-image_6185642 copy Small.jpeg::CompressedTexture2D::2088799145595392039::1679981632::1679981675::1::::<><>::
+::res://Images/Cards/::1679981632
+Ballroom.png::CompressedTexture2D::6669311815297321786::1679981632::1679981675::1::::<><>::
+Billiard Room.png::CompressedTexture2D::7119589129610368357::1679981632::1679981675::1::::<><>::
+CandleStick.png::CompressedTexture2D::8821396649841933106::1679981632::1679981675::1::::<><>::
+Col Mustard.png::CompressedTexture2D::426066071045680040::1679981632::1679981675::1::::<><>::
+Conservatory.png::CompressedTexture2D::4606038106064377447::1679981632::1679981675::1::::<><>::
+Dining Room.png::CompressedTexture2D::5755655884410660016::1679981632::1679981675::1::::<><>::
+Hall.png::CompressedTexture2D::6610843310577840818::1679981632::1679981675::1::::<><>::
+Kitchen.png::CompressedTexture2D::4278041591036419833::1679981632::1679981675::1::::<><>::
+Knife.png::CompressedTexture2D::1693734440754501663::1679981632::1679981675::1::::<><>::
+Library.png::CompressedTexture2D::396770631425204937::1679981632::1679981675::1::::<><>::
+Lounge.png::CompressedTexture2D::3103133320305757111::1679981632::1679981675::1::::<><>::
+Miss Scarlett.png::CompressedTexture2D::3771811206906105787::1679981632::1679981675::1::::<><>::
+Mr Green.png::CompressedTexture2D::378340253885760787::1679981632::1679981675::1::::<><>::
+Mrs Peacock.png::CompressedTexture2D::6655054250457252708::1679981632::1679981675::1::::<><>::
+Mrs White.png::CompressedTexture2D::1179245537477225315::1679981632::1679981675::1::::<><>::
+Pipe.png::CompressedTexture2D::5160723191557783175::1679981632::1679981675::1::::<><>::
+Pistol.png::CompressedTexture2D::9036101859740146891::1679981632::1679981675::1::::<><>::
+Prof Plumb.png::CompressedTexture2D::6321849550911680049::1679981632::1679981675::1::::<><>::
+Rope.png::CompressedTexture2D::2900066219457993765::1679981632::1679981675::1::::<><>::
+Study.png::CompressedTexture2D::7180795517035781902::1679981632::1679981675::1::::<><>::
+Wrench.png::CompressedTexture2D::4871311107309798522::1679981632::1679981675::1::::<><>::
+::res://Materials/::1675052856
+Board.material::StandardMaterial3D::-1::1675052856::0::1::::<><>::
+Green.material::StandardMaterial3D::-1::1675052850::0::1::::<><>::
+Material.material::StandardMaterial3D::-1::1675052850::0::1::::<><>::
+Material_002.material::StandardMaterial3D::-1::1675052850::0::1::::<><>::
+Material_004.material::StandardMaterial3D::-1::1675052850::0::1::::<><>::
+Material_007.material::StandardMaterial3D::-1::1675052850::0::1::::<><>::
+Mustard.material::StandardMaterial3D::-1::1675052851::0::1::::<><>::
+Peacock.material::StandardMaterial3D::-1::1675052851::0::1::::<><>::
+PipeMaterial.material::StandardMaterial3D::-1::1675052851::0::1::::<><>::
+Scarlet .material::StandardMaterial3D::-1::1675052851::0::1::::<><>::
+Steel.material::StandardMaterial3D::-1::1675052851::0::1::::<><>::
+White.material::StandardMaterial3D::-1::1675052851::0::1::::<><>::
+::res://Scenes/::1679981632
+CardDisplay.gd::GDScript::-1::1679981632::0::1::::<>MarginContainer<>::
+CardDisplay.tscn::PackedScene::-1::1679981632::0::1::::<><>::res://Scenes/CardDisplay.gd
+CardVisability.gd::GDScript::-1::1679981632::0::1::::<>MarginContainer<>::
+Character Selection.gd::GDScript::-1::1679981632::0::1::::<>ViewportContainer<>::
+ClueSheet.gd::GDScript::-1::1679981632::0::1::::<>MarginContainer<>::
+Clue_Game_Sheet.gd::GDScript::-1::1679981632::0::1::::<>Control<>::
+Clue_Game_Sheet.tscn::PackedScene::-1::1679981632::0::1::::<><>::res://Images/Smalls-the-red-cross-on-blood-png-image_6185642 copy Small.jpeg<>res://Images/Score Sheet.png<>res://Images/HD_transparent_picture.png<>res://Scenes/Clue_Game_Sheet.gd
+Lobby.tscn::PackedScene::-1::1679981632::0::1::::<><>::res://Scripts/Lobby.gd
+Main Menu.tscn::PackedScene::-1::1679981632::0::1::::<><>::res://Images/Clueless Logo6.png<>res://Font/RottenBanquet-Regular 400.otf<>res://Scripts/Main Menu.gd<>res://Scenes/Lobby.tscn<>res://Audio/yt5s.io - Henry Mancini - The Pink Panther Theme (From The Pink Panther) (Audio) (128 kbps).mp3<>res://Credits/Credits.tscn
+MoveButtons.gd::GDScript::-1::1679981632::0::1::::<>HBoxContainer<>::
+MoveButtons.tscn::PackedScene::-1::1679981632::0::1::::<><>::res://Scenes/MoveButtons.gd<>res://Font/RottenBanquet-Regular 400.otf<>res://Font/Button/Enter.tres<>res://Font/Button/EnterPressed.tres
+MoveSet.gd::GDScript::-1::1679981632::0::1::::<>MarginContainer<>::
+Play Area.gd::GDScript::-1::1679981632::0::1::::<>StaticBody<>::
+PlaySpace.tscn::PackedScene::-1::1679981632::0::1::::<><>::res://Materials/Board.material<>res://Scenes/Play Area.gd<>res://Scenes/CardVisability.gd<>res://Scenes/MoveSet.gd<>res://Scenes/SuggestionSet.gd<>res://Scenes/ClueSheet.gd<>res://Scripts/PlayerSpawner.gd<>res://Materials/Material_002.material<>res://Materials/PipeMaterial.material<>res://Materials/Material.material<>res://Materials/Steel.material<>res://Font/RottenBanquet-Regular 400.otf<>res://Scripts/Button.gd<>res://Scripts/TurnQueue.gd
+Suggestion.tscn::PackedScene::-1::1679981632::0::1::::<><>::res://Scripts/Suggestion.gd
+SuggestionSet.gd::GDScript::-1::1679981632::0::1::::<>MarginContainer<>::
+VBoxContainer.gd::GDScript::-1::1679981632::0::1::::<>VBoxContainer<>::
+::res://Scripts/::1679981632
+BoardDB.gd::GDScript::-1::1679981632::0::1::::boardDB<>Node<>::
+Boardgame3Tris.gd::GDScript::-1::1679981619::0::1::::<>Spatial<>::
+Button.gd::GDScript::-1::1679981632::0::1::::<>Button<>::
+Card.gd::GDScript::-1::1679981632::0::1::::Card<>Node<>::
+Deck.gd::GDScript::-1::1679981632::0::1::::Deck<>Node<>::
+Globals.gd::GDScript::-1::1679981632::0::1::::<>Node<>::
+KinematicBody.gd::GDScript::-1::1679981632::0::1::::<>KinematicBody<>::
+Lobby.gd::GDScript::-1::1679981632::0::1::::<>Control<>::
+Main Menu.gd::GDScript::-1::1679981632::0::1::::<>Node2D<>::
+Network.gd::GDScript::-1::1679981632::0::1::::<>Control<>::
+PlayerSpawner.gd::GDScript::-1::1679981632::0::1::::<>Node<>::
+Suggestion.gd::GDScript::-1::1679981632::0::1::::<>Control<>::
+Tile.gd::GDScript::-1::1679981632::0::1::::Tile<>Reference<>::
+TurnQueue.gd::GDScript::-1::1679981632::0::1::::TurnQueue<>Node<>::

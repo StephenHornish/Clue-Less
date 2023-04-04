@@ -1,0 +1,33 @@
+[remap]
+
+importer="font_data_dynamic"
+type="FontFile"
+uid="uid://pla8qfeg4mse"
+path="res://.godot/imported/RottenBanquet-Regular 400.otf-d014cbd887b4243a8e9a702e0a53994f.fontdata"
+
+[deps]
+
+source_file="res://Font/RottenBanquet-Regular 400.otf"
+dest_files=["res://.godot/imported/RottenBanquet-Regular 400.otf-d014cbd887b4243a8e9a702e0a53994f.fontdata"]
+
+[params]
+
+Rendering=null
+antialiasing=1
+generate_mipmaps=false
+multichannel_signed_distance_field=false
+msdf_pixel_range=8
+msdf_size=48
+allow_system_fallback=true
+force_autohinter=false
+hinting=1
+subpixel_positioning=1
+oversampling=0.0
+Fallbacks=null
+fallbacks=[]
+Compress=null
+compress=true
+preload=[]
+language_support={}
+script_support={}
+opentype_features={}
