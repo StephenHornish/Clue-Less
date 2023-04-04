@@ -17,18 +17,18 @@ func _ready():
 func create_server(player_name):
 	self_data.name = player_name
 	players[1] = self_data
-	var net = NetworkedMultiplayerENet.new()
-	net.create_server(DEFAULT_PORT,MAX_PLAYERS)
-	get_tree().set_network_peer(net)
+	var server = NetworkedMultiplayerENet.new()
+	server.create_server(DEFAULT_PORT,MAX_PLAYERS)
+	get_tree().set_network_peer(server)
 	print("Creating Server")
 
 
 func connect_to_server(player_name):
 	print("Joining Server")
 	self_data.name = player_name
-	var net = NetworkedMultiplayerENet.new()
-	net.create_client(DEFAULT_IP,DEFAULT_PORT)
-	get_tree().set_network_peer(net)
+	var client = NetworkedMultiplayerENet.new()
+	client.create_client(DEFAULT_IP,DEFAULT_PORT)
+	get_tree().set_network_peer(client)
 
 	
 remote func _send_player_info(id,info):
@@ -47,6 +47,7 @@ func _connected_to_server():
 
 func _on_connection_failed():
 	print("Failed To Connect")
+	reset_network_connection()
 	
 func _server_disconnected():
 	print("Disconnected from the server")
