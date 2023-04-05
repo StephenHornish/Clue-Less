@@ -58,6 +58,7 @@ func _on_PeacockButton_button_up():
 	Globals.characters.append("Peacock")
 	player.set_tile(Globals.board.get_room("BULHall"))
 	rpc("update_button_state", 0)
+	_on_hide_buttons(0)
 	player.playerNumber = number 
 	number += 1
 
@@ -162,8 +163,15 @@ func _on_Button_button_up() -> void:
 		turn.text = "Awaiting More players"
 		print("Waiting for everyone")
 
-func update_button_visual_appearance():
-	print(":HI")
+func _on_hide_buttons(buttonOrder : int)-> void: 
+	for i in range(0,6):
+		if(i == buttonOrder):
+			continue
+		else: 
+			var buttonToHide = vbox.get_child(i).get_child(0)
+			print(buttonToHide)
+			buttonToHide.disabled = true
+	
 
 func _on_network_message(id, message):
 	print(id)
@@ -175,7 +183,6 @@ func _on_network_message(id, message):
 		
 #Called on everyone elese machines 
 remotesync func update_button_state(button_node):
-	print("Ran")
 	var nodef = get_node("CanvasLayer/CharacterContainer/VBoxContainer/VBoxContainer")
 	nodef = nodef.get_child(button_node).get_child(0)
 	print(nodef)
