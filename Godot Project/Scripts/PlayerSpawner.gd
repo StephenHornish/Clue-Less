@@ -32,6 +32,7 @@ func _instance_player(id):
 	player.set_network_master(id)
 	player.name = str(id)
 	print("You have Joined: " + str(id))
+	emit_signal("turn_queue",player)
 
 func _player_connected(id):
 	print("Player " + str(id) + " has connected")
@@ -46,103 +47,53 @@ func _player_disconnected(id):
 func _on_PeacockButton_button_up():
 	#Grabs the scene to add the player to, the button node and sets desired color
 	#Replace bob with what ever the multiplayer ID becomes later on
+	test()
+remotesync func test():
 	player.build("Bob", player.Players.PEACOCK,Color( 0, 0.501961, 0.501961, 1 ))
-	var buttonNode = vbox.get_node("MarginContainer1/PeacockButton")
-
-	emit_signal("turn_queue",player)
-
-	#places the character in the starting location and marks the button as clicked 
-	player.set_global_translation(Vector3(25,0,-11.5))
-	playersReady = playersReady + buttonNode.clicked()
-	
-	Globals.characters.append("Peacock")
 	player.set_tile(Globals.board.get_room("BULHall"))
-	rpc("update_button_state", 0)
-	_on_hide_buttons(0)
-	player.playerNumber = number 
-	number += 1
-
+	_spawnPlayer(vbox.get_node("MarginContainer1/PeacockButton"),0)
+	player.set_global_translation(Vector3(25,0,-11.5))
 	
-
 
 func _on_ScarlettButton_button_up():
-	
-	var player = scene.instance()
 	player.build("Bob", player.Players.SCARLETT,Color( 0.9, 0, 0, 1 ))
-	var buttonNode = vbox.get_node("MarginContainer2/ScarlettButton")
-	emit_signal("turn_queue",player)
-	player.set_global_translation(Vector3(-14.5 ,0,26))
-	playersReady = playersReady + buttonNode.clicked()
-	Globals.characters.append("Scarlett")
 	player.set_tile(Globals.board.get_room("TRHall"))
-	player.playerNumber = number 
-	number += 1
-
+	_spawnPlayer(vbox.get_node("MarginContainer2/ScarlettButton"),1)
+	player.set_global_translation(Vector3(-14.5 ,0,26))
 	
-
-
-func _on_WhiteButton_button_up():
-	
-	var player = scene.instance()
+func _on_WhiteButton_button_up():	
 	player.build("Bob", player.Players.WHITE,Color( 0.980392, 0.921569, 0.843137, 1 ))
-	var buttonNode = vbox.get_node("MarginContainer3/WhiteButton")
-	emit_signal("turn_queue",player)
-	player.set_global_translation(Vector3(-14.5 ,0, -26))
-	playersReady = playersReady + buttonNode.clicked()
-	Globals.characters.append("White")
 	player.set_tile(Globals.board.get_room("BRHall"))
-	player.playerNumber = number 
-	number += 1
-
-
-
+	_spawnPlayer(vbox.get_node("MarginContainer3/WhiteButton"),2)
+	player.set_global_translation(Vector3(-14.5 ,0, -26))
 
 func _on_GreenButton_button_up():
-	
-	var player = scene.instance()
 	player.build("Bob", player.Players.GREEN,Color( 0.133333, 0.545098, 0.133333, 1 ))
-	var buttonNode = vbox.get_node("MarginContainer4/GreenButton")
-	emit_signal("turn_queue",player)
-	player.set_global_translation(Vector3(9 ,0, -26))
-	playersReady = playersReady + buttonNode.clicked()
-	Globals.characters.append("Green")
 	player.set_tile(Globals.board.get_room("BLHall"))
-	player.playerNumber = number 
-	number += 1
-	
-
+	_spawnPlayer(vbox.get_node("MarginContainer4/GreenButton"),3)
+	player.set_global_translation(Vector3(9 ,0, -26))
 
 func _on_MustardButton_button_up():
-
-	
-	var player = scene.instance()
 	player.build("Bob", player.Players.MUSTARD,Color( 0.8, 0.9, 0, 1 ) )
-	var buttonNode = vbox.get_node("MarginContainer5/MustardButton")
-	emit_signal("turn_queue",player)
-	player.set_global_translation(Vector3(-30 ,0, 11.5))
-	playersReady = playersReady + buttonNode.clicked()
-	Globals.characters.append("Mustard")
 	player.set_tile(Globals.board.get_room("TDRHall"))
-	player.playerNumber = number 
-	number += 1
-
-	
-
+	_spawnPlayer(vbox.get_node("MarginContainer4/GreenButton"),4)
+	player.set_global_translation(Vector3(-30 ,0, 11.5))
 
 func _on_PlumbButton_button_up():
-
-	var player = scene.instance()
 	player.build("Bob", player.Players.PLUMB,Color( 0.576471, 0.439216, 0.858824, 1 ) )
-	var buttonNode = vbox.get_node("MarginContainer6/PlumbButton")
-	emit_signal("turn_queue",player)
-	player.set_global_translation(Vector3(25 ,0,11.5))
-	playersReady = playersReady + buttonNode.clicked()
-	Globals.characters.append("Plumb")
 	player.set_tile(Globals.board.get_room("TDLHall"))
+	_spawnPlayer(vbox.get_node("MarginContainer6/PlumbButton"),5)
+	player.set_global_translation(Vector3(25 ,0,11.5))
+
+
+func _spawnPlayer(buttonNode,nodelocation)->void:
+	#places the character in the starting location and marks the button as clicked 
+	playersReady = playersReady + buttonNode.clicked()
+	Globals.characters.append(player.character)
+	rpc("update_button_state", nodelocation)
+	_on_hide_buttons(nodelocation)
 	player.playerNumber = number 
 	number += 1
-
-
 
 #function for when the ready button is pressed
 func _on_Button_button_up() -> void:
@@ -169,7 +120,6 @@ func _on_hide_buttons(buttonOrder : int)-> void:
 			continue
 		else: 
 			var buttonToHide = vbox.get_child(i).get_child(0)
-			print(buttonToHide)
 			buttonToHide.disabled = true
 	
 
@@ -188,7 +138,6 @@ remotesync func update_button_state(button_node):
 	print(nodef)
 	nodef.disabled = true
 
-	
 func _on_Timer_timeout() -> void:
 	turn = get_node("CanvasLayer/Turn Margin Container/Turn")
 	turn.hide()

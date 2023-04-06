@@ -122,6 +122,9 @@ func legal_move(movement : String)->bool:
 
 func _on_Character_Selection_turn_queue(player):
 	add_child(player)
+	for i in range(get_child_count()):
+		var child = get_child(i)
+		print("Current Children of Turn Queue: " + child.get_name()) 
 
 func dealCards() -> void:
 	var cardsPerPlayer = 18/Globals.numberOfPlayers  
