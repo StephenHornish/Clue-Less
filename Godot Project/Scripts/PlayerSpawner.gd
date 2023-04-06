@@ -27,7 +27,7 @@ func _ready():
 	if get_tree().network_peer != null:
 		Globals.emit_signal("toggle_network_setup",false)
 
-func _instance_player(id):
+remote func _instance_player(id):
 	player = scene.instance()
 	player.set_network_master(id)
 	player.name = str(id)
@@ -36,30 +36,33 @@ func _instance_player(id):
 
 func _player_connected(id):
 	print("Player " + str(id) + " has connected")
-	_instance_player(id)
+	rpc("_instance_player",id)
 	
 func _player_disconnected(id):
 	print("Player " + str(id) + " has disconnected")
 	if has_node(str(id)):
 		get_node(str(id)).queue_free()
-	
 
-func _on_PeacockButton_button_up():
-	#Grabs the scene to add the player to, the button node and sets desired color
-	#Replace bob with what ever the multiplayer ID becomes later on
-	test()
-remotesync func test():
+#this needs to be changed
+remotesync func _Test():
 	player.build("Bob", player.Players.PEACOCK,Color( 0, 0.501961, 0.501961, 1 ))
 	player.set_tile(Globals.board.get_room("BULHall"))
 	_spawnPlayer(vbox.get_node("MarginContainer1/PeacockButton"),0)
 	player.set_global_translation(Vector3(25,0,-11.5))
 	
+func _on_PeacockButton_button_up():
+	#Grabs the scene to add the player to, the button node and sets desired color
+	#Replace bob with what ever the multiplayer ID becomes later on
+	print("Global number of Players: " + str(Globals.numberOfPlayers))
+	rpc("_Test")
+	_on_hide_buttons(0)
 
 func _on_ScarlettButton_button_up():
 	player.build("Bob", player.Players.SCARLETT,Color( 0.9, 0, 0, 1 ))
 	player.set_tile(Globals.board.get_room("TRHall"))
 	_spawnPlayer(vbox.get_node("MarginContainer2/ScarlettButton"),1)
 	player.set_global_translation(Vector3(-14.5 ,0,26))
+	print("Global number of Players: " + str(Globals.numberOfPlayers))
 	
 func _on_WhiteButton_button_up():	
 	player.build("Bob", player.Players.WHITE,Color( 0.980392, 0.921569, 0.843137, 1 ))
@@ -91,7 +94,6 @@ func _spawnPlayer(buttonNode,nodelocation)->void:
 	playersReady = playersReady + buttonNode.clicked()
 	Globals.characters.append(player.character)
 	rpc("update_button_state", nodelocation)
-	_on_hide_buttons(nodelocation)
 	player.playerNumber = number 
 	number += 1
 
