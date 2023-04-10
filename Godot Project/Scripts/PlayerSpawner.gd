@@ -13,7 +13,6 @@ signal turn_queue
 signal initialize_turn_queue
 signal randomize_weapons
 var player
-var hostPlayer
 var playerNumber = 0
 
 onready var timer = get_node("CanvasLayer/Turn Margin Container/Turn/Timer")
@@ -32,18 +31,13 @@ func _ready():
 	
 	 
 func _instance_player(id):
-	print("ID being Passed : " + str(id))
 	player = scene.instance()
 	player.hide()
 	player.set_network_master(id)
 	player.name = str(id)
-	print("You have Joined: " + str(id))
 	emit_signal("turn_queue",player)
-	print("run test ")
-	if(id == get_network_master()):
-		hostPlayer = player
-		print("runs")
-
+	if(get_tree().get_network_unique_id() != 1):
+		get_node("CanvasLayer/MarginContainer/VBoxContainer/Button").hide()
 
 func _player_connected(id):
 	print("Player " + str(id) + " has connected")
@@ -56,9 +50,10 @@ func _player_disconnected(id):
 
 #tShould take in parameter of the players naem they inputed and the set_tile should also be a match statement 
 #that relates it to the plaeyrs choice
-remotesync func _Test(PlayerName,characterSelected,nodePath):
+remotesync func _characterBuilder(PlayerName,characterSelected,nodePath):
 	for child in turnQueue.get_children():
 		print(child)
+		print(child.get_character())
 	print("Player Acting:" + str(PlayerName))
 	print("Node Path: " + str(nodePath))
 	var playerRef = turnQueue.get_node(str(nodePath))
@@ -103,48 +98,46 @@ remotesync func _Test(PlayerName,characterSelected,nodePath):
 func _on_PeacockButton_button_up():
 	#Grabs the scene to add the player to, the button node and sets desired color
 	#Replace bob with what ever the multiplayer ID becomes later on
-	print("Global number of Players: " + str(Globals.numberOfPlayers))
 	#gets the player name and number from the user  that selects peackock
 	var playerName = Network.players[get_tree().get_network_unique_id()].name
 	var playernum = get_tree().get_network_unique_id()
-	rpc("_Test",playerName,0, playernum)
+	rpc("_characterBuilder",playerName,0, playernum)
 	_on_hide_buttons(0)
 
 func _on_ScarlettButton_button_up():
 	var playerName = Network.players[get_tree().get_network_unique_id()].name
 	var playernum = get_tree().get_network_unique_id()
-	rpc("_Test",playerName,1, playernum)
+	rpc("_characterBuilder",playerName,1, playernum)
 	_on_hide_buttons(1)
 	
 func _on_WhiteButton_button_up():	
 	var playerName = Network.players[get_tree().get_network_unique_id()].name
 	var playernum = get_tree().get_network_unique_id()
-	rpc("_Test",playerName,2, playernum)
+	rpc("_characterBuilder",playerName,2, playernum)
 	_on_hide_buttons(2)
 
 func _on_GreenButton_button_up():
 	var playerName = Network.players[get_tree().get_network_unique_id()].name
 	var playernum = get_tree().get_network_unique_id()
-	rpc("_Test",playerName,3,playernum)
+	rpc("_characterBuilder",playerName,3,playernum)
 	_on_hide_buttons(3)
 	
 func _on_MustardButton_button_up():
 	var playerName = Network.players[get_tree().get_network_unique_id()].name
 	var playernum = get_tree().get_network_unique_id()
-	rpc("_Test",playerName,4,playernum)
+	rpc("_characterBuilder",playerName,4,playernum)
 	_on_hide_buttons(4)
 
 func _on_PlumbButton_button_up():
 	#This works do not change
 	var playerName = Network.players[get_tree().get_network_unique_id()].name
 	var playernum = get_tree().get_network_unique_id()
-	rpc("_Test",playerName,5,playernum)
+	rpc("_characterBuilder",playerName,5,playernum)
 	_on_hide_buttons(5)
 
 
 func _spawnPlayer(buttonNode,nodelocation)->void:
 	#places the character in the starting location and marks the button as clicked 
-	
 	playersReady = playersReady + buttonNode.clicked()
 	Globals.characters.append(player.character)
 	rpc("update_button_state", nodelocation)
@@ -152,6 +145,8 @@ func _spawnPlayer(buttonNode,nodelocation)->void:
 #function for when the ready button is pressed
 func _on_Button_button_up() -> void:
 	turn = get_node("CanvasLayer/Turn Margin Container/Turn")
+	print(Globals.numberOfPlayers)
+	print(playersReady)
 	if(playersReady == Globals.numberOfPlayers):
 		_build_player_ui()
 		turn.text = "Turn " + str(Globals.turn)
