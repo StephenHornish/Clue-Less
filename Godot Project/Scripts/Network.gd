@@ -5,8 +5,10 @@ const DEFAULT_IP = "127.0.0.1"
 const DEFAULT_PORT = 4242
 const MAX_PLAYERS = 6
 
+#Dictionary basically a Hashmap in Java <key,name> where the key is the playerID
+# and the name is the players name they entered when the joined the game 
 var players= {}
-var self_data = {name = ''}
+var self_data = {name = '' , number = 0 }
 
 func _ready():
 	get_tree().connect("network_peer_connected", self, "_player_connected")
@@ -17,6 +19,7 @@ func _ready():
 #The host will always have a Unique ID as 1 
 func create_server(player_name):
 	self_data.name = player_name
+	self_data.number = 0 
 	players[1] = self_data
 	var server = NetworkedMultiplayerENet.new()
 	server.create_server(DEFAULT_PORT,MAX_PLAYERS)
@@ -31,6 +34,7 @@ func connect_to_server(player_name):
 	client.create_client(DEFAULT_IP,DEFAULT_PORT)
 	get_tree().set_network_peer(client)
 
+
 #This function will be called via RPC 
 remote func _send_player_info(id,info):
 	Globals.numberOfPlayers += 1
@@ -38,6 +42,7 @@ remote func _send_player_info(id,info):
 		for peer_id in players: 
 			rpc_id(id, '_send_player_info',peer_id,players [peer_id])
 	players[id] = info
+	
 	#where you would add the nex player objects
 	print(players)
 
@@ -69,3 +74,4 @@ func reset_network_connection():
 		get_tree().network_peer = null
 
 	print("Failed To Connect")
+	

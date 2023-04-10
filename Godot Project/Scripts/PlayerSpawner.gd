@@ -13,9 +13,11 @@ signal turn_queue
 signal initialize_turn_queue
 signal randomize_weapons
 var player
+var playerNumber = 0
 
 onready var timer = get_node("CanvasLayer/Turn Margin Container/Turn/Timer")
 onready var vbox = get_node("CanvasLayer/CharacterContainer/VBoxContainer/VBoxContainer")
+onready var turnQueue = get_parent().get_parent().get_child(0)
 var playersReady = 0
 onready var number = 0 
 
@@ -26,13 +28,26 @@ func _ready():
 	Globals.connect("instance_player",self,"_instance_player")
 	if get_tree().network_peer != null:
 		Globals.emit_signal("toggle_network_setup",false)
-
+	
+	 
 remote func _instance_player(id):
+	print("ID being Passed : " + str(id))
 	player = scene.instance()
+	player.hide()
 	player.set_network_master(id)
 	player.name = str(id)
 	print("You have Joined: " + str(id))
 	emit_signal("turn_queue",player)
+	var counter = 0
+	print("current Netowrk Key" + str(get_tree().get_network_unique_id()))
+	print("Player Master ID: " + str(player.get_network_master()))
+	for key in Network.players.keys():
+		Network.players[key].number = counter
+		var value = Network.players[key]
+		print("Check this out" + str(key) + ": " + str(value))
+		counter += 1
+		Network.players[key].number = counter
+
 
 func _player_connected(id):
 	print("Player " + str(id) + " has connected")
@@ -43,50 +58,93 @@ func _player_disconnected(id):
 	if has_node(str(id)):
 		get_node(str(id)).queue_free()
 
-#this needs to be changed
-remotesync func _Test():
-	player.build("Bob", player.Players.PEACOCK,Color( 0, 0.501961, 0.501961, 1 ))
-	player.set_tile(Globals.board.get_room("BULHall"))
-	_spawnPlayer(vbox.get_node("MarginContainer1/PeacockButton"),0)
-	player.set_global_translation(Vector3(25,0,-11.5))
+#tShould take in parameter of the players naem they inputed and the set_tile should also be a match statement 
+#that relates it to the plaeyrs choice
+remotesync func _Test(PlayerName,characterSelected,nodePath):
+	print(turnQueue)
+	
+	var playerRef = turnQueue.get_child(Network.players[player.get_network_master()].number)
+	print(playerRef)
+	
+	#this shoudl be changed to look beter later one once it can be confired that there are no dependencies 
+	#between the player class 
+	print("Player Number 1 :" + str(playerRef.playerNumber))
+	match characterSelected: 
+		0:
+			playerRef.build(PlayerName, characterSelected,Color( 0, 0.501961, 0.501961, 1 ))
+			playerRef.set_tile(Globals.board.get_room("BULHall"))
+			_spawnPlayer(vbox.get_node("MarginContainer1/PeacockButton"),0)
+			playerRef.set_global_translation(Vector3(25,0,-11.5))
+		1:
+			playerRef.build(PlayerName, characterSelected,Color( 0.9, 0, 0, 1 ))
+			playerRef.set_tile(Globals.board.get_room("TRHall"))
+			_spawnPlayer(vbox.get_node("MarginContainer2/ScarlettButton"),1)
+			playerRef.set_global_translation(Vector3(-14.5 ,0,26))
+		2: 
+			playerRef.build(PlayerName, characterSelected,Color( 0.980392, 0.921569, 0.843137, 1 ))
+			playerRef.set_tile(Globals.board.get_room("BRHall"))
+			_spawnPlayer(vbox.get_node("MarginContainer3/WhiteButton"),2)
+			playerRef.set_global_translation(Vector3(-14.5 ,0, -26))
+		3: 
+			playerRef.build(PlayerName, characterSelected,Color( 0.133333, 0.545098, 0.133333, 1 ))
+			playerRef.set_tile(Globals.board.get_room("BLHall"))
+			_spawnPlayer(vbox.get_node("MarginContainer4/GreenButton"),3)
+			playerRef.set_global_translation(Vector3(9 ,0, -26))
+		4: 
+			playerRef.build(PlayerName, characterSelected,Color( 0.8, 0.9, 0, 1 ) )
+			playerRef.set_tile(Globals.board.get_room("TDRHall"))
+			_spawnPlayer(vbox.get_node("MarginContainer5/MustardButton"),4)
+			playerRef.set_global_translation(Vector3(-30 ,0, 11.5))
+		5: 
+			playerRef.build(PlayerName, characterSelected,Color( 0.576471, 0.439216, 0.858824, 1 ))
+			playerRef.set_tile(Globals.board.get_room("TDLHall"))
+			_spawnPlayer(vbox.get_node("MarginContainer6/PlumbButton"),5)
+			playerRef.set_global_translation(Vector3(25 ,0,11.5))
+			
+	print("Player Number 2 :" + str(playerRef.playerNumber))
+	playerRef.show()
 	
 func _on_PeacockButton_button_up():
 	#Grabs the scene to add the player to, the button node and sets desired color
 	#Replace bob with what ever the multiplayer ID becomes later on
 	print("Global number of Players: " + str(Globals.numberOfPlayers))
-	rpc("_Test")
+	#Needs parameters which make this unique to the player that chose it
+	var playerName = Network.players[player.get_network_master()].name
+	var playernum = Network.players[player.get_network_master()].number
+	print(Network.players)
+	rpc("_Test",playerName,0, playernum)
 	_on_hide_buttons(0)
 
 func _on_ScarlettButton_button_up():
-	player.build("Bob", player.Players.SCARLETT,Color( 0.9, 0, 0, 1 ))
-	player.set_tile(Globals.board.get_room("TRHall"))
-	_spawnPlayer(vbox.get_node("MarginContainer2/ScarlettButton"),1)
-	player.set_global_translation(Vector3(-14.5 ,0,26))
-	print("Global number of Players: " + str(Globals.numberOfPlayers))
+	var playerName = Network.players[player.get_network_master()].name
+	var playernum = Network.players[player.get_network_master()].number
+	rpc("_Test",playerName,1,playernum)
+	print(Network.players)
+	_on_hide_buttons(1)
 	
 func _on_WhiteButton_button_up():	
-	player.build("Bob", player.Players.WHITE,Color( 0.980392, 0.921569, 0.843137, 1 ))
-	player.set_tile(Globals.board.get_room("BRHall"))
-	_spawnPlayer(vbox.get_node("MarginContainer3/WhiteButton"),2)
-	player.set_global_translation(Vector3(-14.5 ,0, -26))
+	var playerName = Network.players[player.get_network_master()].name
+	var playernum = Network.players[player.get_network_master()].number
+	rpc("_Test",playerName,2,playernum)
+	_on_hide_buttons(2)
 
 func _on_GreenButton_button_up():
-	player.build("Bob", player.Players.GREEN,Color( 0.133333, 0.545098, 0.133333, 1 ))
-	player.set_tile(Globals.board.get_room("BLHall"))
-	_spawnPlayer(vbox.get_node("MarginContainer4/GreenButton"),3)
-	player.set_global_translation(Vector3(9 ,0, -26))
-
+	var playerName = Network.players[get_tree().get_network_unique_id()].name
+	var playernum = Network.players[get_tree().get_network_unique_id()].number
+	rpc("_Test",playerName,3,playernum)
+	_on_hide_buttons(3)
+	
 func _on_MustardButton_button_up():
-	player.build("Bob", player.Players.MUSTARD,Color( 0.8, 0.9, 0, 1 ) )
-	player.set_tile(Globals.board.get_room("TDRHall"))
-	_spawnPlayer(vbox.get_node("MarginContainer4/GreenButton"),4)
-	player.set_global_translation(Vector3(-30 ,0, 11.5))
+	var playerName = Network.players[get_tree().get_network_unique_id()].name
+	var playernum = Network.players[get_tree().get_network_unique_id()].number
+	rpc("_Test",playerName,4,playernum)
+	_on_hide_buttons(4)
 
 func _on_PlumbButton_button_up():
-	player.build("Bob", player.Players.PLUMB,Color( 0.576471, 0.439216, 0.858824, 1 ) )
-	player.set_tile(Globals.board.get_room("TDLHall"))
-	_spawnPlayer(vbox.get_node("MarginContainer6/PlumbButton"),5)
-	player.set_global_translation(Vector3(25 ,0,11.5))
+	var playerName = Network.players[get_tree().get_network_unique_id()].name
+	var playernum = Network.players[get_tree().get_network_unique_id()].number
+	rpc("_Test",playerName,5,playernum)
+	_on_hide_buttons(5)
 
 
 func _spawnPlayer(buttonNode,nodelocation)->void:
@@ -94,8 +152,6 @@ func _spawnPlayer(buttonNode,nodelocation)->void:
 	playersReady = playersReady + buttonNode.clicked()
 	Globals.characters.append(player.character)
 	rpc("update_button_state", nodelocation)
-	player.playerNumber = number 
-	number += 1
 
 #function for when the ready button is pressed
 func _on_Button_button_up() -> void:
@@ -137,7 +193,6 @@ func _on_network_message(id, message):
 remotesync func update_button_state(button_node):
 	var nodef = get_node("CanvasLayer/CharacterContainer/VBoxContainer/VBoxContainer")
 	nodef = nodef.get_child(button_node).get_child(0)
-	print(nodef)
 	nodef.disabled = true
 
 func _on_Timer_timeout() -> void:
@@ -178,4 +233,10 @@ func _on_TurnQueue_addCards(cardScene):
 	$CanvasLayer/CardDisplay.add_child(cardScene)
 
 
-
+func _find_joinOrder():
+	var counter = 0 
+	for key in Network.players.keys():
+		if(key == get_tree().get_network_unique_id()):
+			return counter
+		counter += 1
+		
