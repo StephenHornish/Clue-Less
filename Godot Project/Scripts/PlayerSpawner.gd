@@ -13,6 +13,7 @@ signal turn_queue
 signal initialize_turn_queue
 signal randomize_weapons
 var player
+var hostPlayer
 var playerNumber = 0
 
 onready var timer = get_node("CanvasLayer/Turn Margin Container/Turn/Timer")
@@ -30,7 +31,7 @@ func _ready():
 		Globals.emit_signal("toggle_network_setup",false)
 	
 	 
-remote func _instance_player(id):
+func _instance_player(id):
 	print("ID being Passed : " + str(id))
 	player = scene.instance()
 	player.hide()
@@ -38,20 +39,15 @@ remote func _instance_player(id):
 	player.name = str(id)
 	print("You have Joined: " + str(id))
 	emit_signal("turn_queue",player)
-	var counter = 0
-	print("current Netowrk Key" + str(get_tree().get_network_unique_id()))
-	print("Player Master ID: " + str(player.get_network_master()))
-	for key in Network.players.keys():
-		Network.players[key].number = counter
-		var value = Network.players[key]
-		print("Check this out" + str(key) + ": " + str(value))
-		counter += 1
-		Network.players[key].number = counter
+	print("run test ")
+	if(id == get_network_master()):
+		hostPlayer = player
+		print("runs")
 
 
 func _player_connected(id):
 	print("Player " + str(id) + " has connected")
-	rpc("_instance_player",id)
+	_instance_player(id)
 	
 func _player_disconnected(id):
 	print("Player " + str(id) + " has disconnected")
@@ -61,14 +57,15 @@ func _player_disconnected(id):
 #tShould take in parameter of the players naem they inputed and the set_tile should also be a match statement 
 #that relates it to the plaeyrs choice
 remotesync func _Test(PlayerName,characterSelected,nodePath):
-	print(turnQueue)
+	for child in turnQueue.get_children():
+		print(child)
+	print("Player Acting:" + str(PlayerName))
+	print("Node Path: " + str(nodePath))
+	var playerRef = turnQueue.get_node(str(nodePath))
 	
-	var playerRef = turnQueue.get_child(Network.players[player.get_network_master()].number)
-	print(playerRef)
 	
 	#this shoudl be changed to look beter later one once it can be confired that there are no dependencies 
 	#between the player class 
-	print("Player Number 1 :" + str(playerRef.playerNumber))
 	match characterSelected: 
 		0:
 			playerRef.build(PlayerName, characterSelected,Color( 0, 0.501961, 0.501961, 1 ))
@@ -101,54 +98,53 @@ remotesync func _Test(PlayerName,characterSelected,nodePath):
 			_spawnPlayer(vbox.get_node("MarginContainer6/PlumbButton"),5)
 			playerRef.set_global_translation(Vector3(25 ,0,11.5))
 			
-	print("Player Number 2 :" + str(playerRef.playerNumber))
 	playerRef.show()
 	
 func _on_PeacockButton_button_up():
 	#Grabs the scene to add the player to, the button node and sets desired color
 	#Replace bob with what ever the multiplayer ID becomes later on
 	print("Global number of Players: " + str(Globals.numberOfPlayers))
-	#Needs parameters which make this unique to the player that chose it
-	var playerName = Network.players[player.get_network_master()].name
-	var playernum = Network.players[player.get_network_master()].number
-	print(Network.players)
+	#gets the player name and number from the user  that selects peackock
+	var playerName = Network.players[get_tree().get_network_unique_id()].name
+	var playernum = get_tree().get_network_unique_id()
 	rpc("_Test",playerName,0, playernum)
 	_on_hide_buttons(0)
 
 func _on_ScarlettButton_button_up():
-	var playerName = Network.players[player.get_network_master()].name
-	var playernum = Network.players[player.get_network_master()].number
-	rpc("_Test",playerName,1,playernum)
-	print(Network.players)
+	var playerName = Network.players[get_tree().get_network_unique_id()].name
+	var playernum = get_tree().get_network_unique_id()
+	rpc("_Test",playerName,1, playernum)
 	_on_hide_buttons(1)
 	
 func _on_WhiteButton_button_up():	
-	var playerName = Network.players[player.get_network_master()].name
-	var playernum = Network.players[player.get_network_master()].number
-	rpc("_Test",playerName,2,playernum)
+	var playerName = Network.players[get_tree().get_network_unique_id()].name
+	var playernum = get_tree().get_network_unique_id()
+	rpc("_Test",playerName,2, playernum)
 	_on_hide_buttons(2)
 
 func _on_GreenButton_button_up():
 	var playerName = Network.players[get_tree().get_network_unique_id()].name
-	var playernum = Network.players[get_tree().get_network_unique_id()].number
+	var playernum = get_tree().get_network_unique_id()
 	rpc("_Test",playerName,3,playernum)
 	_on_hide_buttons(3)
 	
 func _on_MustardButton_button_up():
 	var playerName = Network.players[get_tree().get_network_unique_id()].name
-	var playernum = Network.players[get_tree().get_network_unique_id()].number
+	var playernum = get_tree().get_network_unique_id()
 	rpc("_Test",playerName,4,playernum)
 	_on_hide_buttons(4)
 
 func _on_PlumbButton_button_up():
+	#This works do not change
 	var playerName = Network.players[get_tree().get_network_unique_id()].name
-	var playernum = Network.players[get_tree().get_network_unique_id()].number
+	var playernum = get_tree().get_network_unique_id()
 	rpc("_Test",playerName,5,playernum)
 	_on_hide_buttons(5)
 
 
 func _spawnPlayer(buttonNode,nodelocation)->void:
 	#places the character in the starting location and marks the button as clicked 
+	
 	playersReady = playersReady + buttonNode.clicked()
 	Globals.characters.append(player.character)
 	rpc("update_button_state", nodelocation)
