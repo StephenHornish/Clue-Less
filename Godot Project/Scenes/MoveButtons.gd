@@ -6,7 +6,7 @@ export var mainGameScene : PackedScene
 
 func buildMoves(moveSet:Array) -> void:
 	if(Globals.turn == 1):
-		print("Buttons: " + character)
+		print("Buttons: " + str(character))
 		setColors()
 	if(Globals.turn == 2):
 		setUpButtons(get_child(5))

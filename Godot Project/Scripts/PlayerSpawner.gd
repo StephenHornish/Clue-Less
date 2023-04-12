@@ -48,6 +48,49 @@ func _player_disconnected(id):
 	if has_node(str(id)):
 		get_node(str(id)).queue_free()
 
+
+	
+func _on_PeacockButton_button_up():
+	#Grabs the scene to add the player to, the button node and sets desired color
+	#Replace bob with what ever the multiplayer ID becomes later on
+	#gets the player name and number from the user  that selects peackock
+	var playerName = Network.players[get_tree().get_network_unique_id()].name
+	var playernum = get_tree().get_network_unique_id()
+	rpc("_characterBuilder",playerName,0, playernum)
+	_on_hide_buttons(0)
+
+func _on_ScarlettButton_button_up():
+	var playerName = Network.players[get_tree().get_network_unique_id()].name
+	var playernum = get_tree().get_network_unique_id()
+	rpc("_characterBuilder",playerName,1, playernum)
+	_on_hide_buttons(1)
+	
+func _on_WhiteButton_button_up():	
+	var playerName = Network.players[get_tree().get_network_unique_id()].name
+	var playernum = get_tree().get_network_unique_id()
+	rpc("_characterBuilder",playerName,2, playernum)
+	_on_hide_buttons(2)
+
+func _on_GreenButton_button_up():
+	var playerName = Network.players[get_tree().get_network_unique_id()].name
+	var playernum = get_tree().get_network_unique_id()
+	rpc("_characterBuilder",playerName,3,playernum)
+	_on_hide_buttons(3)
+	
+func _on_MustardButton_button_up():
+	var playerName = Network.players[get_tree().get_network_unique_id()].name
+	var playernum = get_tree().get_network_unique_id()
+	rpc("_characterBuilder",playerName,4,playernum)
+	_on_hide_buttons(4)
+
+func _on_PlumbButton_button_up():
+	#This works do not change
+	var playerName = Network.players[get_tree().get_network_unique_id()].name
+	var playernum = get_tree().get_network_unique_id()
+	rpc("_characterBuilder",playerName,5,playernum)
+	_on_hide_buttons(5)
+
+
 #tShould take in parameter of the players naem they inputed and the set_tile should also be a match statement 
 #that relates it to the plaeyrs choice
 remotesync func _characterBuilder(PlayerName,characterSelected,nodePath):
@@ -94,46 +137,6 @@ remotesync func _characterBuilder(PlayerName,characterSelected,nodePath):
 			playerRef.set_global_translation(Vector3(25 ,0,11.5))
 			
 	playerRef.show()
-	
-func _on_PeacockButton_button_up():
-	#Grabs the scene to add the player to, the button node and sets desired color
-	#Replace bob with what ever the multiplayer ID becomes later on
-	#gets the player name and number from the user  that selects peackock
-	var playerName = Network.players[get_tree().get_network_unique_id()].name
-	var playernum = get_tree().get_network_unique_id()
-	rpc("_characterBuilder",playerName,0, playernum)
-	_on_hide_buttons(0)
-
-func _on_ScarlettButton_button_up():
-	var playerName = Network.players[get_tree().get_network_unique_id()].name
-	var playernum = get_tree().get_network_unique_id()
-	rpc("_characterBuilder",playerName,1, playernum)
-	_on_hide_buttons(1)
-	
-func _on_WhiteButton_button_up():	
-	var playerName = Network.players[get_tree().get_network_unique_id()].name
-	var playernum = get_tree().get_network_unique_id()
-	rpc("_characterBuilder",playerName,2, playernum)
-	_on_hide_buttons(2)
-
-func _on_GreenButton_button_up():
-	var playerName = Network.players[get_tree().get_network_unique_id()].name
-	var playernum = get_tree().get_network_unique_id()
-	rpc("_characterBuilder",playerName,3,playernum)
-	_on_hide_buttons(3)
-	
-func _on_MustardButton_button_up():
-	var playerName = Network.players[get_tree().get_network_unique_id()].name
-	var playernum = get_tree().get_network_unique_id()
-	rpc("_characterBuilder",playerName,4,playernum)
-	_on_hide_buttons(4)
-
-func _on_PlumbButton_button_up():
-	#This works do not change
-	var playerName = Network.players[get_tree().get_network_unique_id()].name
-	var playernum = get_tree().get_network_unique_id()
-	rpc("_characterBuilder",playerName,5,playernum)
-	_on_hide_buttons(5)
 
 
 func _spawnPlayer(buttonNode,nodelocation)->void:
@@ -144,18 +147,13 @@ func _spawnPlayer(buttonNode,nodelocation)->void:
 
 #function for when the ready button is pressed
 func _on_Button_button_up() -> void:
-	turn = get_node("CanvasLayer/Turn Margin Container/Turn")
-	print(Globals.numberOfPlayers)
-	print(playersReady)
+	print("Global Number of Players:" + str(Globals.numberOfPlayers))
+	print("Number of Players Ready" + str(playersReady))
 	if(playersReady == Globals.numberOfPlayers):
-		_build_player_ui()
-		turn.text = "Turn " + str(Globals.turn)
-		vbox.get_parent().hide()
-		emit_signal("initialize_turn_queue")
-		emit_signal("randomize_weapons")
+		var random_num = randi() % 101
+		rpc("_build_player_ui")
 		$"CanvasLayer/MarginContainer".hide()
-		turn.show()
-		timer.start()	
+		emit_signal("randomize_weapons")
 	elif(playersReady > Globals.numberOfPlayers):
 		print("Bug more players ready then exist")
 		pass
@@ -172,14 +170,6 @@ func _on_hide_buttons(buttonOrder : int)-> void:
 			buttonToHide.disabled = true
 	
 
-func _on_network_message(id, message):
-	print(id)
-	print(message)
-	if message.get_name() == "update_button_state":
-		#button_pressed = message.get_argument(0)
-		#update_button_visual_appearance()
-		pass
-		
 #Called on everyone elese machines 
 remotesync func update_button_state(button_node):
 	var nodef = get_node("CanvasLayer/CharacterContainer/VBoxContainer/VBoxContainer")
@@ -199,23 +189,42 @@ func incrementTurn() -> void:
 	timer.start()
 
 #Gives Each player a move set Pannel and a suggestion pannel
-func _build_player_ui():
+remotesync func _build_player_ui():
+	turn = get_node("CanvasLayer/Turn Margin Container/Turn")
 	var i = 0
-	for _x in range (0,Globals.numberOfPlayers):
+	#iterate though the network Dictonary and assign the correct to name each UI element
+	#All scene trees must match across the network 
+	for pair in Network.players:
+		print(pair)
 		var MoveButtons = MoveBut.instance()
 		var SugestionSet = Sugg.instance()
 		var GameSheet = gameSheet.instance()
-		MoveButtons.playerID = i 
-		SugestionSet.playerID = i
-		GameSheet.playerID = i
+		MoveButtons.playerID = pair
+		SugestionSet.playerID = pair
+		GameSheet.playerID = pair
 		MoveButtons.character = Globals.characters[i]
 		$CanvasLayer/MoveSet.add_child(MoveButtons)
 		$CanvasLayer/SuggestionSet.add_child(SugestionSet)
 		$CanvasLayer/ClueSheet.add_child(GameSheet)
-		MoveButtons.buildMoves([])
-		MoveButtons.connectButtons()
-		SugestionSet.connectButtons()
+		MoveButtons.hide()
+		SugestionSet.hide()
+		GameSheet.hide()
+		#If the current UI elements belong to the player they are shown else the 
+		#other players are hidden 
+		if(pair == get_tree().get_network_unique_id()):
+			MoveButtons.buildMoves([])
+			MoveButtons.connectButtons()
+			SugestionSet.connectButtons()
+			MoveButtons.show()
+			SugestionSet.show()
+			GameSheet.show()
 		i = i+1
+	$CanvasLayer/CharacterContainer.hide()
+	turn.text = "Turn " + str(Globals.turn)
+	emit_signal("initialize_turn_queue")
+	turn.show()
+	timer.start()	
+	
 
 	
 
