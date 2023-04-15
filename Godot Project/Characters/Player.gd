@@ -19,8 +19,9 @@ enum Players {
 	SCARLETT
 }
 
-func build(_playID,_character,color:Color):
+func build(_playID,_playerNumber,_character,color:Color):
 	playID = _playID
+	playerNumber = _playerNumber
 	character = _character
 	_set_color(color)
 
@@ -61,6 +62,9 @@ func set_playerID(id : String) -> void:
 
 func get_ID() -> String:
 	return playID	
+
+func get_playerNumber()->int:
+	return playerNumber
 
 func set_tile(t: Tile):
 	tile  = t

@@ -26,8 +26,9 @@ func initialize()-> void:
 	active_player = get_child(0)
 	active_player.set_active()
 	activateKeyListener()
-	dealCards()
-	emit_signal("updateCards",active_player.get_player_number())
+	if(get_tree().get_network_unique_id() == 1):
+		dealCards()
+	#emit_signal("updateCards",active_player.get_player_number())
 	print("Secret Envelope Contains: " + str(Globals.playDeck.secretEnvelop))
 
 # Turnqueue that cycles through all the nodes each time a player makes their turn
@@ -128,32 +129,35 @@ func _on_Character_Selection_turn_queue(player):
 
 func dealCards() -> void:
 	var cardsPerPlayer = 18/Globals.numberOfPlayers  
-	#var leftOver = 18%Globals.numberOfPlayers 
-	
+	sendMasterDeck()
 	for x in range(Globals.numberOfPlayers):
 		var hand = []
 		for _y in range(cardsPerPlayer):
 			var card = Globals.playDeck.deck[0]
 			hand.append(card)
 			Globals.playDeck.deck.remove(0)
-		var player = get_child(x)
-		player.set_hand(hand)
-		
-		#where we add the scene to each players view in multiplayer
-		var cardDisplay = cardDis.instance()
-		cardDisplay.buildPlayerView(hand)
-		#later should be changed to the player ID when multiplayer is implemented
-		cardDisplay.playerID = player.get_player_number()
-		emit_signal("addCards",cardDisplay)
-		
-		
-	for x in range(Globals.numberOfPlayers):
-		var player = get_child(x)
-		print("Player " + str(x + 1))
-		print(player.hand)
-	print("Cards That everyone can see")
-	print(Globals.playDeck.deck)
 
+func sendMasterDeck():
+	var MasterDeckCardName = []
+	var MasterDeckCardType = []
+	var SecretDeckCardName = []
+	var SecretDeckCardType = []
+	for card in Globals.playDeck.deck:
+		MasterDeckCardName.append(card.get_name())
+		MasterDeckCardType.append(card.get_type())
+	for card in Globals.playDeck.secretEnvelop:
+		SecretDeckCardName.append(card.get_name())
+		SecretDeckCardType.append(card.get_type())
+	rpc('buildMasterDeck',MasterDeckCardName,MasterDeckCardType,SecretDeckCardName,SecretDeckCardType)
+
+
+remote func buildMasterDeck(MasterDeckCardName : Array, MasterDeckCardType :Array,SecretDeckCardName : Array, SecretDeckCardType: Array ):
+	print("RPC CAll MASTER DECK")
+	Globals.playDeck.buildDeck(MasterDeckCardName,MasterDeckCardType,SecretDeckCardName,SecretDeckCardType)
+	print(Globals.playDeck.deck)
+	print(Globals.numberOfPlayers)
+	var card = Globals.playDeck.deck[0]
+	print(str(card.get_instance_id()))
 
 #Takes the players moveset and build a new one for all the legal moves around them
 #this is done as to not interfer with the keyboard controls for playing hte game

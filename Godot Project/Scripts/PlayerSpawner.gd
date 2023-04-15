@@ -12,6 +12,7 @@ onready var gameSheet = load("res://Scenes/Clue_Game_Sheet.tscn")
 signal turn_queue
 signal initialize_turn_queue
 signal randomize_weapons
+signal shuffle_deck
 var player
 var playerNumber = 0
 
@@ -96,9 +97,6 @@ func _on_PlumbButton_button_up():
 remotesync func _characterBuilder(PlayerName,characterSelected,nodePath):
 	for child in turnQueue.get_children():
 		print(child)
-		print(child.get_character())
-	print("Player Acting:" + str(PlayerName))
-	print("Node Path: " + str(nodePath))
 	var playerRef = turnQueue.get_node(str(nodePath))
 	
 	
@@ -106,32 +104,32 @@ remotesync func _characterBuilder(PlayerName,characterSelected,nodePath):
 	#between the player class 
 	match characterSelected: 
 		0:
-			playerRef.build(PlayerName, characterSelected,Color( 0, 0.501961, 0.501961, 1 ))
+			playerRef.build(PlayerName,nodePath,characterSelected,Color( 0, 0.501961, 0.501961, 1 ))
 			playerRef.set_tile(Globals.board.get_room("BULHall"))
 			_spawnPlayer(vbox.get_node("MarginContainer1/PeacockButton"),0)
 			playerRef.set_global_translation(Vector3(25,0,-11.5))
 		1:
-			playerRef.build(PlayerName, characterSelected,Color( 0.9, 0, 0, 1 ))
+			playerRef.build(PlayerName,nodePath, characterSelected,Color( 0.9, 0, 0, 1 ))
 			playerRef.set_tile(Globals.board.get_room("TRHall"))
 			_spawnPlayer(vbox.get_node("MarginContainer2/ScarlettButton"),1)
 			playerRef.set_global_translation(Vector3(-14.5 ,0,26))
 		2: 
-			playerRef.build(PlayerName, characterSelected,Color( 0.980392, 0.921569, 0.843137, 1 ))
+			playerRef.build(PlayerName,nodePath, characterSelected,Color( 0.980392, 0.921569, 0.843137, 1 ))
 			playerRef.set_tile(Globals.board.get_room("BRHall"))
 			_spawnPlayer(vbox.get_node("MarginContainer3/WhiteButton"),2)
 			playerRef.set_global_translation(Vector3(-14.5 ,0, -26))
 		3: 
-			playerRef.build(PlayerName, characterSelected,Color( 0.133333, 0.545098, 0.133333, 1 ))
+			playerRef.build(PlayerName,nodePath, characterSelected,Color( 0.133333, 0.545098, 0.133333, 1 ))
 			playerRef.set_tile(Globals.board.get_room("BLHall"))
 			_spawnPlayer(vbox.get_node("MarginContainer4/GreenButton"),3)
 			playerRef.set_global_translation(Vector3(9 ,0, -26))
 		4: 
-			playerRef.build(PlayerName, characterSelected,Color( 0.8, 0.9, 0, 1 ) )
+			playerRef.build(PlayerName,nodePath, characterSelected,Color( 0.8, 0.9, 0, 1 ) )
 			playerRef.set_tile(Globals.board.get_room("TDRHall"))
 			_spawnPlayer(vbox.get_node("MarginContainer5/MustardButton"),4)
 			playerRef.set_global_translation(Vector3(-30 ,0, 11.5))
 		5: 
-			playerRef.build(PlayerName, characterSelected,Color( 0.576471, 0.439216, 0.858824, 1 ))
+			playerRef.build(PlayerName,nodePath, characterSelected,Color( 0.576471, 0.439216, 0.858824, 1 ))
 			playerRef.set_tile(Globals.board.get_room("TDLHall"))
 			_spawnPlayer(vbox.get_node("MarginContainer6/PlumbButton"),5)
 			playerRef.set_global_translation(Vector3(25 ,0,11.5))
@@ -147,10 +145,11 @@ func _spawnPlayer(buttonNode,nodelocation)->void:
 
 #function for when the ready button is pressed
 func _on_Button_button_up() -> void:
+	print("Ready Call")
+	#rpc("sameDecks", Globals.playDeck.deck,Globals.playDeck.secretEnvelop)
 	print("Global Number of Players:" + str(Globals.numberOfPlayers))
 	print("Number of Players Ready" + str(playersReady))
 	if(playersReady == Globals.numberOfPlayers):
-		var random_num = randi() % 101
 		rpc("_build_player_ui")
 		$"CanvasLayer/MarginContainer".hide()
 		emit_signal("randomize_weapons")
@@ -158,8 +157,10 @@ func _on_Button_button_up() -> void:
 		print("Bug more players ready then exist")
 		pass
 	else:
-		turn.text = "Awaiting More players"
-		print("Waiting for everyone")
+		turn = get_node("CanvasLayer/Turn Margin Container/Turn")
+		turn.text = str(playersReady) + " out of " + str(Globals.numberOfPlayers) + " are ready"
+		turn.show()
+		timer.start()	
 
 func _on_hide_buttons(buttonOrder : int)-> void: 
 	for i in range(0,6):
@@ -194,11 +195,12 @@ remotesync func _build_player_ui():
 	var i = 0
 	#iterate though the network Dictonary and assign the correct to name each UI element
 	#All scene trees must match across the network 
+	print(Globals.playDeck.deck)
 	for pair in Network.players:
-		print(pair)
 		var MoveButtons = MoveBut.instance()
 		var SugestionSet = Sugg.instance()
 		var GameSheet = gameSheet.instance()
+		#This can all be changed to .name later
 		MoveButtons.playerID = pair
 		SugestionSet.playerID = pair
 		GameSheet.playerID = pair
@@ -231,6 +233,8 @@ remotesync func _build_player_ui():
 
 func _on_TurnQueue_addCards(cardScene):
 	$CanvasLayer/CardDisplay.add_child(cardScene)
+	if(cardScene.playerID != get_tree().get_network_unique_id()):
+			cardScene.hide()
 
 
 func _find_joinOrder():
@@ -240,3 +244,8 @@ func _find_joinOrder():
 			return counter
 		counter += 1
 		
+remote func sameDecks(deck:Array,secret:Array):
+	Globals.playDeck.deck  =  deck
+	Globals.playDeck.secretEnvelop = secret
+	print("Rmeote Same Deck call")
+	print(deck)

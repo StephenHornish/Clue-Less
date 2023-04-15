@@ -17,6 +17,7 @@ var player_ids = []
 var net_id
 signal instance_player(id)
 signal toggle_network_setup(toggle)
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	board = boardDb.new()
