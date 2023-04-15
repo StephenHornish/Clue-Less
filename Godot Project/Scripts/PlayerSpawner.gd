@@ -233,8 +233,6 @@ remotesync func _build_player_ui():
 
 func _on_TurnQueue_addCards(cardScene):
 	$CanvasLayer/CardDisplay.add_child(cardScene)
-	if(cardScene.playerID != get_tree().get_network_unique_id()):
-			cardScene.hide()
 
 
 func _find_joinOrder():
@@ -249,3 +247,14 @@ remote func sameDecks(deck:Array,secret:Array):
 	Globals.playDeck.secretEnvelop = secret
 	print("Rmeote Same Deck call")
 	print(deck)
+
+
+func _on_TurnQueue_hideCards():
+	var display = $CanvasLayer/CardDisplay
+	print("DISPLAY")
+	var cards = display.get_node(str(get_tree().get_network_unique_id()))
+	cards.show()
+	print(get_tree().get_network_unique_id())
+	print(display.get_child(0).playerID)
+	print(display.get_child(1).playerID)
+	
