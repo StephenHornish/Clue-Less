@@ -5,8 +5,7 @@ var character
 export var mainGameScene : PackedScene
 
 func buildMoves(moveSet:Array) -> void:
-	if(Globals.turn == 2):
-		setUpButtons(get_child(5))
+	setUpButtons(get_child(5))
 	$EndTurnContainer/EndTurn.disabled = false
 	for move in moveSet:
 		match move: 
@@ -43,8 +42,9 @@ func setUpButtons(node : Node)->void:
 	get_child(2).show()
 	get_child(3).show()
 	get_child(4).show()
-	queue_free_children(node)
-	free_children(node)
+	get_child(5).hide()
+	#queue_free_children(node)
+	#free_children(node)
 
 
 static func queue_free_children(node: Node) -> void:

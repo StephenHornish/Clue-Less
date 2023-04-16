@@ -74,7 +74,7 @@ func move_pawn_direction( direction : String) ->void:
 	currtile.remove_occupant(pawn.get_ID())
 	nextTile.set_occupant(pawn.get_ID())
 	pawn.set_tile(nextTile)
-	Globals.currentTilesArray[pawn.playerNumber] = nextTile
+	Globals.currentTilesArray[pawn.get_turn_order()] = nextTile
 	
 func test():
 	pass

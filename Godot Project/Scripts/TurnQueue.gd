@@ -9,10 +9,10 @@ var active : bool = false
 var turnFlag = true
 var loserOffset = Vector3(0,0,0)
 var numberOfLosers
-var currentPlayer
+var past_player
 var nextPlayer
 var turnOrder
-var counter = 1
+var counter = 0
 
 signal nextTurn
 signal addCards
@@ -34,6 +34,11 @@ func initialize()-> void:
 	if(get_tree().get_network_unique_id() == 1):
 		dealCards()
 	buildTurnOrder()
+	var i = 0 
+	for x in turnOrder:
+		var player = get_node(str(x))
+		player.set_turn_order(i)
+		i += 1
 	#emit_signal("updateCards",active_player.get_player_number())
 	
 func buildTurnOrder():
@@ -45,30 +50,12 @@ func buildTurnOrder():
 	# Turnqueue that cycles through all the nodes each time a player makes their turn
 # will also emit a singla to the UI lettting everyone know that round is over
 func play_turn() -> void:
-	print("Player: " + str(active_player.get_player_number()) + "  " + "Character:  " + active_player.get_character_string() )
-	active_player.set_inactive()
+	past_player.set_inactive()
 	turnFlag = true
 	print("Active Player: " + str(active_player))
-	#if((counter + 1) % Globals.numberOfPlayers == 0):
-		#Should say round instead of turn will fix later
-		#emit_signal("nextTurn")
-	emit_signal("updateMoves",active_player,buildLegalMoveSetButtons(active_player.get_moveset()))
-	emit_signal("displayLocation",active_player)
-	rpc('nextPlayer')
-	active_player= get_node(str(nextPlayer))
 	active_player.set_active()
-	print("Sharing active Player State with other clients")
 	if(active_player.get_tile().get_name() == "LosersBox"):
 		play_turn()
-	counter +=1
-
-remotesync func nextPlayer():
-	var index = turnOrder.find(active_player.name.to_int())
-	print("INDEX " + str(index))
-	if(index + 1 >= turnOrder.size()):
-		nextPlayer = turnOrder[0]
-	else:
-		nextPlayer = turnOrder[index + 1 ]
 # Key listener that takes the input Delta is basically each tick fo the game engine
 # not required for what we are doing right now. Key Listener becomes active once all
 # players have spawned in and selected ready this way players can move pieces early
@@ -204,18 +191,23 @@ func buildLegalMoveSetButtons(moveSet : Array) -> Array:
 
 func _on_LeftButton_button_up():
 	if(active_player.name == str(get_tree().get_network_unique_id())):
-		emit_signal("disableMoveButtons",active_player.get_player_number())
-		turnFlag = false
-		active_player.get_child(0).move_left()
-		emit_signal("displayLocation",active_player)
+		print("RUNS LEFT BUTTon")
+		var nextplayer = nextPlayer(str(get_tree().get_network_unique_id()))
+		print("The NExt pLayer")
+		print(nextPlayer)
+		emit_signal("disableButtons",active_player.get_player_number())
+		rpc("_updatePeerMovement", "LEFT",str(get_tree().get_network_unique_id()),nextplayer)
 
 
 func _on_UpButton_button_up():
+	print(active_player)
 	if(active_player.name == str(get_tree().get_network_unique_id())):
-		emit_signal("disableMoveButtons",active_player.get_player_number())
-		turnFlag = false
-		active_player.get_child(0).move_up()
-		emit_signal("displayLocation",active_player)
+		print("RUNS UP BUTTon")
+		var nextplayer = nextPlayer(str(get_tree().get_network_unique_id()))
+		print("The NExt pLayer")
+		print(nextPlayer)
+		emit_signal("disableButtons",active_player.get_player_number())
+		rpc("_updatePeerMovement", "UP",str(get_tree().get_network_unique_id()),nextplayer)
 
 
 func _on_DownButton_button_up():
@@ -246,27 +238,49 @@ func _on_EndTurn_button_up():
 	if(active_player.name == str(get_tree().get_network_unique_id())):
 		active_player.get_child(0).velocity = Vector3.ZERO
 		emit_signal("disableButtons",active_player.get_player_number())
-		play_turn()
+		rpc("_updatePeerMovement", "UP",str(get_tree().get_network_unique_id()))
 
 
 func _on_EnterButton_button_up():
 	print("Active Player Name: " + str(active_player.name))
 	print("Current ID: " + str(get_tree().get_network_unique_id()))
 	if(active_player.name == str(get_tree().get_network_unique_id())):
-		active_player.get_child(0).move_up()
-		active_player.get_child(0).velocity = Vector3.ZERO
+		var nextplayer = nextPlayer(str(get_tree().get_network_unique_id()))
 		emit_signal("disableButtons",active_player.get_player_number())
-		rpc("_updatePeerMovement", "UP",str(get_tree().get_network_unique_id()))
-		play_turn()
+		emit_signal("updateMoves",active_player,buildLegalMoveSetButtons(active_player.get_moveset()))
+		rpc("_updatePeerMovement", "UP",str(get_tree().get_network_unique_id()),nextplayer)
 		
-remote func _updatePeerMovement(_movement, _activeplayer):
+remotesync func _updatePeerMovement(_movement, _activeplayer,_nextPlayer):
 	var playerToMove = get_node(_activeplayer)
+	print("PLayer to Move: " + str(playerToMove))
+	past_player = playerToMove 
+	active_player = get_node(str(_nextPlayer))
+	if(active_player.name == str(1)):
+		emit_signal("nextTurn")
 	match _movement:
 		"UP":
+			print("Runs UP Match Case")
+			print(playerToMove.get_turn_order())
+			print(playerToMove.get_moveset())
 			playerToMove.get_child(0).move_up()
-			playerToMove.get_child(0).velocity = Vector3.ZERO
-			play_turn()
-	
+
+		"LEFT":
+			print("Runs Left Match Case")
+			playerToMove.get_child(0).move_left()
+
+
+func nextPlayer(_player)->String:
+	print("TURN ORDER")
+	print(turnOrder)
+	print("Active Player")
+	print(_player)
+	var index = turnOrder.find(_player.to_int())
+	print("INDEX " + str(index))
+	if(index + 1 >= turnOrder.size()):
+		nextPlayer = turnOrder[0]
+	else:
+		nextPlayer = turnOrder[index + 1 ]
+	return nextPlayer
 #Move the player that was suggested into the room and also the weapon then begin the suggestion check
 func _on_Suggest_button_up(suggestion):
 	print(Globals.playDeck.secretEnvelop)

@@ -7,6 +7,7 @@ onready var moveset : Array
 onready var adjacent : Array
 var playID : String
 var playerNumber: int
+var turnOrder : int
 var character
 var hand = []
 
@@ -93,6 +94,9 @@ func set_hand(_hand:Array) -> void:
 	
 func get_player_number() -> int:
 	return playerNumber
-
-
 	
+func set_turn_order(_turnOrder) -> void: 
+	turnOrder = _turnOrder
+
+func get_turn_order() -> int: 
+	return turnOrder

@@ -188,6 +188,7 @@ func incrementTurn() -> void:
 	turn.text = "Turn " + str(Globals.turn)
 	turn.show()
 	timer.start()
+	
 
 #Gives Each player a move set Pannel and a suggestion pannel
 remotesync func _build_player_ui():
