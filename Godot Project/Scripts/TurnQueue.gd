@@ -9,6 +9,10 @@ var active : bool = false
 var turnFlag = true
 var loserOffset = Vector3(0,0,0)
 var numberOfLosers
+var currentPlayer
+var nextPlayer
+var turnOrder
+var counter = 1
 
 signal nextTurn
 signal addCards
@@ -24,36 +28,47 @@ signal hideCards
 
 
 func initialize()-> void:
-	active_player = get_child(0)
+	active_player = get_node(str(1))
 	active_player.set_active()
 	activateKeyListener()
 	if(get_tree().get_network_unique_id() == 1):
 		dealCards()
+	buildTurnOrder()
 	#emit_signal("updateCards",active_player.get_player_number())
-	print("Secret Envelope Contains: " + str(Globals.playDeck.secretEnvelop))
-
-# Turnqueue that cycles through all the nodes each time a player makes their turn
+	
+func buildTurnOrder():
+	var keys_list = Network.players.keys()
+	keys_list.sort()
+	turnOrder = keys_list
+	
+		
+	# Turnqueue that cycles through all the nodes each time a player makes their turn
 # will also emit a singla to the UI lettting everyone know that round is over
 func play_turn() -> void:
 	print("Player: " + str(active_player.get_player_number()) + "  " + "Character:  " + active_player.get_character_string() )
 	active_player.set_inactive()
 	turnFlag = true
-	var new_player : int = (active_player.get_index() + 1) % get_child_count()
-	if((active_player.get_index() + 1) % Globals.numberOfPlayers == 0):
+	print("Active Player: " + str(active_player))
+	#if((counter + 1) % Globals.numberOfPlayers == 0):
 		#Should say round instead of turn will fix later
-		emit_signal("nextTurn")
-	active_player = get_child(new_player)
-	emit_signal("updateCards",active_player.get_player_number())
+		#emit_signal("nextTurn")
 	emit_signal("updateMoves",active_player,buildLegalMoveSetButtons(active_player.get_moveset()))
 	emit_signal("displayLocation",active_player)
-	emit_signal("updateClueSheet", active_player)
+	rpc('nextPlayer')
+	active_player= get_node(str(nextPlayer))
 	active_player.set_active()
 	print("Sharing active Player State with other clients")
 	if(active_player.get_tile().get_name() == "LosersBox"):
 		play_turn()
+	counter +=1
 
-
-
+remotesync func nextPlayer():
+	var index = turnOrder.find(active_player.name.to_int())
+	print("INDEX " + str(index))
+	if(index + 1 >= turnOrder.size()):
+		nextPlayer = turnOrder[0]
+	else:
+		nextPlayer = turnOrder[index + 1 ]
 # Key listener that takes the input Delta is basically each tick fo the game engine
 # not required for what we are doing right now. Key Listener becomes active once all
 # players have spawned in and selected ready this way players can move pieces early
@@ -129,9 +144,12 @@ func _on_Character_Selection_turn_queue(player):
 		#print("Current Children of Turn Queue: " + child.get_name()) 
 
 func dealCards() -> void:
-	var cardsPerPlayer = 18/Globals.numberOfPlayers  
+	#creates the players heads by dealing cards to each client
+	buildPlayerHand()
+	#creates the players UI
+	rpc('buildHandUI')
+	#Sends the Hosts deck to the clients 
 	sendMasterDeck()
-	rpc('buildPlayerHand')
 
 func sendMasterDeck():
 	var MasterDeckCardName = []
@@ -146,40 +164,33 @@ func sendMasterDeck():
 		SecretDeckCardType.append(card.get_type())
 	rpc('buildMasterDeck',MasterDeckCardName,MasterDeckCardType,SecretDeckCardName,SecretDeckCardType)
 
-remotesync func buildPlayerHand():
+func buildPlayerHand():
 	var cardsPerPlayer = 18/Globals.numberOfPlayers  
 	#var leftOver = 18%Globals.numberOfPlayers
 	for pair in Network.players:
-		var hand = []
+		var cardName = []
+		var cardType = []
 		for _y in range(cardsPerPlayer):
 			var card = Globals.playDeck.deck[0]
-			hand.append(card)
+			cardName.append(card.get_name())
+			cardType.append(card.get_type())
 			Globals.playDeck.deck.remove(0)
-		print("PAIR VALUE: " + str(pair))
-		var player = get_node(str(pair))
-		player.set_hand(hand)
+		rpc('buildPlayersHand',cardName,cardType,str(pair))
 		#where we add the scene to each players view in multiplayer
-		var cardDisplay = cardDis.instance()
-		cardDisplay.buildPlayerView(hand)
-		#later should be changed to the player ID when multiplayer is implemented
-		cardDisplay.playerID = pair
-		cardDisplay.name = str(pair)
-		cardDisplay.hide()
-		emit_signal("addCards",cardDisplay)
-		
-	emit_signal("hideCards")	
-	for x in range(Globals.numberOfPlayers):
-		var player = get_child(x)
-		print("Player " + str(x + 1))
-		print(player.hand)
-	print("Cards That everyone can see")
-	print(Globals.playDeck.deck)
+remotesync func buildHandUI():
+	var cardDisplay = cardDis.instance()
+	var player = get_node(str(get_tree().get_network_unique_id()))
+	cardDisplay.buildPlayerView(player.hand)
+	cardDisplay.playerID = get_tree().get_network_unique_id()
+	cardDisplay.name = str(get_tree().get_network_unique_id())
+	emit_signal("addCards",cardDisplay)
 
+remotesync func buildPlayersHand(MasterHandCardName : Array, MasterHandCardType, _node : String):
+	var player = get_node(str(_node))
+	player.set_hand(Globals.playDeck.buildHand(MasterHandCardName,MasterHandCardType))
+	
 remote func buildMasterDeck(MasterDeckCardName : Array, MasterDeckCardType :Array,SecretDeckCardName : Array, SecretDeckCardType: Array ):
-	print("RPC CAll MASTER DECK")
 	Globals.playDeck.buildDeck(MasterDeckCardName,MasterDeckCardType,SecretDeckCardName,SecretDeckCardType)
-	print(Globals.playDeck.deck)
-	print(Globals.numberOfPlayers)
 
 #Takes the players moveset and build a new one for all the legal moves around them
 #this is done as to not interfer with the keyboard controls for playing hte game
@@ -192,53 +203,70 @@ func buildLegalMoveSetButtons(moveSet : Array) -> Array:
 			
 
 func _on_LeftButton_button_up():
-	emit_signal("disableMoveButtons",active_player.get_player_number())
-	turnFlag = false
-	active_player.get_child(0).move_left()
-	emit_signal("displayLocation",active_player)
+	if(active_player.name == str(get_tree().get_network_unique_id())):
+		emit_signal("disableMoveButtons",active_player.get_player_number())
+		turnFlag = false
+		active_player.get_child(0).move_left()
+		emit_signal("displayLocation",active_player)
 
 
 func _on_UpButton_button_up():
-	emit_signal("disableMoveButtons",active_player.get_player_number())
-	turnFlag = false
-	active_player.get_child(0).move_up()
-	emit_signal("displayLocation",active_player)
+	if(active_player.name == str(get_tree().get_network_unique_id())):
+		emit_signal("disableMoveButtons",active_player.get_player_number())
+		turnFlag = false
+		active_player.get_child(0).move_up()
+		emit_signal("displayLocation",active_player)
 
 
 func _on_DownButton_button_up():
-	emit_signal("disableMoveButtons",active_player.get_player_number())
-	turnFlag = false
-	active_player.get_child(0).move_down()
-	emit_signal("displayLocation",active_player)
+	if(active_player.name == str(get_tree().get_network_unique_id())):
+		emit_signal("disableMoveButtons",active_player.get_player_number())
+		turnFlag = false
+		active_player.get_child(0).move_down()
+		emit_signal("displayLocation",active_player)
 
 
 func _on_RightButton_button_up():
-	emit_signal("disableMoveButtons",active_player.get_player_number())
-	turnFlag = false
-	active_player.get_child(0).move_right()
-	emit_signal("displayLocation",active_player)
+	if(active_player.name == str(get_tree().get_network_unique_id())):
+		emit_signal("disableMoveButtons",active_player.get_player_number())
+		turnFlag = false
+		active_player.get_child(0).move_right()
+		emit_signal("displayLocation",active_player)
 
 
 func _on_SecretButton_button_up():
-	emit_signal("disableMoveButtons",active_player.get_player_number())
-	
-	turnFlag = false
-	active_player.get_child(0).move_secret_passage()
-	emit_signal("displayLocation",active_player)
+	if(active_player.name == str(get_tree().get_network_unique_id())):
+		emit_signal("disableMoveButtons",active_player.get_player_number())
+		turnFlag = false
+		active_player.get_child(0).move_secret_passage()
+		emit_signal("displayLocation",active_player)
 
 
 func _on_EndTurn_button_up():
-	active_player.get_child(0).velocity = Vector3.ZERO
-	emit_signal("disableButtons",active_player.get_player_number())
-	play_turn()
+	if(active_player.name == str(get_tree().get_network_unique_id())):
+		active_player.get_child(0).velocity = Vector3.ZERO
+		emit_signal("disableButtons",active_player.get_player_number())
+		play_turn()
 
 
 func _on_EnterButton_button_up():
-	active_player.get_child(0).move_up()
-	active_player.get_child(0).velocity = Vector3.ZERO
-	emit_signal("disableButtons",active_player.get_player_number())
-	play_turn()
-
+	print("Active Player Name: " + str(active_player.name))
+	print("Current ID: " + str(get_tree().get_network_unique_id()))
+	if(active_player.name == str(get_tree().get_network_unique_id())):
+		active_player.get_child(0).move_up()
+		active_player.get_child(0).velocity = Vector3.ZERO
+		emit_signal("disableButtons",active_player.get_player_number())
+		rpc("_updatePeerMovement", "UP",str(get_tree().get_network_unique_id()))
+		play_turn()
+		
+remote func _updatePeerMovement(_movement, _activeplayer):
+	var playerToMove = get_node(_activeplayer)
+	match _movement:
+		"UP":
+			playerToMove.get_child(0).move_up()
+			playerToMove.get_child(0).velocity = Vector3.ZERO
+			play_turn()
+	
 #Move the player that was suggested into the room and also the weapon then begin the suggestion check
 func _on_Suggest_button_up(suggestion):
 	print(Globals.playDeck.secretEnvelop)

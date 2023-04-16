@@ -83,3 +83,8 @@ func buildDeck(MasterDeckCardName : Array, MasterDeckCardType :Array,SecretDeckC
 	deck = _deck
 	secretEnvelop = _secretEnvelop
 		
+func buildHand(MasterHandCardName : Array, MasterHandCardType : Array): 
+	var _hand = [] 
+	for i in range(MasterHandCardName.size()):
+		_hand.append(Card.new(MasterHandCardName[i],MasterHandCardType[i]))
+	return _hand

@@ -93,3 +93,6 @@ func set_hand(_hand:Array) -> void:
 	
 func get_player_number() -> int:
 	return playerNumber
+
+
+	

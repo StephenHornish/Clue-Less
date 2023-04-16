@@ -192,40 +192,32 @@ func incrementTurn() -> void:
 #Gives Each player a move set Pannel and a suggestion pannel
 remotesync func _build_player_ui():
 	turn = get_node("CanvasLayer/Turn Margin Container/Turn")
-	var i = 0
 	#iterate though the network Dictonary and assign the correct to name each UI element
 	#All scene trees must match across the network 
-	print(Globals.playDeck.deck)
-	for pair in Network.players:
-		var MoveButtons = MoveBut.instance()
-		var SugestionSet = Sugg.instance()
-		var GameSheet = gameSheet.instance()
+	var ID = str(get_tree().get_network_unique_id())
+	var player = turnQueue.get_node(ID)
+	var MoveButtons = MoveBut.instance()
+	var SugestionSet = Sugg.instance()
+	var GameSheet = gameSheet.instance()
 		#This can all be changed to .name later
-		MoveButtons.playerID = pair
-		SugestionSet.playerID = pair
-		GameSheet.playerID = pair
-		MoveButtons.character = Globals.characters[i]
-		$CanvasLayer/MoveSet.add_child(MoveButtons)
-		$CanvasLayer/SuggestionSet.add_child(SugestionSet)
-		$CanvasLayer/ClueSheet.add_child(GameSheet)
-		MoveButtons.hide()
-		SugestionSet.hide()
-		GameSheet.hide()
-		#If the current UI elements belong to the player they are shown else the 
-		#other players are hidden 
-		if(pair == get_tree().get_network_unique_id()):
-			MoveButtons.buildMoves([])
-			MoveButtons.connectButtons()
-			SugestionSet.connectButtons()
-			MoveButtons.show()
-			SugestionSet.show()
-			GameSheet.show()
-		i = i+1
+	MoveButtons.playerID = ID
+	MoveButtons.character = player.get_character()
+	MoveButtons.setColors()
+	SugestionSet.playerID = get_tree().get_network_unique_id()
+	GameSheet.playerID = get_tree().get_network_unique_id()
+	MoveButtons.name = ID
+	SugestionSet.name = ID
+	GameSheet.name = ID
+	$CanvasLayer/MoveSet.add_child(MoveButtons)
+	$CanvasLayer/SuggestionSet.add_child(SugestionSet)
+	$CanvasLayer/ClueSheet.add_child(GameSheet)
 	$CanvasLayer/CharacterContainer.hide()
 	turn.text = "Turn " + str(Globals.turn)
 	emit_signal("initialize_turn_queue")
 	turn.show()
 	timer.start()	
+	MoveButtons.connectButtons()
+	SugestionSet.connectButtons()
 	
 
 	
