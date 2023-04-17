@@ -9,9 +9,10 @@ func _on_TurnQueue_updateMoves(player,legalMoveSet):
 
 
 
-func _on_TurnQueue_disableButtons(playerNumber):
-	get_child(0).disableButtons()
+func _on_TurnQueue_disableButtons():
+	get_node(str(get_tree().get_network_unique_id())).disableButtons()
 
 
-func _on_TurnQueue_disableMoveButtons(playerNumber):
+func _on_TurnQueue_disableMoveButtons():
 	get_node(str(get_tree().get_network_unique_id())).disableMoveButtons()
+

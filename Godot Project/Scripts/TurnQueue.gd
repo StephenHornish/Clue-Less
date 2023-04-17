@@ -191,82 +191,78 @@ func buildLegalMoveSetButtons(moveSet : Array) -> Array:
 
 func _on_LeftButton_button_up():
 	if(active_player.name == str(get_tree().get_network_unique_id())):
-		print("RUNS LEFT BUTTon")
-		var nextplayer = nextPlayer(str(get_tree().get_network_unique_id()))
-		print("The NExt pLayer")
-		print(nextPlayer)
-		emit_signal("disableButtons",active_player.get_player_number())
-		rpc("_updatePeerMovement", "LEFT",str(get_tree().get_network_unique_id()),nextplayer)
+		rpc("_updatePeerMovement", "Left",str(get_tree().get_network_unique_id()))
+		emit_signal('disableMoveButtons')
+		emit_signal("displayLocation",active_player)
+		
 
 
 func _on_UpButton_button_up():
-	print(active_player)
 	if(active_player.name == str(get_tree().get_network_unique_id())):
-		print("RUNS UP BUTTon")
-		var nextplayer = nextPlayer(str(get_tree().get_network_unique_id()))
-		print("The NExt pLayer")
-		print(nextPlayer)
-		emit_signal("disableButtons",active_player.get_player_number())
-		rpc("_updatePeerMovement", "UP",str(get_tree().get_network_unique_id()),nextplayer)
+		rpc("_updatePeerMovement", "Up",str(get_tree().get_network_unique_id()))
+		emit_signal('disableMoveButtons')
+		emit_signal("displayLocation",active_player)
 
 
 func _on_DownButton_button_up():
 	if(active_player.name == str(get_tree().get_network_unique_id())):
-		emit_signal("disableMoveButtons",active_player.get_player_number())
-		turnFlag = false
-		active_player.get_child(0).move_down()
+		rpc("_updatePeerMovement", "Down",str(get_tree().get_network_unique_id()))
+		emit_signal('disableMoveButtons')
 		emit_signal("displayLocation",active_player)
 
 
 func _on_RightButton_button_up():
 	if(active_player.name == str(get_tree().get_network_unique_id())):
-		emit_signal("disableMoveButtons",active_player.get_player_number())
-		turnFlag = false
-		active_player.get_child(0).move_right()
+		rpc("_updatePeerMovement", "Right",str(get_tree().get_network_unique_id()))
+		emit_signal('disableMoveButtons')
 		emit_signal("displayLocation",active_player)
 
 
 func _on_SecretButton_button_up():
 	if(active_player.name == str(get_tree().get_network_unique_id())):
-		emit_signal("disableMoveButtons",active_player.get_player_number())
-		turnFlag = false
-		active_player.get_child(0).move_secret_passage()
+		rpc("_updatePeerMovement", "Secret Passage",str(get_tree().get_network_unique_id()))
+		emit_signal('disableMoveButtons')
 		emit_signal("displayLocation",active_player)
 
 
 func _on_EndTurn_button_up():
 	if(active_player.name == str(get_tree().get_network_unique_id())):
-		active_player.get_child(0).velocity = Vector3.ZERO
-		emit_signal("disableButtons",active_player.get_player_number())
-		rpc("_updatePeerMovement", "UP",str(get_tree().get_network_unique_id()))
+		emit_signal("disableButtons")
+		rpc("_updateCurrentPlayer",str(get_tree().get_network_unique_id()),nextPlayer)
 
 
 func _on_EnterButton_button_up():
-	print("Active Player Name: " + str(active_player.name))
-	print("Current ID: " + str(get_tree().get_network_unique_id()))
 	if(active_player.name == str(get_tree().get_network_unique_id())):
 		var nextplayer = nextPlayer(str(get_tree().get_network_unique_id()))
-		emit_signal("disableButtons",active_player.get_player_number())
+		emit_signal("disableButtons")
 		emit_signal("updateMoves",active_player,buildLegalMoveSetButtons(active_player.get_moveset()))
-		rpc("_updatePeerMovement", "UP",str(get_tree().get_network_unique_id()),nextplayer)
-		
-remotesync func _updatePeerMovement(_movement, _activeplayer,_nextPlayer):
+		rpc("_updatePeerMovement", "Up",str(get_tree().get_network_unique_id()))
+		rpc("_updateCurrentPlayer",str(get_tree().get_network_unique_id()),nextPlayer)
+
+remotesync func _updateCurrentPlayer(_activeplayer,_nextPlayer):
 	var playerToMove = get_node(_activeplayer)
-	print("PLayer to Move: " + str(playerToMove))
 	past_player = playerToMove 
 	active_player = get_node(str(_nextPlayer))
-	match _movement:
-		"UP":
-			print("Runs UP Match Case")
-			print(playerToMove.get_turn_order())
-			print(playerToMove.get_moveset())
-			playerToMove.get_child(0).move_up()
-
-		"LEFT":
-			print("Runs Left Match Case")
-			playerToMove.get_child(0).move_left()
 	if(past_player.get_turn_order() == turnOrder.size() - 1):
 		emit_signal("nextTurn")
+	if(active_player.name == str(get_tree().get_network_unique_id()) && Globals.turn > 1):
+		emit_signal("updateMoves",active_player,buildLegalMoveSetButtons(active_player.get_moveset()))
+		
+
+remotesync func _updatePeerMovement(_movement, _activeplayer):
+	var playerToMove = get_node(_activeplayer)
+	match _movement:
+		"Up":
+			playerToMove.get_child(0).move_up()
+		"Left":
+			playerToMove.get_child(0).move_left()
+		"Right":
+			playerToMove.get_child(0).move_right()
+		"Down":
+			playerToMove.get_child(0).move_down()
+		"Secret Passage":
+			playerToMove.get_child(0).move_secret_passage()
+			
 
 
 func nextPlayer(_player)->String:
