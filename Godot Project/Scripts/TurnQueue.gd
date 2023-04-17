@@ -255,8 +255,6 @@ remotesync func _updatePeerMovement(_movement, _activeplayer,_nextPlayer):
 	print("PLayer to Move: " + str(playerToMove))
 	past_player = playerToMove 
 	active_player = get_node(str(_nextPlayer))
-	if(active_player.name == str(1)):
-		emit_signal("nextTurn")
 	match _movement:
 		"UP":
 			print("Runs UP Match Case")
@@ -267,6 +265,8 @@ remotesync func _updatePeerMovement(_movement, _activeplayer,_nextPlayer):
 		"LEFT":
 			print("Runs Left Match Case")
 			playerToMove.get_child(0).move_left()
+	if(past_player.get_turn_order() == turnOrder.size() - 1):
+		emit_signal("nextTurn")
 
 
 func nextPlayer(_player)->String:
