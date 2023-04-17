@@ -39,12 +39,13 @@ remote func _send_player_info(id,info):
 	Globals.numberOfPlayers += 1
 	if get_tree().is_network_server():
 		for peer_id in players: 
-			rpc_id(id, '_send_player_info',peer_id,players [peer_id])
+			rpc_id(id, '_send_player_info',peer_id, players[peer_id])
+	players[id] = info
+
+remote func _send_player_info2(id,info):
+	Globals.numberOfPlayers += 1
 	players[id] = info
 	
-	#where you would add the nex player objects
-	print(players)
-
 
 func _player_connected(id):
 	print('Player Connected: ' + str(id))
@@ -53,7 +54,7 @@ func _player_connected(id):
 # every connected peer has a unqiue ID assigned to it by the OS
 func _connected_to_server():
 	players[get_tree().get_network_unique_id()] = self_data
-	rpc('_send_player_info',get_tree().get_network_unique_id(),self_data)
+	rpc('_send_player_info2',get_tree().get_network_unique_id(),self_data)
 	print("Successfully connected to the server")
 
 func _on_connection_failed():

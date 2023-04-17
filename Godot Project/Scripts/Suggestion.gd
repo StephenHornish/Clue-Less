@@ -53,19 +53,20 @@ func connectButtons():
 func update_room(Player : Node) -> void:
 	$HBoxContainer.show()
 	var tile = Player.get_current_tile()
+	print(tile)
 	$HBoxContainer/AccuseButton.disabled = false
 	if(tile.is_Hall()):
 		$HBoxContainer/SuggestButton.disabled = true
 		suggestion[0] = empty
 	else:
 		match tile.get_name(): 
-			"Ballroom":
+			"BallRoom":
 				$HBoxContainer/VBoxContainer/DropDownRoom.select(0)
 			"Billiard Room":
 				$HBoxContainer/VBoxContainer/DropDownRoom.select(1)
 			"Conservatory":
 				$HBoxContainer/VBoxContainer/DropDownRoom.select(2)
-			"Dining Room":
+			"DiningRoom":
 				$HBoxContainer/VBoxContainer/DropDownRoom.select(3)
 			"Hall":
 				$HBoxContainer/VBoxContainer/DropDownRoom.select(4)
@@ -77,7 +78,8 @@ func update_room(Player : Node) -> void:
 				$HBoxContainer/VBoxContainer/DropDownRoom.select(7)
 			"Study":
 				$HBoxContainer/VBoxContainer/DropDownRoom.select(8)
-		suggestion[0] = tile.get_name()
+		suggestion[0] = tile.get_name()	
+		print(suggestion[0])
 		$HBoxContainer/SuggestButton.disabled = false
 
 

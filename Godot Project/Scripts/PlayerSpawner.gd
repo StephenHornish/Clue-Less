@@ -111,6 +111,7 @@ remotesync func _characterBuilder(PlayerName,characterSelected,nodePath):
 		1:
 			playerRef.build(PlayerName,nodePath, characterSelected,Color( 0.9, 0, 0, 1 ))
 			playerRef.set_tile(Globals.board.get_room("TRHall"))
+			print(Network.players)
 			_spawnPlayer(vbox.get_node("MarginContainer2/ScarlettButton"),1)
 			playerRef.set_global_translation(Vector3(-14.5 ,0,26))
 		2: 
@@ -188,7 +189,7 @@ func incrementTurn() -> void:
 	turn.text = "Turn " + str(Globals.turn)
 	turn.show()
 	timer.start()
-	
+
 
 #Gives Each player a move set Pannel and a suggestion pannel
 remotesync func _build_player_ui():
@@ -251,3 +252,9 @@ func _on_TurnQueue_hideCards():
 	print(display.get_child(0).playerID)
 	print(display.get_child(1).playerID)
 	
+
+
+func _on_TurnQueue_currentPlayer(_playerName):
+	var label = get_node("CanvasLayer/CurrentPlayer/Label")
+	var _text = "Current Player: " + Network.players.get(_playerName.to_int()).name
+	label.text = _text
