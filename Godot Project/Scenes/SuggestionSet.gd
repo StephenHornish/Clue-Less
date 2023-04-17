@@ -25,3 +25,4 @@ func _on_TurnQueue_updateMoves(activePlayer, _b):
 		Bbutton.disabled = false
 		var AButton = a.get_node("HBoxContainer/AccuseButton")
 		AButton.disabled = false
+

@@ -27,6 +27,7 @@ signal updateClueSheet
 signal hideCards
 signal currentPlayer
 signal endGame
+signal suggestionUI
 
 
 func initialize()-> void:
@@ -297,12 +298,9 @@ func _on_Suggest_button_up(suggestion):
 	var weapon = suggestion[1]
 	var player = suggestion[2]
 	var counterSuggestion = []
-	emit_signal("placeWeapon",weapon,room)
-	for i in range(self.get_child_count()):
-		var playerNode = self.get_child(i)
-		if(playerNode.get_character_string() == player):
-			playerNode.get_child(0).move_room_suggestion(Globals.board.get_room(room))
-	#Iterate through each player each player has to go because it would be unfair
+	rpc('_placeWeapon',weapon,room)
+	rpc('_makeSuggestionUI',active_player.name, str(weapon),str(room),str(player))
+	rpc('_gatherSuggestion',str(weapon),str(room),str(player))
 	print("Gathering Suggestions From other players")
 	#emit_signal("suggestionGather",suggestion)
 		
@@ -327,7 +325,17 @@ func _on_Accuse_button_up(accusation):
 		if(Globals.numberOfPlayers == numberOfLosers):
 			_endgame()
 		
+
+remotesync func _placeWeapon(_weapon, _room):
+	emit_signal("placeWeapon",_weapon,_room)
 	
+remote func _makeSuggestionUI(_playID,_weapon,_room,_player):
+	emit_signal('suggestionUI',_playID, _weapon,_room,_player)
+
+remote func _gatherSuggestion(_weapon,_room,_player):
+	print("RUNS")
+	emit_signal("suggestionGather",_weapon,_room,_player)
+
 remotesync func _endgame():
 	Globals.gameOver = true
 	emit_signal("endGame",active_player.name)
