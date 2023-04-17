@@ -26,6 +26,7 @@ signal suggestionGather
 signal updateClueSheet
 signal hideCards
 signal currentPlayer
+signal endGame
 
 
 func initialize()-> void:
@@ -41,6 +42,7 @@ func initialize()-> void:
 		player.set_turn_order(i)
 		i += 1
 	emit_signal("currentPlayer", active_player.name)
+	print(Globals.playDeck.secretEnvelop)
 	#emit_signal("updateCards",active_player.get_player_number())
 	
 func buildTurnOrder():
@@ -261,6 +263,7 @@ remotesync func _updateCurrentPlayer(_activeplayer,_nextPlayer):
 		active = true
 		turnFlag = true
 	else: 
+		turnFlag = true
 		active = false
 		
 
@@ -314,7 +317,7 @@ func _on_Suggest_button_up(suggestion):
 func _on_Accuse_button_up(accusation):
 	if(Globals.playDeck.checkWinner(accusation)):
 		print("Winner!")
-		_endgame()
+		rpc("_endgame")
 	else:
 		print("LOSER!")
 		active_player.set_tile(Globals.board.get_room("LosersBox"))
@@ -325,8 +328,9 @@ func _on_Accuse_button_up(accusation):
 			_endgame()
 		
 	
-func _endgame():
-	print("Game Over")
+remotesync func _endgame():
+	Globals.gameOver = true
+	emit_signal("endGame",active_player.name)
 
 
 func _on_Timer_timeout():

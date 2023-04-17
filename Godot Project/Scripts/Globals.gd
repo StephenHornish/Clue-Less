@@ -15,6 +15,7 @@ var board
 var playDeck
 var player_ids = []
 var net_id
+var gameOver = false
 signal instance_player(id)
 signal toggle_network_setup(toggle)
 

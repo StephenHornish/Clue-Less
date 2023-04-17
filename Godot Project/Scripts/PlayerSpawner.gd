@@ -4,7 +4,7 @@ extends Node
 # playing 
 
 var scene = load("res://Characters/Pawn.tscn")
-
+var mainMenu = load('res://Scenes/Main Menu.tscn')
 onready var turn = get_node("CanvasLayer/Turn Margin Container/Turn").hide() 
 onready var MoveBut = load("res://Scenes/MoveButtons.tscn")
 onready var Sugg = load("res://Scenes/Suggestion.tscn")
@@ -179,6 +179,10 @@ remotesync func update_button_state(button_node):
 	nodef.disabled = true
 
 func _on_Timer_timeout() -> void:
+	if(Globals.gameOver):
+		 get_tree().change_scene('res://Scenes/Main Menu.tscn')
+		 get_tree().network_peer = null
+		 Globals.numberOfPlayers = 0 
 	turn = get_node("CanvasLayer/Turn Margin Container/Turn")
 	turn.hide()
 	timer.stop()
@@ -256,5 +260,16 @@ func _on_TurnQueue_hideCards():
 
 func _on_TurnQueue_currentPlayer(_playerName):
 	var label = get_node("CanvasLayer/CurrentPlayer/Label")
-	var _text = "Current Player: " + Network.players.get(_playerName.to_int()).name
+	var _text = "Current Player " + Network.players.get(_playerName.to_int()).name
 	label.text = _text
+
+
+func _on_TurnQueue_endGame(_playerName):
+	turn = get_node("CanvasLayer/Turn Margin Container/Turn")
+	turn.text = " Game Over "
+	turn.show()
+	var label = get_node("CanvasLayer/EndGame/Label")
+	var _text =  Network.players.get(_playerName.to_int()).name + " Has Won!"
+	label.text = _text
+	timer.wait_time = 6
+	timer.start()

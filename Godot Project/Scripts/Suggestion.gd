@@ -16,6 +16,8 @@ signal suggestionSignal
 signal accusationSignal
 
 func _ready():
+	$HBoxContainer/SuggestButton.disabled = true
+	$HBoxContainer/AccuseButton.disabled = true
 	add_items()
 
 # The rooms should be automatically based on where the player is 
