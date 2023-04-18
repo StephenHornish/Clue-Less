@@ -110,6 +110,9 @@ func setColors() -> void:
 			$VBoxContainer/DownContainer/DownButton.modulate  = Color(0.5, 1.0, 0.5)
 			$SecretContainer/SecretButton.modulate  = Color(0.5, 1.0, 0.5)
 
-			
-	
+func disableEndTurn(toggle):
+	if(toggle):
+		$EndTurnContainer/EndTurn.disabled = true
+	else:
+		$EndTurnContainer/EndTurn.disabled = false
 

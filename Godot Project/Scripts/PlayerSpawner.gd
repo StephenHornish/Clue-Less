@@ -109,9 +109,8 @@ remotesync func _characterBuilder(PlayerName,characterSelected,nodePath):
 			_spawnPlayer(vbox.get_node("MarginContainer1/PeacockButton"),0)
 			playerRef.set_global_translation(Vector3(25,0,-11.5))
 		1:
-			playerRef.build(PlayerName,nodePath, characterSelected,Color( 0.9, 0, 0, 1 ))
+			playerRef.build(PlayerName,nodePath,characterSelected,Color( 0.9, 0, 0, 1 ))
 			playerRef.set_tile(Globals.board.get_room("TRHall"))
-			print(Network.players)
 			_spawnPlayer(vbox.get_node("MarginContainer2/ScarlettButton"),1)
 			playerRef.set_global_translation(Vector3(-14.5 ,0,26))
 		2: 

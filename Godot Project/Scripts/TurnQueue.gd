@@ -13,6 +13,8 @@ var past_player
 var nextPlayer
 var turnOrder
 var counter = 0
+var currentSuggestion
+var suggestion = []
 
 signal nextTurn
 signal addCards
@@ -28,6 +30,10 @@ signal hideCards
 signal currentPlayer
 signal endGame
 signal suggestionUI
+signal activeTimer
+signal timerStop
+signal toggleEndTurn
+signal counterSuggestionUI
 
 
 func initialize()-> void:
@@ -43,7 +49,6 @@ func initialize()-> void:
 		player.set_turn_order(i)
 		i += 1
 	emit_signal("currentPlayer", active_player.name)
-	print(Globals.playDeck.secretEnvelop)
 	#emit_signal("updateCards",active_player.get_player_number())
 	
 func buildTurnOrder():
@@ -99,6 +104,7 @@ func _process(_delta) -> void:
 				emit_signal("updateMoves",active_player,buildLegalMoveSetButtons(active_player.get_moveset()))
 				rpc("_updatePeerMovement", "Up",str(get_tree().get_network_unique_id()))
 				rpc("_updateCurrentPlayer",str(get_tree().get_network_unique_id()),nextPlayer)
+				rpc('_clearSuggestion')
 			else: 
 				emit_signal("disableButtons")
 				rpc("_updateCurrentPlayer",str(get_tree().get_network_unique_id()),nextPlayer)
@@ -240,8 +246,11 @@ func _on_SecretButton_button_up():
 
 func _on_EndTurn_button_up():
 	if(active_player.name == str(get_tree().get_network_unique_id())):
+		print(Globals.playDeck.secretEnvelop)
 		emit_signal("disableButtons")
+		print(suggestion)
 		rpc("_updateCurrentPlayer",str(get_tree().get_network_unique_id()),nextPlayer)
+		rpc('_clearSuggestion')
 
 
 func _on_EnterButton_button_up():
@@ -298,33 +307,59 @@ func _on_Suggest_button_up(suggestion):
 	var weapon = suggestion[1]
 	var player = suggestion[2]
 	var counterSuggestion = []
+	print("Gathering Suggestions From other players")
+	rpc('_movePlayerToRoom',player,room)
 	rpc('_placeWeapon',weapon,room)
 	rpc('_makeSuggestionUI',active_player.name, str(weapon),str(room),str(player))
 	rpc('_gatherSuggestion',str(weapon),str(room),str(player))
-	print("Gathering Suggestions From other players")
+	emit_signal("toggleEndTurn",true)
+	emit_signal("activeTimer")
 	#emit_signal("suggestionGather",suggestion)
 		
 		
 		#give each player the scene control disable their end turn button and moves 
 		#Put a time limit on the player to pick 
 		#emit signal from the cardDisplay back to the turnqueue with the valid suggestion cards
-
+func _on_ServerTimer_timeout():
+	emit_signal('timerStop')
+	emit_signal("toggleEndTurn",false)
+	emit_signal("counterSuggestionUI",suggestion)
+	
+	
 #Check and see if the selected items match the secret envolope
 #If correct winner
 #If incorrect remove players piece from teh board player now is only there to disprove suggestions
 func _on_Accuse_button_up(accusation):
+	print("ACCUSE BUTTON")
+	print(accusation)
+	print(Globals.playDeck.secretEnvelop)
 	if(Globals.playDeck.checkWinner(accusation)):
 		print("Winner!")
 		rpc("_endgame")
 	else:
+		rpc('_loser')
+		if(Globals.numberOfPlayers == numberOfLosers):
+			_endgame()
+			
+remotesync func _loser():
 		print("LOSER!")
 		active_player.set_tile(Globals.board.get_room("LosersBox"))
 		active_player.get_child(0).set_global_translation(active_player.get_location() + loserOffset)
 		loserOffset = loserOffset + Vector3(0,0,4)
-		play_turn()
-		if(Globals.numberOfPlayers == numberOfLosers):
-			_endgame()
-		
+	
+
+remotesync func _movePlayerToRoom(player,room):
+	for child in get_children():
+		print(player)
+		print(room)
+		print(child.get_character_string())
+		if(child.get_character_string() == player):
+			child.get_child(0).move_room_suggestion(Globals.board.get_room(room))
+
+
+
+remotesync func _clearSuggestion():
+	suggestion = []
 
 remotesync func _placeWeapon(_weapon, _room):
 	emit_signal("placeWeapon",_weapon,_room)
@@ -339,7 +374,13 @@ remote func _gatherSuggestion(_weapon,_room,_player):
 remotesync func _endgame():
 	Globals.gameOver = true
 	emit_signal("endGame",active_player.name)
+	
 
+func _on_CardDisplay_sendSuggestion(counterSuggestion):
+	currentSuggestion = counterSuggestion
+	suggestion.append(counterSuggestion)
+	rpc('_send_info',counterSuggestion)
 
-func _on_Timer_timeout():
-	print("Timeout")
+remote func _send_info(counterSuggestion):
+	suggestion.append(counterSuggestion)
+	

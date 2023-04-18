@@ -13,11 +13,11 @@ var hand = []
 
 enum Players {
 	PEACOCK,
-	PLUMB,
+	SCARLETT,
 	WHITE,
-	MUSTARD,
 	GREEN,
-	SCARLETT
+	MUSTARD,
+	PLUMB
 }
 
 func build(_playID,_playerNumber,_character,color:Color):
