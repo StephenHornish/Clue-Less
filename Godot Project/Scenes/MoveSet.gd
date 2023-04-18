@@ -2,7 +2,7 @@ extends MarginContainer
 
 
 
-func _on_TurnQueue_updateMoves(player,legalMoveSet):
+func _on_TurnQueue_updateMoves(_a,legalMoveSet):
 	var moveButtons = get_node(str(get_tree().get_network_unique_id()))
 	moveButtons.buildMoves(legalMoveSet)
 	

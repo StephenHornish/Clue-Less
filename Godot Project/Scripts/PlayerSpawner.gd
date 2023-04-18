@@ -12,7 +12,6 @@ onready var gameSheet = load("res://Scenes/Clue_Game_Sheet.tscn")
 signal turn_queue
 signal initialize_turn_queue
 signal randomize_weapons
-signal shuffle_deck
 var player
 var playerNumber = 0
 
@@ -200,7 +199,6 @@ remotesync func _build_player_ui():
 	#iterate though the network Dictonary and assign the correct to name each UI element
 	#All scene trees must match across the network 
 	var ID = str(get_tree().get_network_unique_id())
-	var player = turnQueue.get_node(ID)
 	var MoveButtons = MoveBut.instance()
 	var SugestionSet = Sugg.instance()
 	var GameSheet = gameSheet.instance()
