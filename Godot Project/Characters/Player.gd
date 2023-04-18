@@ -7,20 +7,22 @@ onready var moveset : Array
 onready var adjacent : Array
 var playID : String
 var playerNumber: int
+var turnOrder : int
 var character
 var hand = []
 
 enum Players {
 	PEACOCK,
-	PLUMB,
+	SCARLETT,
 	WHITE,
-	MUSTARD,
 	GREEN,
-	SCARLETT
+	MUSTARD,
+	PLUMB
 }
 
-func build(_playID,_character,color:Color):
+func build(_playID,_playerNumber,_character,color:Color):
 	playID = _playID
+	playerNumber = _playerNumber
 	character = _character
 	_set_color(color)
 
@@ -62,6 +64,9 @@ func set_playerID(id : String) -> void:
 func get_ID() -> String:
 	return playID	
 
+func get_playerNumber()->int:
+	return playerNumber
+
 func set_tile(t: Tile):
 	tile  = t
 	moveset = tile.get_moveset()
@@ -89,3 +94,9 @@ func set_hand(_hand:Array) -> void:
 	
 func get_player_number() -> int:
 	return playerNumber
+	
+func set_turn_order(_turnOrder) -> void: 
+	turnOrder = _turnOrder
+
+func get_turn_order() -> int: 
+	return turnOrder

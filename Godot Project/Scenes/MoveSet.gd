@@ -2,23 +2,21 @@ extends MarginContainer
 
 
 
-func _on_TurnQueue_updateMoves(player,legalMoveSet):
-	var moveButtons = get_child(player.get_player_number())
+func _on_TurnQueue_updateMoves(_a,legalMoveSet):
+	var moveButtons = get_node(str(get_tree().get_network_unique_id()))
 	moveButtons.buildMoves(legalMoveSet)
 	
-	
-	#this will need to be done away with once mutliplayer is implemented
-	for moveset in get_children():
-		if player.get_player_number() == moveset.playerID: 
-			moveset.show()
-		else: 
-			moveset.hide()
-	
 
 
-func _on_TurnQueue_disableButtons(playerNumber):
-	get_child(playerNumber).disableButtons()
+
+func _on_TurnQueue_disableButtons():
+	get_node(str(get_tree().get_network_unique_id())).disableButtons()
 
 
-func _on_TurnQueue_disableMoveButtons(playerNumber):
-	get_child(playerNumber).disableMoveButtons()
+func _on_TurnQueue_disableMoveButtons():
+	get_node(str(get_tree().get_network_unique_id())).disableMoveButtons()
+
+
+
+func _on_TurnQueue_toggleEndTurn(toggle):
+	get_node(str(get_tree().get_network_unique_id())).disableEndTurn(toggle)

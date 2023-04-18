@@ -41,7 +41,7 @@ func move_room_suggestion(_tile):
 	currtile.remove_occupant(pawn.get_ID())
 	nextTile.set_occupant(pawn.get_ID())
 	pawn.set_tile(nextTile)
-	Globals.currentTilesArray[pawn.playerNumber] = nextTile
+	Globals.currentTilesArray[pawn.get_turn_order()] = nextTile
 	
 func move_up():
 	move_pawn_direction("Up")
@@ -74,7 +74,7 @@ func move_pawn_direction( direction : String) ->void:
 	currtile.remove_occupant(pawn.get_ID())
 	nextTile.set_occupant(pawn.get_ID())
 	pawn.set_tile(nextTile)
-	Globals.currentTilesArray[pawn.playerNumber] = nextTile
+	Globals.currentTilesArray[pawn.get_turn_order()] = nextTile
 	
 func test():
 	pass

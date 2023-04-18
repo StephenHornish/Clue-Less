@@ -9,6 +9,12 @@ var active : bool = false
 var turnFlag = true
 var loserOffset = Vector3(0,0,0)
 var numberOfLosers
+var past_player
+var nextPlayer
+var turnOrder
+var counter = 0
+var currentSuggestion
+var suggestion = []
 
 signal nextTurn
 signal addCards
@@ -20,38 +26,129 @@ signal displayLocation
 signal placeWeapon(weapon, room)
 signal suggestionGather
 signal updateClueSheet
+signal hideCards
+signal currentPlayer
+signal endGame
+signal suggestionUI
+signal activeTimer
+signal timerStop
+signal toggleEndTurn
+signal counterSuggestionUI
 
 
 func initialize()-> void:
-	active_player = get_child(0)
+	active_player = get_node(str(1))
 	active_player.set_active()
 	activateKeyListener()
-	dealCards()
-	emit_signal("updateCards",active_player.get_player_number())
-	print("Secret Envelope Contains: " + str(Globals.playDeck.secretEnvelop))
+	if(get_tree().get_network_unique_id() == 1):
+		dealCards()
+	buildTurnOrder()
+	var i = 0 
+	for x in turnOrder:
+		var player = get_node(str(x))
+		player.set_turn_order(i)
+		i += 1
+	emit_signal("currentPlayer", active_player.name)
+	#emit_signal("updateCards",active_player.get_player_number())
 
-# Turnqueue that cycles through all the nodes each time a player makes their turn
-# will also emit a singla to the UI lettting everyone know that round is over
-func play_turn() -> void:
-	print("Player: " + str(active_player.get_player_number()) + "  " + "Character:  " + active_player.get_character_string() )
-	active_player.set_inactive()
-	turnFlag = true
-	var new_player : int = (active_player.get_index() + 1) % get_child_count()
-	if((active_player.get_index() + 1) % Globals.numberOfPlayers == 0):
-		#Should say round instead of turn will fix later
+#Syncs the turn order of palyers so that everyone has the same order
+func buildTurnOrder():
+	var keys_list = Network.players.keys()
+	keys_list.sort()
+	turnOrder = keys_list
+
+#Called by the Character Spawner adds a player as a child to the TurnQueue node 
+func _on_Character_Selection_turn_queue(player):
+	add_child(player)
+
+#Button Hanlders 
+func _on_LeftButton_button_up():
+	if(active_player.name == str(get_tree().get_network_unique_id())):
+		rpc("_updatePeerMovement", "Left",str(get_tree().get_network_unique_id()))
+		emit_signal('disableMoveButtons')
+		emit_signal("displayLocation",active_player)
+		turnFlag = false
+		
+func _on_UpButton_button_up():
+	if(active_player.name == str(get_tree().get_network_unique_id())):
+		rpc("_updatePeerMovement", "Up",str(get_tree().get_network_unique_id()))
+		emit_signal('disableMoveButtons')
+		emit_signal("displayLocation",active_player)
+		turnFlag = false
+
+
+func _on_DownButton_button_up():
+	if(active_player.name == str(get_tree().get_network_unique_id())):
+		rpc("_updatePeerMovement", "Down",str(get_tree().get_network_unique_id()))
+		emit_signal('disableMoveButtons')
+		emit_signal("displayLocation",active_player)
+		turnFlag = false
+
+
+func _on_RightButton_button_up():
+	if(active_player.name == str(get_tree().get_network_unique_id())):
+		rpc("_updatePeerMovement", "Right",str(get_tree().get_network_unique_id()))
+		emit_signal('disableMoveButtons')
+		emit_signal("displayLocation",active_player)
+		turnFlag = false
+
+
+func _on_SecretButton_button_up():
+	if(active_player.name == str(get_tree().get_network_unique_id())):
+		rpc("_updatePeerMovement", "Secret Passage",str(get_tree().get_network_unique_id()))
+		emit_signal('disableMoveButtons')
+		emit_signal("displayLocation",active_player)
+		turnFlag = false
+
+
+func _on_EndTurn_button_up():
+	if(active_player.name == str(get_tree().get_network_unique_id())):
+		print(Globals.playDeck.secretEnvelop)
+		emit_signal("disableButtons")
+		print(suggestion)
+		rpc("_updateCurrentPlayer",str(get_tree().get_network_unique_id()),nextPlayer)
+		rpc('_clearSuggestion')
+
+
+func _on_EnterButton_button_up():
+	if(active_player.name == str(get_tree().get_network_unique_id())):
+		var nextplayer = nextPlayer(str(get_tree().get_network_unique_id()))
+		emit_signal("disableButtons")
+		emit_signal("updateMoves",active_player,buildLegalMoveSetButtons(active_player.get_moveset()))
+		rpc("_updatePeerMovement", "Up",str(get_tree().get_network_unique_id()))
+		rpc("_updateCurrentPlayer",str(get_tree().get_network_unique_id()),nextPlayer)
+
+remotesync func _updateCurrentPlayer(_activeplayer,_nextPlayer):
+	var playerToMove = get_node(_activeplayer)
+	past_player = playerToMove 
+	active_player = get_node(str(_nextPlayer))
+	emit_signal("currentPlayer", active_player.name)
+	if(past_player.get_turn_order() == turnOrder.size() - 1):
 		emit_signal("nextTurn")
-	active_player = get_child(new_player)
-	emit_signal("updateCards",active_player.get_player_number())
-	emit_signal("updateMoves",active_player,buildLegalMoveSetButtons(active_player.get_moveset()))
-	emit_signal("displayLocation",active_player)
-	emit_signal("updateClueSheet", active_player)
-	active_player.set_active()
-	print("Sharing active Player State with other clients")
-	if(active_player.get_tile().get_name() == "LosersBox"):
-		play_turn()
-
-
-
+	if(active_player.name == str(get_tree().get_network_unique_id()) && Globals.turn > 1):
+		emit_signal("updateMoves",active_player,buildLegalMoveSetButtons(active_player.get_moveset()))
+		active = true
+		turnFlag = true
+	else: 
+		turnFlag = true
+		active = false
+		
+#After handeling the local button action it will move the player for the other clients
+remotesync func _updatePeerMovement(_movement : String, _activeplayer: String)-> void:
+	var playerToMove = get_node(_activeplayer)
+	match _movement:
+		"Up":
+			playerToMove.get_child(0).move_up()
+		"Left":
+			playerToMove.get_child(0).move_left()
+		"Right":
+			playerToMove.get_child(0).move_right()
+		"Down":
+			playerToMove.get_child(0).move_down()
+		"Secret Passage":
+			playerToMove.get_child(0).move_secret_passage()
+			
+		
 # Key listener that takes the input Delta is basically each tick fo the game engine
 # not required for what we are doing right now. Key Listener becomes active once all
 # players have spawned in and selected ready this way players can move pieces early
@@ -61,40 +158,56 @@ func _process(_delta) -> void:
 	if(active):
 		if Input.is_action_just_pressed("Up"):
 			if(legal_move("Up") && turnFlag):
-				active_player.get_child(0).move_up()
-				turnFlag = false
-				emit_signal("disableMoveButtons",active_player.get_player_number())
+				rpc("_updatePeerMovement", "Up",str(get_tree().get_network_unique_id()))
+				emit_signal('disableMoveButtons')
 				emit_signal("displayLocation",active_player)
+				turnFlag = false
 		if Input.is_action_just_pressed("Down"):
 			if(legal_move("Down")&& turnFlag):
-				active_player.get_child(0).move_down()
-				turnFlag = false
-				emit_signal("disableMoveButtons",active_player.get_player_number())
+				rpc("_updatePeerMovement", "Down",str(get_tree().get_network_unique_id()))
+				emit_signal('disableMoveButtons')
 				emit_signal("displayLocation",active_player)
+				turnFlag = false
 		if Input.is_action_just_pressed("Left") :
 			if(legal_move("Left")&& turnFlag):
-				active_player.get_child(0).move_left()
-				turnFlag = false
-				emit_signal("disableMoveButtons",active_player.get_player_number())
+				rpc("_updatePeerMovement", "Left",str(get_tree().get_network_unique_id()))
+				emit_signal('disableMoveButtons')
 				emit_signal("displayLocation",active_player)
+				turnFlag = false
 		if Input.is_action_just_pressed("Right") :
 			if(legal_move("Right")&& turnFlag):
-				active_player.get_child(0).move_right()
-				turnFlag = false
-				emit_signal("disableMoveButtons",active_player.get_player_number())
+				rpc("_updatePeerMovement", "Right",str(get_tree().get_network_unique_id()))
+				emit_signal('disableMoveButtons')
 				emit_signal("displayLocation",active_player)
+				turnFlag = false
 		if Input.is_action_just_pressed("ui_accept"):
-			active_player.get_child(0).velocity = Vector3.ZERO
-			emit_signal("disableButtons",active_player.get_player_number())
-			turnFlag = true
-			play_turn()
+			if(Globals.turn == 1):
+				var nextplayer = nextPlayer(str(get_tree().get_network_unique_id()))
+				emit_signal("disableButtons")
+				emit_signal("updateMoves",active_player,buildLegalMoveSetButtons(active_player.get_moveset()))
+				rpc("_updatePeerMovement", "Up",str(get_tree().get_network_unique_id()))
+				rpc("_updateCurrentPlayer",str(get_tree().get_network_unique_id()),nextPlayer)
+				rpc('_clearSuggestion')
+			else: 
+				emit_signal("disableButtons")
+				rpc("_updateCurrentPlayer",str(get_tree().get_network_unique_id()),nextPlayer)
 		if Input.is_action_just_pressed("Secret Passage") :
 			if(legal_move("Secret Passage")&& turnFlag):
-				active_player.get_child(0).move_secret_passage()
-				turnFlag = false
-				emit_signal("disableMoveButtons",active_player.get_player_number())
+				rpc("_updatePeerMovement", "Secret Passage",str(get_tree().get_network_unique_id()))
+				emit_signal('disableMoveButtons')
 				emit_signal("displayLocation",active_player)
-		 
+				turnFlag = false
+			
+#Determines the Next player 
+func nextPlayer(_player : String)->String:
+	var index = turnOrder.find(_player.to_int())
+	if(index + 1 >= turnOrder.size()):
+		nextPlayer = turnOrder[0]
+	else:
+		nextPlayer = turnOrder[index + 1 ]
+	return nextPlayer
+
+#Activates The Key listener for user input
 func activateKeyListener() -> void:
 	active = true
 
@@ -119,38 +232,91 @@ func legal_move(movement : String)->bool:
 	else:
 		return false
 
+#Move the player that was suggested into the room and also the weapon then begin the suggestion check
+#Sends a request to all other users to gather suggestions then starts a 10 second timer
+func _on_Suggest_button_up(_suggestion : Array)->void:
+	print(Globals.playDeck.secretEnvelop)
+	var room = _suggestion[0]
+	var weapon = _suggestion[1]
+	var player = _suggestion[2]
+	print("Gathering Suggestions From other players")
+	rpc('_movePlayerToRoom',player,room)
+	rpc('_placeWeapon',weapon,room)
+	rpc('_makeSuggestionUI',active_player.name, str(weapon),str(room),str(player))
+	rpc('_gatherSuggestion',str(weapon),str(room),str(player))
+	emit_signal("toggleEndTurn",true)
+	emit_signal("activeTimer")
 
-func _on_Character_Selection_turn_queue(player):
-	add_child(player)
+remote func _makeSuggestionUI(_playID,_weapon,_room,_player):
+	emit_signal('suggestionUI',_playID, _weapon,_room,_player)
 
+remote func _gatherSuggestion(_weapon,_room,_player):
+	print("RUNS")
+	emit_signal("suggestionGather",_weapon,_room,_player)
+
+remotesync func _clearSuggestion():
+	suggestion = []
+
+#When the 10 second timer ends it returns the End turn button to use 
+#Updates suggestion makrs UI with counter suggesitions 
+func _on_ServerTimer_timeout()->void:
+	emit_signal('timerStop')
+	emit_signal("toggleEndTurn",false)
+	emit_signal("counterSuggestionUI",suggestion)
+
+
+
+
+#Called only by the server this function creates a master Deck then deals it out to all players
 func dealCards() -> void:
+	#creates the players heads by dealing cards to each client
+	buildPlayerHand()
+	#creates the players UI
+	rpc('buildHandUI')
+	#Sends the Hosts deck to the clients 
+	sendMasterDeck()
+#Creats the players Hand
+func buildPlayerHand():
 	var cardsPerPlayer = 18/Globals.numberOfPlayers  
-	#var leftOver = 18%Globals.numberOfPlayers 
-	
-	for x in range(Globals.numberOfPlayers):
-		var hand = []
+	#var leftOver = 18%Globals.numberOfPlayers
+	for pair in Network.players:
+		var cardName = []
+		var cardType = []
 		for _y in range(cardsPerPlayer):
 			var card = Globals.playDeck.deck[0]
-			hand.append(card)
+			cardName.append(card.get_name())
+			cardType.append(card.get_type())
 			Globals.playDeck.deck.remove(0)
-		var player = get_child(x)
-		player.set_hand(hand)
-		
-		#where we add the scene to each players view in multiplayer
-		var cardDisplay = cardDis.instance()
-		cardDisplay.buildPlayerView(hand)
-		#later should be changed to the player ID when multiplayer is implemented
-		cardDisplay.playerID = player.get_player_number()
-		emit_signal("addCards",cardDisplay)
-		
-		
-	for x in range(Globals.numberOfPlayers):
-		var player = get_child(x)
-		print("Player " + str(x + 1))
-		print(player.hand)
-	print("Cards That everyone can see")
-	print(Globals.playDeck.deck)
+		rpc('buildPlayersHand',cardName,cardType,str(pair))
 
+#Called by each client is recieves the master deck from the server host and sets its own hand to it
+remotesync func buildPlayersHand(MasterHandCardName : Array, MasterHandCardType, _node : String):
+	var player = get_node(str(_node))
+	player.set_hand(Globals.playDeck.buildHand(MasterHandCardName,MasterHandCardType))
+
+remotesync func buildHandUI():
+	var cardDisplay = cardDis.instance()
+	var player = get_node(str(get_tree().get_network_unique_id()))
+	cardDisplay.buildPlayerView(player.hand)
+	cardDisplay.playerID = get_tree().get_network_unique_id()
+	cardDisplay.name = str(get_tree().get_network_unique_id())
+	emit_signal("addCards",cardDisplay)
+
+func sendMasterDeck():
+	var MasterDeckCardName = []
+	var MasterDeckCardType = []
+	var SecretDeckCardName = []
+	var SecretDeckCardType = []
+	for card in Globals.playDeck.deck:
+		MasterDeckCardName.append(card.get_name())
+		MasterDeckCardType.append(card.get_type())
+	for card in Globals.playDeck.secretEnvelop:
+		SecretDeckCardName.append(card.get_name())
+		SecretDeckCardType.append(card.get_type())
+	rpc('buildMasterDeck',MasterDeckCardName,MasterDeckCardType,SecretDeckCardName,SecretDeckCardType)
+	
+remote func buildMasterDeck(MasterDeckCardName : Array, MasterDeckCardType :Array,SecretDeckCardName : Array, SecretDeckCardType: Array ):
+	Globals.playDeck.buildDeck(MasterDeckCardName,MasterDeckCardType,SecretDeckCardName,SecretDeckCardType)
 
 #Takes the players moveset and build a new one for all the legal moves around them
 #this is done as to not interfer with the keyboard controls for playing hte game
@@ -160,73 +326,6 @@ func buildLegalMoveSetButtons(moveSet : Array) -> Array:
 		if(legal_move(x)):
 			legalMoveSet.append(x)
 	return legalMoveSet
-			
-
-func _on_LeftButton_button_up():
-	emit_signal("disableMoveButtons",active_player.get_player_number())
-	turnFlag = false
-	active_player.get_child(0).move_left()
-	emit_signal("displayLocation",active_player)
-
-
-func _on_UpButton_button_up():
-	emit_signal("disableMoveButtons",active_player.get_player_number())
-	turnFlag = false
-	active_player.get_child(0).move_up()
-	emit_signal("displayLocation",active_player)
-
-
-func _on_DownButton_button_up():
-	emit_signal("disableMoveButtons",active_player.get_player_number())
-	turnFlag = false
-	active_player.get_child(0).move_down()
-	emit_signal("displayLocation",active_player)
-
-
-func _on_RightButton_button_up():
-	emit_signal("disableMoveButtons",active_player.get_player_number())
-	turnFlag = false
-	active_player.get_child(0).move_right()
-	emit_signal("displayLocation",active_player)
-
-
-func _on_SecretButton_button_up():
-	emit_signal("disableMoveButtons",active_player.get_player_number())
-	
-	turnFlag = false
-	active_player.get_child(0).move_secret_passage()
-	emit_signal("displayLocation",active_player)
-
-
-func _on_EndTurn_button_up():
-	active_player.get_child(0).velocity = Vector3.ZERO
-	emit_signal("disableButtons",active_player.get_player_number())
-	play_turn()
-
-
-func _on_EnterButton_button_up():
-	active_player.get_child(0).move_up()
-	active_player.get_child(0).velocity = Vector3.ZERO
-	emit_signal("disableButtons",active_player.get_player_number())
-	play_turn()
-
-#Move the player that was suggested into the room and also the weapon then begin the suggestion check
-func _on_Suggest_button_up(suggestion):
-	print(Globals.playDeck.secretEnvelop)
-	var room = suggestion[0]
-	var weapon = suggestion[1]
-	var player = suggestion[2]
-	var counterSuggestion = []
-	emit_signal("placeWeapon",weapon,room)
-	for i in range(self.get_child_count()):
-		var playerNode = self.get_child(i)
-		if(playerNode.get_character_string() == player):
-			playerNode.get_child(0).move_room_suggestion(Globals.board.get_room(room))
-	#Iterate through each player each player has to go because it would be unfair
-	print("Gathering Suggestions From other players")
-	#emit_signal("suggestionGather",suggestion)
-		
-		
 		#give each player the scene control disable their end turn button and moves 
 		#Put a time limit on the player to pick 
 		#emit signal from the cardDisplay back to the turnqueue with the valid suggestion cards
@@ -235,22 +334,47 @@ func _on_Suggest_button_up(suggestion):
 #If correct winner
 #If incorrect remove players piece from teh board player now is only there to disprove suggestions
 func _on_Accuse_button_up(accusation):
+	print("ACCUSE BUTTON")
+	print(accusation)
+	print(Globals.playDeck.secretEnvelop)
 	if(Globals.playDeck.checkWinner(accusation)):
 		print("Winner!")
-		_endgame()
+		rpc("_endgame")
 	else:
+		rpc('_loser')
+		if(Globals.numberOfPlayers == numberOfLosers):
+			_endgame()
+			
+remotesync func _loser():
 		print("LOSER!")
 		active_player.set_tile(Globals.board.get_room("LosersBox"))
 		active_player.get_child(0).set_global_translation(active_player.get_location() + loserOffset)
 		loserOffset = loserOffset + Vector3(0,0,4)
-		play_turn()
-		if(Globals.numberOfPlayers == numberOfLosers):
-			_endgame()
-		
 	
-func _endgame():
-	print("Game Over")
+
+remotesync func _movePlayerToRoom(player,room):
+	for child in get_children():
+		print(player)
+		print(room)
+		print(child.get_character_string())
+		if(child.get_character_string() == player):
+			child.get_child(0).move_room_suggestion(Globals.board.get_room(room))
 
 
-func _on_Timer_timeout():
-	print("Timeout")
+
+
+remotesync func _placeWeapon(_weapon, _room):
+	emit_signal("placeWeapon",_weapon,_room)
+	
+remotesync func _endgame():
+	Globals.gameOver = true
+	emit_signal("endGame",active_player.name)
+
+func _on_CardDisplay_sendSuggestion(counterSuggestion):
+	currentSuggestion = counterSuggestion
+	suggestion.append(counterSuggestion)
+	rpc('_send_info',counterSuggestion)
+
+remote func _send_info(counterSuggestion):
+	suggestion.append(counterSuggestion)
+	

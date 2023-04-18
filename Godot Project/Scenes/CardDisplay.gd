@@ -3,10 +3,14 @@ extends MarginContainer
 var playerID
 var cardclicked
 var suggestionMade = false
+var weapon
+var room
+var player
+var hand
 
-func buildPlayerView(hand: Array)->void:
-	
-	for x in range (hand.size()):
+func buildPlayerView(_hand: Array)->void:
+	hand = _hand
+	for x in range (_hand.size()):
 		var image_path = "res://Images/Cards/" + str(hand[x].get_name()+".png")
 		var image = load(image_path)
 		var button = TextureButton.new()
@@ -18,12 +22,23 @@ func buildPlayerView(hand: Array)->void:
 			$HBoxContainer/VBoxContainer2.add_child(button)
 			
 			
-	#This function needs to see if the clicked card is a valid counter to a suggestion if so 
+
 func _on_button_pressed(var name):
 	# Perform the desired action here
-	cardclicked = name
-	suggestionMade = true
+	if(suggestionMade):
+		return
+	if(weapon == name || room == name || player == name):
+		get_parent().counterSuggestion = cardclicked
+		print("RAN")
+		suggestionMade = true
 
-func requestSuggestion():
-	print("makeSuggestion")
-	suggestionMade = false
+func requestSuggestion(_weapon,_room,_player):
+	weapon = _weapon
+	room = _room
+	player = _player
+	for x in range (hand.size()):
+		var name = hand[x].get_name()
+		if(weapon == name || room == name || player == name):
+			get_parent().counterSuggestion = name
+			print("RAN2")
+			

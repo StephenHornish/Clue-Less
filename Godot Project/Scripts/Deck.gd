@@ -35,7 +35,7 @@ func _init():
 	deck.append(Card.new("Wrench", CardType.WEAPON))
 	deck.append(Card.new("Rope", CardType.WEAPON))
 	deck.append(Card.new("Knife", CardType.WEAPON))
-	randomize() 
+	randomize()
 	deck.shuffle()
 	_createSecretDeck()
 	#print(secretEnvelop)
@@ -71,4 +71,20 @@ func _to_string()->String:
 
 func checkWinner(accusation):
 	return (accusation.has(secretEnvelop[0].get_name()) && accusation.has(secretEnvelop[1].get_name()) && accusation.has(secretEnvelop[2].get_name()))
+
+
+func buildDeck(MasterDeckCardName : Array, MasterDeckCardType :Array,SecretDeckCardName : Array, SecretDeckCardType: Array):
+	var _deck = []
+	var _secretEnvelop = []
+	for i in range(MasterDeckCardName.size()):
+		_deck.append(Card.new(MasterDeckCardName[i],MasterDeckCardType[i]))
+	for i in range(SecretDeckCardName.size()):
+		_secretEnvelop.append(Card.new(SecretDeckCardName[i],SecretDeckCardType[i]))
+	deck = _deck
+	secretEnvelop = _secretEnvelop
 		
+func buildHand(MasterHandCardName : Array, MasterHandCardType : Array): 
+	var _hand = [] 
+	for i in range(MasterHandCardName.size()):
+		_hand.append(Card.new(MasterHandCardName[i],MasterHandCardType[i]))
+	return _hand

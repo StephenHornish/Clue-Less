@@ -8,7 +8,13 @@ func _ready():
 	weapons_location.shuffle()
 
 func _on_Character_Selection_randomize_weapons():
+	randomize() 
+	weapons_location.shuffle()
+	rpc("pass_shuffled_weapons_location",weapons_location)
 	
+
+remotesync func pass_shuffled_weapons_location(_weapons_location: Array):
+	weapons_location = _weapons_location
 	board.get_child(0).set_global_translation( weapons_location[0])
 	place_weapon(0,"Knife")
 	board.get_child(1).set_global_translation( weapons_location[1])
