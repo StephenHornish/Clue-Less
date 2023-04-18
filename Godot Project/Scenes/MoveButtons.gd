@@ -36,7 +36,7 @@ func disableMoveButtons()->void:
 	$VBoxContainer/DownContainer/DownButton.disabled = true
 	$SecretContainer/SecretButton.disabled = true
 	
-func setUpButtons(node : Node)->void:
+func setUpButtons(_node : Node)->void:
 	get_child(0).show()
 	get_child(1).show()
 	get_child(2).show()
