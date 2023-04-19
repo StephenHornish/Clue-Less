@@ -28,17 +28,21 @@ func _on_button_pressed(var name):
 	if(suggestionMade):
 		return
 	if(weapon == name || room == name || player == name):
-		get_parent().counterSuggestion = cardclicked
-		print("RAN")
+		get_parent().counterSuggestion = name
+		print("CARRD CLICKED")
+		print(cardclicked)
+		print(get_parent().counterSuggestion)
 		suggestionMade = true
 
 func requestSuggestion(_weapon,_room,_player):
 	weapon = _weapon
 	room = _room
 	player = _player
+	suggestionMade = false
 	for x in range (hand.size()):
 		var name = hand[x].get_name()
 		if(weapon == name || room == name || player == name):
+			print("AUTOPICKED")
 			get_parent().counterSuggestion = name
-			print("RAN2")
+			print(get_parent().counterSuggestion)
 			

@@ -26,3 +26,14 @@ func _on_TurnQueue_counterSuggestionUI(counterSuggestionArray):
 	for suggestion in counterSuggestionArray:
 		_text += " " + suggestion
 	playerID.text = _text 
+
+
+func _on_TurnQueue_clearSuggestionUI():
+	var character = get_node("HBoxContainer/Character") 
+	var room = get_node("HBoxContainer/Room")
+	var weapon = get_node("HBoxContainer/Weapon")
+	var playerID = get_node("HBoxContainer/PlayerID")
+	character.text =""
+	room.text =""
+	weapon.text =""
+	playerID.text=""

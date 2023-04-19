@@ -34,6 +34,7 @@ signal activeTimer
 signal timerStop
 signal toggleEndTurn
 signal counterSuggestionUI
+signal clearSuggestionUI
 
 
 func initialize()-> void:
@@ -91,11 +92,12 @@ func _process(_delta) -> void:
 		if Input.is_action_just_pressed("ui_accept"):
 			if(Globals.turn == 1):
 				var _nextplayer = nextPlayer(str(get_tree().get_network_unique_id()))
-				emit_signal("disableButtons")
 				emit_signal("updateMoves",active_player,buildLegalMoveSetButtons(active_player.get_moveset()))
+				emit_signal("disableButtons")
 				rpc("_updatePeerMovement", "Up",str(get_tree().get_network_unique_id()))
 				rpc("_updateCurrentPlayer",str(get_tree().get_network_unique_id()),nextPlayer)
 				rpc('_clearSuggestion')
+				active = false
 			else: 
 				emit_signal("disableButtons")
 				rpc("_updateCurrentPlayer",str(get_tree().get_network_unique_id()),nextPlayer)
@@ -247,8 +249,8 @@ func _on_EndTurn_button_up():
 func _on_EnterButton_button_up():
 	if(active_player.name == str(get_tree().get_network_unique_id())):
 		var _nextplayer = nextPlayer(str(get_tree().get_network_unique_id()))
-		emit_signal("disableButtons")
 		emit_signal("updateMoves",active_player,buildLegalMoveSetButtons(active_player.get_moveset()))
+		emit_signal("disableButtons")
 		rpc("_updatePeerMovement", "Up",str(get_tree().get_network_unique_id()))
 		rpc("_updateCurrentPlayer",str(get_tree().get_network_unique_id()),nextPlayer)
 
@@ -261,12 +263,11 @@ remotesync func _updateCurrentPlayer(_activeplayer,_nextPlayer):
 		emit_signal("nextTurn")
 	if(active_player.name == str(get_tree().get_network_unique_id()) && Globals.turn > 1):
 		emit_signal("updateMoves",active_player,buildLegalMoveSetButtons(active_player.get_moveset()))
+	if(active_player.name == str(get_tree().get_network_unique_id())):	
 		active = true
-		turnFlag = true
 	else: 
-		turnFlag = true
 		active = false
-		
+	turnFlag = true
 
 remotesync func _updatePeerMovement(_movement, _activeplayer):
 	var playerToMove = get_node(_activeplayer)
@@ -350,6 +351,7 @@ remotesync func _movePlayerToRoom(player,room):
 
 remotesync func _clearSuggestion():
 	suggestion = []
+	emit_signal("clearSuggestionUI")
 
 remotesync func _placeWeapon(_weapon, _room):
 	emit_signal("placeWeapon",_weapon,_room)
@@ -358,7 +360,6 @@ remote func _makeSuggestionUI(_playID,_weapon,_room,_player):
 	emit_signal('suggestionUI',_playID, _weapon,_room,_player)
 
 remote func _gatherSuggestion(_weapon,_room,_player):
-	print("RUNS")
 	emit_signal("suggestionGather",_weapon,_room,_player)
 
 remotesync func _endgame():
@@ -373,3 +374,5 @@ func _on_CardDisplay_sendSuggestion(counterSuggestion):
 
 remote func _send_info(counterSuggestion):
 	suggestion.append(counterSuggestion)
+
+

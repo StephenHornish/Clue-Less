@@ -22,7 +22,7 @@ func _ready():
 
 # The rooms should be automatically based on where the player is 
 func add_items():
-	dropdownRoom.add_item("Ballroom")
+	dropdownRoom.add_item("BallRoom")
 	dropdownRoom.add_item("Billiard Room")
 	dropdownRoom.add_item("Conservatory")
 	dropdownRoom.add_item("Dining Room")
@@ -81,6 +81,7 @@ func update_room(Player : Node) -> void:
 			"Study":
 				$HBoxContainer/VBoxContainer/DropDownRoom.select(8)
 		suggestion[0] = tile.get_name()	
+		accusation[0] = tile.get_name()
 		print(suggestion[0])
 		$HBoxContainer/SuggestButton.disabled = false
 
@@ -88,7 +89,6 @@ func update_room(Player : Node) -> void:
 
 func _on_DropDownRoom_item_selected(index):
 	accusation[0] = $HBoxContainer/VBoxContainer/DropDownRoom.get_item_text(index)
-	print(accusation[0])
 
 
 func _on_DropDownCharacter_item_selected(index):
