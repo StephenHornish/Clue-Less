@@ -10,6 +10,7 @@ var playerNumber: int
 var turnOrder : int
 var character
 var hand = []
+var loser = false
 
 enum Players {
 	PEACOCK,

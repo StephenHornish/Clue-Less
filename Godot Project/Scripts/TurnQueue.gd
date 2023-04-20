@@ -65,6 +65,10 @@ func buildTurnOrder():
 # ematic body of the pawn to phycially move it 
 func _process(_delta) -> void: 
 	if(active):
+		if(active_player.loser):
+			var _nextplayer = nextPlayer(str(get_tree().get_network_unique_id()))
+			emit_signal("disableButtons")
+			rpc("_updateCurrentPlayer",str(get_tree().get_network_unique_id()),nextPlayer)
 		if Input.is_action_just_pressed("Up"):
 			if(legal_move("Up") && turnFlag):
 				rpc("_updatePeerMovement", "Up",str(get_tree().get_network_unique_id()))
@@ -337,12 +341,12 @@ remotesync func _loser():
 		active_player.set_tile(Globals.board.get_room("LosersBox"))
 		active_player.get_child(0).set_global_translation(active_player.get_location() + loserOffset)
 		loserOffset = loserOffset + Vector3(0,0,4)
+		active_player.loser = true
 	
 
 remotesync func _movePlayerToRoom(player,room):
 	for child in get_children():
-		print(child.get_character_string())
-		if(child.get_character_string() == player):
+		if(child.get_character_string() == player && child.loser == false):
 			child.get_child(0).move_room_suggestion(Globals.board.get_room(room))
 			emit_signal("displayLocation",active_player,false)
 
