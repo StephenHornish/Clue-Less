@@ -69,25 +69,25 @@ func _process(_delta) -> void:
 			if(legal_move("Up") && turnFlag):
 				rpc("_updatePeerMovement", "Up",str(get_tree().get_network_unique_id()))
 				emit_signal('disableMoveButtons')
-				emit_signal("displayLocation",active_player)
+				emit_signal("displayLocation",active_player,true)
 				turnFlag = false
 		if Input.is_action_just_pressed("Down"):
 			if(legal_move("Down")&& turnFlag):
 				rpc("_updatePeerMovement", "Down",str(get_tree().get_network_unique_id()))
 				emit_signal('disableMoveButtons')
-				emit_signal("displayLocation",active_player)
+				emit_signal("displayLocation",active_player,true)
 				turnFlag = false
 		if Input.is_action_just_pressed("Left") :
 			if(legal_move("Left")&& turnFlag):
 				rpc("_updatePeerMovement", "Left",str(get_tree().get_network_unique_id()))
 				emit_signal('disableMoveButtons')
-				emit_signal("displayLocation",active_player)
+				emit_signal("displayLocation",active_player,true)
 				turnFlag = false
 		if Input.is_action_just_pressed("Right") :
 			if(legal_move("Right")&& turnFlag):
 				rpc("_updatePeerMovement", "Right",str(get_tree().get_network_unique_id()))
 				emit_signal('disableMoveButtons')
-				emit_signal("displayLocation",active_player)
+				emit_signal("displayLocation",active_player,true)
 				turnFlag = false
 		if Input.is_action_just_pressed("ui_accept"):
 			if(Globals.turn == 1):
@@ -105,7 +105,7 @@ func _process(_delta) -> void:
 			if(legal_move("Secret Passage")&& turnFlag):
 				rpc("_updatePeerMovement", "Secret Passage",str(get_tree().get_network_unique_id()))
 				emit_signal('disableMoveButtons')
-				emit_signal("displayLocation",active_player)
+				emit_signal("displayLocation",active_player,true)
 				turnFlag = false
 		 
 func activateKeyListener() -> void:
@@ -200,7 +200,7 @@ func _on_LeftButton_button_up():
 	if(active_player.name == str(get_tree().get_network_unique_id())):
 		rpc("_updatePeerMovement", "Left",str(get_tree().get_network_unique_id()))
 		emit_signal('disableMoveButtons')
-		emit_signal("displayLocation",active_player)
+		emit_signal("displayLocation",active_player,true)
 		turnFlag = false
 		
 
@@ -209,7 +209,7 @@ func _on_UpButton_button_up():
 	if(active_player.name == str(get_tree().get_network_unique_id())):
 		rpc("_updatePeerMovement", "Up",str(get_tree().get_network_unique_id()))
 		emit_signal('disableMoveButtons')
-		emit_signal("displayLocation",active_player)
+		emit_signal("displayLocation",active_player,true)
 		turnFlag = false
 
 
@@ -217,7 +217,7 @@ func _on_DownButton_button_up():
 	if(active_player.name == str(get_tree().get_network_unique_id())):
 		rpc("_updatePeerMovement", "Down",str(get_tree().get_network_unique_id()))
 		emit_signal('disableMoveButtons')
-		emit_signal("displayLocation",active_player)
+		emit_signal("displayLocation",active_player,true)
 		turnFlag = false
 
 
@@ -225,7 +225,7 @@ func _on_RightButton_button_up():
 	if(active_player.name == str(get_tree().get_network_unique_id())):
 		rpc("_updatePeerMovement", "Right",str(get_tree().get_network_unique_id()))
 		emit_signal('disableMoveButtons')
-		emit_signal("displayLocation",active_player)
+		emit_signal("displayLocation",active_player,true)
 		turnFlag = false
 
 
@@ -233,7 +233,7 @@ func _on_SecretButton_button_up():
 	if(active_player.name == str(get_tree().get_network_unique_id())):
 		rpc("_updatePeerMovement", "Secret Passage",str(get_tree().get_network_unique_id()))
 		emit_signal('disableMoveButtons')
-		emit_signal("displayLocation",active_player)
+		emit_signal("displayLocation",active_player,true)
 		turnFlag = false
 
 
@@ -341,11 +341,10 @@ remotesync func _loser():
 
 remotesync func _movePlayerToRoom(player,room):
 	for child in get_children():
-		print(player)
-		print(room)
 		print(child.get_character_string())
 		if(child.get_character_string() == player):
 			child.get_child(0).move_room_suggestion(Globals.board.get_room(room))
+			emit_signal("displayLocation",active_player,false)
 
 
 

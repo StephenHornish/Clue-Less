@@ -3,6 +3,7 @@ extends Control
 var _player_name = ""
 var _IPAddress = "127.0.0.1"
 var _Port =  4242
+var regex_pattern = "^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$"
 
 
 

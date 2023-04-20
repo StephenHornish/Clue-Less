@@ -52,11 +52,10 @@ func connectButtons():
 	_random_var = connect("accusationSignal", get_node("/root/Boardgame3Tris/TurnQueue"), "_on_Accuse_button_up")
 	$HBoxContainer/SuggestButton.disabled = true
 
-func update_room(Player : Node) -> void:
+
+func update_room(Player : Node, Players_Turn : bool) -> void:
 	$HBoxContainer.show()
 	var tile = Player.get_current_tile()
-	print(tile)
-	$HBoxContainer/AccuseButton.disabled = false
 	if(tile.is_Hall()):
 		$HBoxContainer/SuggestButton.disabled = true
 		suggestion[0] = empty
@@ -82,8 +81,11 @@ func update_room(Player : Node) -> void:
 				$HBoxContainer/VBoxContainer/DropDownRoom.select(8)
 		suggestion[0] = tile.get_name()	
 		accusation[0] = tile.get_name()
-		print(suggestion[0])
-		$HBoxContainer/SuggestButton.disabled = false
+		if(Players_Turn):
+			$HBoxContainer/AccuseButton.disabled = false
+			$HBoxContainer/SuggestButton.disabled = false
+		
+		
 
 
 

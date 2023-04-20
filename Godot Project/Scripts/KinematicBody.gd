@@ -10,12 +10,10 @@ var gap = Vector3.ZERO
 onready var position = Vector3.ZERO
 var stopPoint
 
+signal updateSuggestionUI
 
-# var b = "text"
-	
-func _ready():
-	
-	pass
+
+# var b = "text
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -42,6 +40,7 @@ func move_room_suggestion(_tile):
 	nextTile.set_occupant(pawn.get_ID())
 	pawn.set_tile(nextTile)
 	Globals.currentTilesArray[pawn.get_turn_order()] = nextTile
+	emit_signal('updateSuggestionUI',pawn)
 	
 func move_up():
 	move_pawn_direction("Up")
@@ -76,8 +75,6 @@ func move_pawn_direction( direction : String) ->void:
 	pawn.set_tile(nextTile)
 	Globals.currentTilesArray[pawn.get_turn_order()] = nextTile
 	
-func test():
-	pass
 	
 #takes in teh adjacent tile calculates if an offset is needed and applies it
 func pawn_offset(tile : Tile)->Vector3:

@@ -10,15 +10,15 @@ func _ready():
 	pass
 
 func _init():
-	var ballroom = tile.new("BallRoom",  ["Left","Up","Right"],false,Vector3( -2.3 ,0, -22.5))
+	var ballroom = tile.new("Ballroom",  ["Left","Up","Right"],false,Vector3( -2.3 ,0, -22.5))
 	var conservatory = tile.new("Conservatory", ["Up","Right", "Secret Passage"],false,Vector3( 22 ,0, -22.5))
 	var library = tile.new("Library", ["Up","Right", "Down"],false,Vector3( 22 ,0, -0.5))
 	var study = tile.new("Study",  ["Down","Right", "Secret Passage"],false,Vector3( 22 ,0, 22.3))
 	var hall = tile.new("Hall",["Left", "Down","Right"],false,Vector3( -2.3 ,0, 22.3))
 	var lounge = tile.new("Lounge", ["Left", "Down","Secret Passage"],false, Vector3( -26 ,0 , 21.6))
-	var dinningroom = tile.new("DinningRoom", ["Up", "Left","Down"],false, Vector3( -26 ,0, -0.5))
+	var dinningroom = tile.new("Dining Room", ["Up", "Left","Down"],false, Vector3( -26 ,0, -0.5))
 	var kitchen = tile.new("Kitchen",  ["Up", "Left","Secret Passage"],false, Vector3( -26 ,0, -22.5))
-	var billardsroom = tile.new("BillardsRoom",  ["Left", "Up", "Right","Down"],false, Vector3( -2.3 ,0, -0.5))
+	var billardsroom = tile.new("Billiards Room",  ["Left", "Up", "Right","Down"],false, Vector3( -2.3 ,0, -0.5))
 	
 	var tlHall = tile.new("TLHall", ["Left","Right"],true, Vector3( 9.5 ,0, 22.3))
 	var trHall = tile.new("TRHall", ["Left","Right"],true, Vector3( -13 ,0, 22.3))

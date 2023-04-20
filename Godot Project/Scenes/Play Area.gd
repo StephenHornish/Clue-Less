@@ -31,16 +31,17 @@ remotesync func pass_shuffled_weapons_location(_weapons_location: Array):
 
 func place_weapon(i : int, _weapon : String):
 	var temp_tile
+	print(weapons_location[i])
 	if(weapons_location[i] == Vector3(21.4,0.5,-28.8)):
 		temp_tile = Globals.board.get_room("Conservatory")
 	if(weapons_location[i] ==  Vector3(-1.8,0.5,-28.8)):
-		temp_tile = Globals.board.get_room("BallRoom")
+		temp_tile = Globals.board.get_room("Ballroom")
 	if(weapons_location[i] == Vector3(-26,0.5,-28.8)):
 		temp_tile = Globals.board.get_room("Kitchen")
 	if(weapons_location[i] == Vector3(-26,0.5,-5.9)):
-		temp_tile = Globals.board.get_room("DinningRoom")
+		temp_tile = Globals.board.get_room("Dining Room")
 	if(weapons_location[i] ==  Vector3(-2.1,0.5,-5.9)):
-		temp_tile = Globals.board.get_room("BillardsRoom")
+		temp_tile = Globals.board.get_room("Billiards Room")
 	if(weapons_location[i] == Vector3(21.4,0.5,-5.9)):
 		temp_tile = Globals.board.get_room("Library")
 	if(weapons_location[i] == Vector3(22,0.5,16.7)):
@@ -62,13 +63,13 @@ func _on_TurnQueue_placeWeapon(_weapon, _room):
 	var location 
 	if(_room == "Conservatory"):
 		location = Vector3(21.4,0.5,-28.8)
-	if(_room == "BallRoom"):
+	if(_room == "Ballroom"):
 		location = Vector3(-1.8,0.5,-28.8)
 	if(_room == "Kitchen"):
 		location = Vector3(-26,0.5,-28.8)
-	if(_room == "DinningRoom"):
+	if(_room == "Dining Room"):
 		location = Vector3(-26,0.5,-5.9)
-	if(_room == "BillardsRoom"):
+	if(_room == "Billiards Room"):
 		location = Vector3(-2.1,0.5,-5.9)
 	if(_room == "Library"):
 		location = Vector3(21.4,0.5,-5.9)
