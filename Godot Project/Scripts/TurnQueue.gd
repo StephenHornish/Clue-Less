@@ -57,7 +57,61 @@ func buildTurnOrder():
 	keys_list.sort()
 	turnOrder = keys_list
 	
+func _on_Character_Selection_turn_queue(player):
+	add_child(player)
+	
+func dealCards() -> void:
+	#creates the players heads by dealing cards to each client
+	buildPlayerHand()
+	#creates the players UI
+	rpc('buildHandUI')
+	#Sends the Hosts deck to the clients 
+	sendMasterDeck()
 
+func sendMasterDeck():
+	var MasterDeckCardName = []
+	var MasterDeckCardType = []
+	var SecretDeckCardName = []
+	var SecretDeckCardType = []
+	for card in Globals.playDeck.deck:
+		MasterDeckCardName.append(card.get_name())
+		MasterDeckCardType.append(card.get_type())
+	for card in Globals.playDeck.secretEnvelop:
+		SecretDeckCardName.append(card.get_name())
+		SecretDeckCardType.append(card.get_type())
+	rpc('buildMasterDeck',MasterDeckCardName,MasterDeckCardType,SecretDeckCardName,SecretDeckCardType)
+
+func buildPlayerHand():
+	var cardsPerPlayer = 18/Globals.numberOfPlayers  
+	#var leftOver = 18%Globals.numberOfPlayers
+	for pair in Network.players:
+		var cardName = []
+		var cardType = []
+		for _y in range(cardsPerPlayer):
+			var card = Globals.playDeck.deck[0]
+			cardName.append(card.get_name())
+			cardType.append(card.get_type())
+			Globals.playDeck.deck.remove(0)
+		rpc('buildPlayersHand',cardName,cardType,str(pair))
+		#where we add the scene to each players view in multiplayer
+remotesync func buildHandUI():
+	var cardDisplay = cardDis.instance()
+	var player = get_node(str(get_tree().get_network_unique_id()))
+	cardDisplay.buildPlayerView(player.hand)
+	cardDisplay.playerID = get_tree().get_network_unique_id()
+	cardDisplay.name = str(get_tree().get_network_unique_id())
+	emit_signal("addCards",cardDisplay)
+
+remotesync func buildPlayersHand(MasterHandCardName : Array, MasterHandCardType, _node : String):
+	var player = get_node(str(_node))
+	player.set_hand(Globals.playDeck.buildHand(MasterHandCardName,MasterHandCardType))
+	
+remote func buildMasterDeck(MasterDeckCardName : Array, MasterDeckCardType :Array,SecretDeckCardName : Array, SecretDeckCardType: Array ):
+	Globals.playDeck.buildDeck(MasterDeckCardName,MasterDeckCardType,SecretDeckCardName,SecretDeckCardType)
+	
+##KEY LISTENER PORTION HANDLES MOVEMENT
+func activateKeyListener() -> void:
+	active = true
 # Key listener that takes the input Delta is basically each tick fo the game engine
 # not required for what we are doing right now. Key Listener becomes active once all
 # players have spawned in and selected ready this way players can move pieces early
@@ -111,93 +165,7 @@ func _process(_delta) -> void:
 				emit_signal('disableMoveButtons')
 				emit_signal("displayLocation",active_player,true)
 				turnFlag = false
-		 
-func activateKeyListener() -> void:
-	active = true
-
-#Determines if the selected move is indeed legal
-func legal_move(movement : String)->bool:
-	var currtile = active_player.get_tile()
-	#First move is always legal and so are secret passage moves
-	if(Globals.turn == 1 || (movement == "Secret Passage" && currtile.get_moveset().has("Secret Passage"))):
-		return true
-	#Checks to see if the current palyer tile has the move inputed by the player if 
-	#so it goes through all children to see if they are in that tile if they are and 
-	# that tile is a hall it returns a false because it is not legal to enter hall with 
-	#another player
-	if(currtile.get_moveset().has(movement)):
-		var pos = currtile.get_moveset().find(movement)
-		var adjNodeList = currtile.get_adjacenet()
-		var nextTile = adjNodeList[pos]
-		for child in self.get_children():
-			if(child.get_tile() == nextTile && child.get_tile().is_Hall()):
-				return false
-		return true
-	else:
-		return false
-
-
-func _on_Character_Selection_turn_queue(player):
-	add_child(player)
-		#print("Current Children of Turn Queue: " + child.get_name()) 
-
-func dealCards() -> void:
-	#creates the players heads by dealing cards to each client
-	buildPlayerHand()
-	#creates the players UI
-	rpc('buildHandUI')
-	#Sends the Hosts deck to the clients 
-	sendMasterDeck()
-
-func sendMasterDeck():
-	var MasterDeckCardName = []
-	var MasterDeckCardType = []
-	var SecretDeckCardName = []
-	var SecretDeckCardType = []
-	for card in Globals.playDeck.deck:
-		MasterDeckCardName.append(card.get_name())
-		MasterDeckCardType.append(card.get_type())
-	for card in Globals.playDeck.secretEnvelop:
-		SecretDeckCardName.append(card.get_name())
-		SecretDeckCardType.append(card.get_type())
-	rpc('buildMasterDeck',MasterDeckCardName,MasterDeckCardType,SecretDeckCardName,SecretDeckCardType)
-
-func buildPlayerHand():
-	var cardsPerPlayer = 18/Globals.numberOfPlayers  
-	#var leftOver = 18%Globals.numberOfPlayers
-	for pair in Network.players:
-		var cardName = []
-		var cardType = []
-		for _y in range(cardsPerPlayer):
-			var card = Globals.playDeck.deck[0]
-			cardName.append(card.get_name())
-			cardType.append(card.get_type())
-			Globals.playDeck.deck.remove(0)
-		rpc('buildPlayersHand',cardName,cardType,str(pair))
-		#where we add the scene to each players view in multiplayer
-remotesync func buildHandUI():
-	var cardDisplay = cardDis.instance()
-	var player = get_node(str(get_tree().get_network_unique_id()))
-	cardDisplay.buildPlayerView(player.hand)
-	cardDisplay.playerID = get_tree().get_network_unique_id()
-	cardDisplay.name = str(get_tree().get_network_unique_id())
-	emit_signal("addCards",cardDisplay)
-
-remotesync func buildPlayersHand(MasterHandCardName : Array, MasterHandCardType, _node : String):
-	var player = get_node(str(_node))
-	player.set_hand(Globals.playDeck.buildHand(MasterHandCardName,MasterHandCardType))
-	
-remote func buildMasterDeck(MasterDeckCardName : Array, MasterDeckCardType :Array,SecretDeckCardName : Array, SecretDeckCardType: Array ):
-	Globals.playDeck.buildDeck(MasterDeckCardName,MasterDeckCardType,SecretDeckCardName,SecretDeckCardType)
-
-#Takes the players moveset and build a new one for all the legal moves around them
-#this is done as to not interfer with the keyboard controls for playing hte game
-func buildLegalMoveSetButtons(moveSet : Array) -> Array:
-	var legalMoveSet = []
-	for x in moveSet:
-		if(legal_move(x)):
-			legalMoveSet.append(x)
-	return legalMoveSet
+		
 			
 
 func _on_LeftButton_button_up():
@@ -288,7 +256,6 @@ remotesync func _updatePeerMovement(_movement, _activeplayer):
 			playerToMove.get_child(0).move_secret_passage()
 			
 
-
 func nextPlayer(_player)->String:
 	var index = turnOrder.find(_player.to_int())
 	if(index + 1 >= turnOrder.size()):
@@ -296,6 +263,36 @@ func nextPlayer(_player)->String:
 	else:
 		nextPlayer = turnOrder[index + 1 ]
 	return nextPlayer
+#Determines if the selected move is indeed legal
+func legal_move(movement : String)->bool:
+	var currtile = active_player.get_tile()
+	#First move is always legal and so are secret passage moves
+	if(Globals.turn == 1 || (movement == "Secret Passage" && currtile.get_moveset().has("Secret Passage"))):
+		return true
+	#Checks to see if the current palyer tile has the move inputed by the player if 
+	#so it goes through all children to see if they are in that tile if they are and 
+	# that tile is a hall it returns a false because it is not legal to enter hall with 
+	#another player
+	if(currtile.get_moveset().has(movement)):
+		var pos = currtile.get_moveset().find(movement)
+		var adjNodeList = currtile.get_adjacenet()
+		var nextTile = adjNodeList[pos]
+		for child in self.get_children():
+			if(child.get_tile() == nextTile && child.get_tile().is_Hall()):
+				return false
+		return true
+	else:
+		return false
+
+#print("Current Children of Turn Queue: " + child.get_name()) 
+#Takes the players moveset and build a new one for all the legal moves around them
+#this is done as to not interfer with the keyboard controls for playing hte game
+func buildLegalMoveSetButtons(moveSet : Array) -> Array:
+	var legalMoveSet = []
+	for x in moveSet:
+		if(legal_move(x)):
+			legalMoveSet.append(x)
+	return legalMoveSet
 #Move the player that was suggested into the room and also the weapon then begin the suggestion check
 func _on_Suggest_button_up(_suggestion):
 	print(Globals.playDeck.secretEnvelop)
@@ -342,15 +339,12 @@ remotesync func _loser():
 		active_player.get_child(0).set_global_translation(active_player.get_location() + loserOffset)
 		loserOffset = loserOffset + Vector3(0,0,4)
 		active_player.loser = true
-	
 
 remotesync func _movePlayerToRoom(player,room):
 	for child in get_children():
 		if(child.get_character_string() == player && child.loser == false):
 			child.get_child(0).move_room_suggestion(Globals.board.get_room(room))
 			emit_signal("displayLocation",active_player,false)
-
-
 
 remotesync func _clearSuggestion():
 	suggestion = []
@@ -369,7 +363,6 @@ remotesync func _endgame():
 	Globals.gameOver = true
 	emit_signal("endGame",active_player.name)
 	
-
 func _on_CardDisplay_sendSuggestion(counterSuggestion):
 	currentSuggestion = counterSuggestion
 	suggestion.append(counterSuggestion)
