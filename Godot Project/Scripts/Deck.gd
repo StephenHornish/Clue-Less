@@ -26,7 +26,7 @@ func _init():
 	deck.append(Card.new("Kitchen", CardType.ROOM))
 	deck.append(Card.new("Ballroom", CardType.ROOM))
 	deck.append(Card.new("Conservatory", CardType.ROOM))
-	deck.append(Card.new("Billiard Room", CardType.ROOM))
+	deck.append(Card.new("Billiards Room", CardType.ROOM))
 	deck.append(Card.new("Library", CardType.ROOM))
 	deck.append(Card.new("Study", CardType.ROOM))
 	deck.append(Card.new("CandleStick", CardType.WEAPON))

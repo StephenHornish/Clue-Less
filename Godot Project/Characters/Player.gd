@@ -1,15 +1,16 @@
 extends Spatial
 
 
-onready var activePlayer : bool  = false
+onready var activePlayer : bool  = false 
 onready var tile : Tile
 onready var moveset : Array
 onready var adjacent : Array
 var playID : String
-var playerNumber: int
+var playerNumber: int 
 var turnOrder : int
 var character
 var hand = []
+var loser = false
 
 enum Players {
 	PEACOCK,

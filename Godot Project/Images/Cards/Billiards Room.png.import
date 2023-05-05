@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Billiard Room.png-a30223e26c6e28c4528977d500af5a47.stex"
+path="res://.import/Billiards Room.png-0c9f397f40f01847336ea983b22600c3.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/Cards/Billiard Room.png"
-dest_files=[ "res://.import/Billiard Room.png-a30223e26c6e28c4528977d500af5a47.stex" ]
+source_file="res://Images/Cards/Billiards Room.png"
+dest_files=[ "res://.import/Billiards Room.png-0c9f397f40f01847336ea983b22600c3.stex" ]
 
 [params]
 

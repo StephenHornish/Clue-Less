@@ -1,8 +1,8 @@
 extends Control
 
 export var mainGameScene : PackedScene
-const DEFAULT_IP = "127.0.0.1"
-const DEFAULT_PORT = 4242
+var DEFAULT_IP = "127.0.0.1"
+var DEFAULT_PORT = 4242
 const MAX_PLAYERS = 6
 
 #Dictionary basically a Hashmap in Java <key,name> where the key is the playerID
